@@ -1,0 +1,128 @@
+\section*{Problem set 1}
+\stepcounter{section}
+
+\begin{problem}
+If \(I\) is an ideal in the ring \(R\), and \(p_1, \dots, p_n \in \Spec(R)\) for some \(n \in \naturals^*\) so that \(I \subseteq \bigcup_{i = 1}^{n} p_i\), then \(\exists k \in \overline{1, n}\) so that \(I \subseteq p_k\).
+\end{problem}
+\begin{proof}
+This proof is based on the one presented by Robert B. Ash in \href{https://faculty.math.illinois.edu/~r-ash/ComAlg/ComAlg0.pdf}{the introduction to his commutative algebra book}, with additional explanations.
+
+We will prove the statement above using induction:
+\begin{itemize}
+    \item If \(n = 1\), we have \(I \subseteq p_1\), and the statement is true for \(k = 1\).
+    \item If \(n = 2\), we know that \(I \subseteq (p_1 \cup p_2)\).
+    
+    Suppose that \(I \not\subseteq p_1\) and \(I \not\subseteq p_2\). Then there exists at least one \(x_1 \in I\) which is also in \(p_1\) but not in \(p_2\), and at least one \(x_2 \in I\) which is also in \(p_2\) but not in \(p_1\) (the set differences \(I \setminus p_1\) and \(I \setminus p_2\) are not empty).
+    
+    We have \(x_1 + x_2 \in I\), since \(x_1, x_2 \in I\). However, \(x_1 + x_2\) isn't in \(p_1\), since \(x_1 \in p_1, x_2 \not\in p_1\) (and \(p_1\) is an ideal, and therefore closed under addition). It is neither in \(p_2\), since \(x_1 \not\in p_2, x_2 \in p_2\).
+    
+    Therefore \(x_1 + x_2 \not\in (p_1 \cup p_2) \implies x_1 + x_2 \not\in I\), a contradiction.
+
+    \item For \(n \geq 3\), we reason similarly to the case above.
+    
+    Suppose that \(I \not\subseteq p_1, I \not\subseteq p_2, \dots, I \not\subseteq p_n\). Additionally, we can assume that \(I\) is not included in any union of \(k < n\) of the prime ideals, since that means we can ignore the other \(n - k\) ideals and just apply the induction hypothesis for a set of \(k\) prime ideals.
+    
+    In particular, for \(k = n - 1\), this tells us we can take \(x_1, x_2, \dots, x_n \in I\), where each \(x_i\) belongs to \(I \setminus \left(\bigcup_{\substack{j = 1 \\ j \neq i}}^{n} p_j\right)\).
+    
+    We consider the product \(x' = x_1 x_2 \dots x_{n-1} \in I\). Because of the way the \(x_i\) were defined, and because \(p_n\) is prime, \(x' \not\in p_n\). Additionally, \(x' \in p_1 \cdot \dots \cdot p_{n-1} \subseteq p_1 \cap \dots \cap p_{n-1} \subseteq p_1 \cup \dots \cup p_{n-1}\).
+    
+    Now look at \(x' + x_n\):
+    \begin{itemize}
+        \item It cannot belong to any \(p_i\) with \(i < n\), since then \((x' + x_n) - x' \in p_i \implies x_n \in p_i\) (a contradiction with the way \(x_n\) was defined). This can be restated as \(x' + x_n \not\in p_1 \cup \dots \cup p_{n - 1}\).
+        \item It cannot belong to \(p_n\) either, since then \((x' + x_n) - x_n \in p_n \implies x' \in p_n)\).
+    \end{itemize} Therefore \(x' + x_n \not\in \bigcup_{i = 1}^{n} p_i\), a contradiction with the initial hypothesis.
+\end{itemize}
+\end{proof}
+
+\begin{problem}
+Decide if \((3, X^3 - X^2 + 2X + 1) \in \Spec(\integers[X])\).
+\end{problem}
+\begin{proof}
+We rely on the fact that \(I \text{ prime} \iff R/I \text{ integral domain}\).
+
+First, \(3\) is prime so we know that
+\[
+\frac{\integers[X]}{(3, X^3 - X^2 + 2X + 1)} \cong \frac{\integers_3[X]}{(\widehat{X^3} - \widehat{X^2} + \widehat{2}\widehat{X} + \widehat{1})}
+\]
+
+In \(\integers_3[X]\), we have
+\[
+    \widehat{X^3} - \widehat{X^2} + \widehat{2}\widehat{X} + \widehat{1} = \widehat{X^3} + \widehat{2}\widehat{X^2} + \widehat{2}\widehat{X} + \widehat{1} = (\widehat{X} + \widehat{1})(\widehat{X^2} + \widehat{X} + \widehat{1})
+\]
+
+This shows that \(\integers_3[X] / (\widehat{X^3} - \widehat{X^2} + \widehat{2}\widehat{X} + \widehat{1})\) is not an integral domain, since the classes of \(X + 1\) and \(X^2 + X + 1\) would be zero divisors. 
+
+We conclude that \((3, X^3 - X^2 + 2X + 1)\) isn't prime.
+\end{proof}
+
+\begin{problem}\hfill
+\begin{enumerate}[(i)]
+    \item Decide if \((X^4 - Y^6) \in \Spec(\reals[X, Y])\).
+    \item Decide if \((X^5 - Y^7) \in \Spec(\reals[X, Y])\).
+\end{enumerate}
+\end{problem}
+\begin{proof}\hfill
+\begin{enumerate}[(i)]
+    \item We can factor \(X^4 - Y^6\) as \((X^2 - Y^3)(X^2 + Y^3)\).
+    
+    Therefore, \(\reals[X, Y]/(X^4-Y^6)\) isn't an integral domain, since it has zero divisors (for example, the classes of \(X^2 - Y^3\) and \(X^2 + Y^3\)).
+    
+    Using the same argument as in the previous problem, we conclude that the ideal \((X^4 - Y^6)\) isn't prime.
+    
+    \item We are going to use the lemma which states that for any ring homomorphism \(f \colon R \to S\), if \(q\) is a prime ideal of \(S\) then \(f^{-1}(q)\) is a prime ideal of \(R\).
+    
+    In our case, we will use the unique \(\reals\)-algebra evaluation homomorphism \(\phi \colon \reals[X, Y] \to \reals[t]\), given by \(\phi(X) = t^7\) and \(\phi(Y) = t^5\). \(\phi\) can also be seen as a ring homomorphism.
+    
+    Note that \(\set{0} \in \Spec(\reals[t])\), and we will determine \(\phi^{-1}(\set{0}) = \ker \phi \in \Spec(\reals[X, Y])\).
+
+    To determine \(\ker \phi\) we will use a method analogous to the one described \href{https://math.stackexchange.com/a/488437/388180}{here}.
+    First, we observe that \(X^5 - Y^7 \in \ker \phi\). For any \(g \in \ker \phi\), we can use polynomial division in X to write:
+    \[g(X, Y) = (X^5 - Y^7) f_1(X, Y) + X^4 f_2 (Y) + X^3 f_3 (Y) + X^2 f_4 (Y) + X f_5 (Y) + r(Y)\]
+    
+    Since \(\ker \phi\) is an ideal, and \(g\) and \(X^5 - Y^7\) are in it, we get that \(X^4 f_2 (Y) + X^3 f_3 (Y) + X^2 f_4 (Y) + X f_5 (Y) + r(Y)\) is also in \(\ker \phi\).
+    
+    Applying \(\phi\) to this expression, we have:
+    \begin{gather*}
+        \phi(X^4 f_2 (Y) + X^3 f_3 (Y) + X^2 f_4 (Y) + X f_5 (Y) + r(Y)) = 0 \iff \\
+        \phi(X^4) f_2(\phi(Y)) + \phi(X^3) f_3(\phi(Y)) + \phi(X^2) f_4(\phi(Y)) \\
+        + \phi(X) f_5(\phi(Y)) + r(\phi(Y)) = 0 \iff \\
+        t^{28} f_2(t^5) + t^{21} f_3(t^5) + t^{14} f_4(t^5) + t^7 f_5(t^5) + r(t^5) = 0
+    \end{gather*}
+    
+    All of the exponents of the first term will be \(28 + 5 \cdot k\), the exponents of the second term will be \(21 + 5 \cdot k'\), and so on. Notice that \(0, 7, 14, 21, 28\) are all different modulo 5. The only way for them to match is if \(k = k' = \dots = 0\). Therefore, \(f_2, f_3, \dots, r \in \reals\), and they must be \(0\). 
+    
+    This means \(\ker \phi\) is precisely the multiples of \(X^5 - Y^7\), i.e. \((X^5 - Y^7)\). We get that \(\ker \phi = (X^5 - Y^7)\) is a prime ideal in \(\reals[X, Y]\).
+\end{enumerate}
+\end{proof}
+
+\begin{problem}
+Let \(p \in \Spec(R)\).
+\begin{enumerate}[(i)]
+    \item Show that the ideal \(q \coloneqq (p, X) R[X]\) is prime.
+    \item Show that the ideal \(p^{\symcal{L}} \coloneqq p R[X]\) is prime.
+    \item Show that \(p^{\symcal{L}} \subsetneq q\) and that \(p^{\symcal{L}} \cap R = q \cap R = p\).
+\end{enumerate}
+\end{problem}
+\begin{proof}\hfill
+\begin{enumerate}[(i)]
+    \item Take \(f, g \in R[X]\) such that \(f \cdot g \in q\). We want to show that \(f \in q\) or \(g \in q\).
+    
+    We can write out that the product of \(f\) and \(g\) is in \(q\) as:
+    \[
+        (a_n X^n + \dots + a_0) \cdot (b_m X^m + \dots + b_0) = r \cdot h_1 + X \cdot h_2
+    \]
+    for some \(r \in p\) and \(h_1, h_2 \in R[X]\).
+    
+    If \(f\) (or \(g\)) has a zero constant term, then we're done, since \(f\) (or \(g\)) would be divisible by \(X\).
+    
+    We will consider the equality of the constant terms in the equation above. We can ignore the \(X \cdot h_2\) term on the right hand side, since it has no (non-zero) constant term.
+    
+    The constant term on the left-hand side is \(a_0 \cdot b_0\), and if we label the constant term of \(h_1\) with \(c_0\), the constant term on the right-hand side is \(r \cdot c_0 \in p\).
+    
+    We have that \(a_0 \cdot b_0 \in p\), therefore \(a_0 \in p\) or \(b_0 \in p\) (since \(p\) is prime). But that means \(f\) or \(g\) are a sum of an element of \(p\) and a multiple of \(X\), meaning \(f \in q\) or \(g \in q\).
+    
+    \item We know that \(R[X]/I \cong (R/I)[X]\) for any \(I \trianglelefteq R\). In particular for our case, \(R[X]/(p) \cong (R/(p))[X]\). We know that the right hand side is an integral domain, since \(R / (p)\) is an integral domain (\(p\) is prime). Therefore, \(R[X]/(p)\) is an integral domain, and this means that \((p)R[X] = p^{\symcal{L}}\) is prime.
+    
+    \item It's easy to see that \(p^{\symcal{L}} \subset q\) since \((p) \subset (p, X)\). To show that the inclusion is strict, take any \(r \in p\) and consider \(r + X\). This is an element of \(q\) since it can be written as \(1 \cdot r + 1 \cdot X\). However, it is not divisible by any non-unit scalar in \(R\), therefore it's not in \(R \, R[X]\) and certainly not in \(p \, R[X] = p^{\symcal{L}}\).
+\end{enumerate}
+\end{proof}

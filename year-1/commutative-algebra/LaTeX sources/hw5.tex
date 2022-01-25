@@ -1,0 +1,56 @@
+\section*{Problem set 5}
+\stepcounter{section}
+
+\begin{problem}
+Let \(R\) be a Noetherian ring, \(m \in \SpecMax(R)\) and \(q\) an \(m\)-primary ideal in \(R\). Then \(R/q\) is an Artinian ring.
+\begin{proof}
+We want to check that \(R/q\) is an Artinian ring.
+
+Proposition 2.4 from Kemper tells us that every quotient ring of a Noetherian ring is also Noetherian. Since \(R\) is Noetherian, \(R/q\) is Noetherian.
+
+If we can also show that every prime ideal of \(R/q\) is maximal, then Theorem 2.8 from Kemper will give us the desired conclusion.
+
+Lemma 1.22 from Kemper tells us that the prime/maximal ideals of the quotient ring \(R/q\) are in a bijective correspondence with the prime/maximal ideals of \(R\) containing \(q\).
+
+Suppose there exists a prime ideal \(p \leq R\) with \(p \supseteq q\) such that \(p/q \leq R/q\) is not maximal, and let \(m' \leq R\) be a maximal ideal containing it. We have that
+\[
+    q \subseteq p \subsetneq m'
+\]
+Taking the radical, using the fact that \(\sqrt{q} = m\) and that the radical of a prime ideal is the same ideal, we get
+\[
+    m \subseteq p \subsetneq m'
+\]
+Since \(m\) is maximal, \(m = p\). But then \(m \subsetneq m'\) contradicts the maximality of \(m\). Therefore, all prime ideals of \(R/q\) are maximal.
+
+Hence, by Theorem 2.8, \(R/q\) is an Artinian ring.
+\end{proof}
+\end{problem}
+
+\begin{comment}
+\begin{problem}
+~
+\begin{proof}
+We will prove the statement by contradiction. Suppose that the ideal defined in the statement, \(q_1 \cap q_2 \cap \dots \cap q_m\), \emph{does} depend on the chosen minimal primary decomposition. That is, there exists an alternative decomposition
+\[
+    I = q_1' \cap q_2' \cap \dots \cap q_n'
+\]
+such that \(J \neq J'\), where
+\begin{align*}
+    J &= q_1 \cap q_2 \cap \dots \cap q_m \\
+    J' &= q_1' \cap q_2' \cap \dots \cap q_m'
+\end{align*}
+with \(\sqrt{q_i} = \sqrt{q_i'} \in \Sigma, \forall i = \overline{1, m}\).
+
+Since \(\Sigma\) is downwards closed with respect to inclusion, and also non-empty, it must contain at least one minimal prime. A theorem from the course tells us that the isolated primary components (that is, the primary components corresponding to the minimal primes) are unique, regardless of the decomposition. So there is at least one primary component all minimal primary decompositions of \(I\) share, and it therefore shows up in \(J\) and \(J'\).
+
+Without loss of generality, let \(q_1, \dots, q_{k-1}\) be the isolated primary components which \(J\) and \(J'\) have in common. Then we can write:
+\begin{align*}
+    J &= q_1 \cap q_2 \cap \dots \cap q_{k-1} \cap q_k \cap \dots \cap q_m \\
+    J' &= q_1 \cap q_2 \cap \dots \cap q_{k-1} \cap q_k' \cap \dots \cap q_m'
+\end{align*}
+
+Now, consider the element \(x \in J \setminus J'\) (we know this is not empty since \(J \neq J'\)).
+% TODO
+\end{proof}
+\end{problem}
+\end{comment}

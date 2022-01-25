@@ -1,0 +1,337 @@
+\section*{Problem set 7}
+\stepcounter{section}
+
+\newcommand{\matorder}{<_{(A, <)}}
+\newcommand{\revmatorder}{>_{(A, >)}}
+\newcommand{\lexorder}{\ensuremath{<_\mathrm{Lex}}}
+\newcommand{\degrevlexorder}{\ensuremath{<_\mathrm{DegRevLex}}}
+
+\begin{problem}
+Let ``\(<\)'' be a monomial order on \(S = K[X_1, X_2, \dots, X_n]\). Let \(A\) be an \(n \times n\) matrix with non-negative entries such that \(\det(A) \neq 0\).
+
+Prove that
+\[
+    X^a \matorder X^b \iff X^{A a} < X^{A b}, \forall a, b \in \naturals^n
+\]
+defines a monomial order on \(S\).
+\end{problem}
+\begin{proof}
+Recall that a monomial order on \(S\) is a total order ``\(\leq\)'' on \(\Mon(S)\) such that the following two properties hold true:
+\begin{enumerate}[i)]
+    \item \(1 \leq u\), \(\forall u \in \Mon(S)\);
+    \item if \(u \leq v\) and \(w \in \Mon(S)\), then \(uw \leq vw\).
+\end{enumerate}
+
+In our case, we have:
+\begin{enumerate}[i)]
+    \item For an arbitrary \(u = X^a\), we have
+    \[
+        1 \matorder X^a \iff
+        X^0 \matorder X^a \iff
+        X^0 < X^{A a} \iff
+        1 < X^{Aa}
+    \]
+    which is true since ``\(<\)'' is a monomial order. Because the matrix \(A\) is invertible, equality holds iff \(a = \mathbf{0} \in \naturals^n\).
+    
+    \item We begin by remarking that for arbitrary \(u = X^a\), \(v = X^b\), we have the identity
+    \[
+        uv = X^a X^b = X^{a + b}
+    \]
+
+    Hence, for \(u = X^a, v = X^b, w = X^c \in \Mon(S)\), we get
+    \begin{align*}
+        u &\matorder v \\
+        \iff X^{A a} &< X^{A b} \tag{definition of \(\matorder\)} \\
+        \implies X^{A a} X^{A c} &< X^{A b} X^{A c} \tag{multiply both sides by \(w\)} \\
+        \implies X^{Aa + Ac} &< X^{Ab + Ac} \tag{by previous remark} \\
+        \implies X^{A(a + c)} &< X^{A(b + c)} \tag{distributivity} \\
+        \implies X^{a + c} &\matorder X^{b + c} \\
+        \implies X^a X^c &\matorder X^b X^c \\
+        \implies u w &\matorder v w
+    \end{align*}
+    where on the third line we've also used the fact that ``\(<\)'' is a monomial order. 
+\end{enumerate}
+Therefore, \(\matorder\) is a monomial order.
+\end{proof}
+
+\stepcounter{problem}
+
+\begin{problem}
+Prove that if \(n \geq 2\) there are infinitely many different monomial orders on \(K[X_1, \dots, X_n]\).
+\end{problem}
+\begin{proof}
+We will prove this result using the previous exercise on matrix orders.
+
+Let's first show how we can construct an infinite number of different orderings in the simple case of \(n = 2\), \(S = K[X_1, X_2]\), and then we will generalize the result.
+
+Let ``\(<\)'' be the ordinary degree lexicographic order. Construct the matrix order ``\(\matorder\)'' using \(A = \diag(2, 3)\).
+
+If we want to compare \((X_1)^1\) and \((X_2)^1\), we'll actually be comparing only \(2 \cdot 1\) with \(3 \cdot 1\). Clearly, \(2 < 3\). However, if we look at \((X_1)^2\) and \((X_2)^1\), we'll get that \(2 \cdot 2 = 4 > 3\).
+
+On the other hand, if we take \(A = \diag(2, 5)\), we get that
+\begin{align*}
+    (X_1)^1 \matorder X_2 \iff 2 < 5 \\
+    (X_1)^2 \matorder X_2 \iff 4 < 5 \\
+    (X_1)^3 \revmatorder X_2 \iff 6 > 5
+\end{align*}
+
+Hence, the orderings induced by \(\diag(2, 3)\) and \(\diag(2, 5)\) are different. Using this reasoning, we can get an infinite number of distinct monomial orderings by taking \(\diag(2, 2k + 1)\) for \(k \in \naturals^*\). The orderings will agree with each other on the first \(k\) terms when comparing \((X_1)^i\) with \(X_2\), and then disagree on the \(k + 1\)-th term.
+
+For \(n \geq 3\), just take the matrices \(A = \diag(2, 2k + 1, 1, \dots, 1)\), \(k \in \naturals^*\). The reasoning goes just as above for \(X_1\) and \(X_2\), while the ordering on the \(X_i\)s with \(i \geq 3\) is irrelevant to the conclusion.
+\end{proof}
+
+\begin{problem}
+Consider ``\(\lexorder\)'', the lexicographic order on \(S = K[X_1, \dots, X_n]\), and let \(M \subset \Mon(S)\) be an arbitrary non-empty finite set of monomials.
+
+Prove that there exists a vector \(w = (w_1, \dots, w_n) \in \integers^n\) such that
+\[
+    X^a > X^b \iff \sum_{i = 1}^{n} a_i w_i > \sum_{i = 1}^{n} b_i w_i, \forall X^a, X^b \in M
+\]
+\end{problem}
+\begin{proof}
+We will construct this vector of weights such that the powers of \(X_1\) will be in a certain range of integers, the powers of \(X_2\) will be in a distinct range of integers (which smaller than that of \(X_1\)), and so on. This will positionally encode the monomials' degrees in different parts of the same integer, in order to reconstruct the original lexicographic order.
+
+Suppose the elements of \(M\) are denoted by \(X^{c_1}, X^{c_2}, \dots, X^{c_m}\). We will denote by \(c_{1, 1}\) the power of \(X_1\) in \(X^{c_1}\), by \(c_{2, 1}\) the power of \(X_1\) in \(X^{c_2}\) and so on. If \(X_j\) doesn't appear in \(X^{c_i}\), then \(c_{i, j} = 0\).
+
+We will label by \(r_j\) the ``range'' of the powers of the \(j\)-th indeterminate. That is, \(r_j = \max_{i = \overline{1, m}} \Set{ c_{i, j} } \). Denote by \(s_j\) the maximum value of the sum of the powers of \(X_j\) across all of the monomials of \(M\): \(s_j = \sum_{i \in \overline{1, m}} c_{i, j}\). Denote by \(d_j\) the maximum number of digits in \(s_j\). That is, \(d_j = \floor{\log_{10} s_j} + 1\).
+
+Now, we will build the vector \(w\) as follows:
+\begin{itemize}
+    \item \(w_n = 1\). The terms \(a_n w_n\) and \(b_n w_n\) will end up on the last \(d_n\) digits of the weighted sums.
+    \item \(w_{n - 1} = 10^{d_n}\). The terms \(a_{n - 1} w_{n - 1}\) and \(b_{n - 1} w_{n - 1}\) will end up on the \(d_{n - 1}\) digits before the last \(d_n\) digits, and will not affect the last \(d_n\) digits.
+    \item \(w_{n - 2} = 10^{d_n + d_{n-1}}\).
+    \item \(\dots\)
+    \item \(w_1 = 10^{\sum_{j \in \overline{2, n}} {d_j}}\). The terms \(a_1 w_1\) and \(b_1 w_1\) will end up on the first \(d_1\) digits of the result.
+\end{itemize}
+
+Note that the way we've constructed the vector encodes precisely the way lexicographic order would compare the monomials. When comparing two integers of fixed length (say \(d_1 + \dots + d_n\)), we would first look at the numbers represented by the first \(d_1\) digits, then the next \(d_2\) digits, and so on.
+\end{proof}
+
+\begin{problem}
+Let \(w_1, \dots, w_n \in \reals_+\) be linearly independent over \(\rationals\). Define ``\(<\)'' on \(S = K[X_1, \dots, X_n]\) by setting
+\[
+    X^b < X^a \iff \sum_{i = 1}^{n} a_i w_i < \sum_{i = 1}^{n} b_i w_i.
+\]
+
+Prove that ``\(<\)'' is a monomial order on \(S\). Prove that there is no matrix order \(A \in \symrm{GL}_n(\rationals)\) defining this monomial order as a matrix order.
+\end{problem}
+\begin{proof}
+If we denote \(A = \diag(w_1, \dots, w_n)\), and letting ``\(<\)'' be the ordinary degree lexicographic ordering, we can deduce that this ordering relation is actually ``\(\matorder\)'', which is a monomial order by the result from the first problem.
+
+To see this, note that the degree lexicographic order will first compare the monomials by their degree, i.e. by \(\sum a_i w_i\) and \(\sum b_i w_i\). However, the only possibility for \(\sum a_i w_i = \sum b_i w_i\) is if \(a_i = b_i\), \(\forall i = \overline{1, n}\), since the \(w_i\)s are rationally independent. Hence, ties can never occur in this scenario; so the lexicographic part of the order will never apply.
+\end{proof}
+
+\section*{Problem set 8}
+\stepcounter{section}
+
+\begin{problem}
+Compute a Gröbner basis of the ideal \(I = (X_1^2 - 2 X_2 X_3, X_1 X_2^2 + X_3^2, X_2 X_3 + X_3)\) with regards to \(\lexorder\) and \(\degrevlexorder\).
+\end{problem}
+\begin{proof}
+We will use Buchberger's algortihm in both cases. Denote \(f_1 = X_1^2 - 2 X_2 X_3\), \(f_2 = X_1 X_2^2 + X_3^2\), \(f_3 = X_2 X_3 + X_3\).
+
+\begin{itemize}
+    \item[``\(\lexorder\)'':] We will denote ``\(<\)'' by ``\(\degrevlexorder\)'' Let us first compute the initial monomials of the three generating polynomials:
+    \begin{align*}
+        \In (f_1) &= X_1^2 \\
+        \In (f_2) &= X_1 X_2^2 \\
+        \In (f_3) &= X_2 X_3
+    \end{align*}
+    
+    Now we will compute the three corresponding \(S\)-polynomials:
+    \begin{align*}
+        S(f_1, f_2) &= \frac{\LCM(\In(f_1), \In(f_2))}{\LT(f_1)} \cdot f_1 - \frac{\LCM(\In(f_1), \In(f_2))}{\LT(f_2)} \cdot f_2 = \\
+        &= \frac{X_1^2 X_2^2}{X_1^2} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1^2 X_2^2}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) = \\
+        &= \cancel{X_1^2 X_2^2} - 2 X_2^3 X_3 - \cancel{X_1^2 X_2^2} - X_1 X_3^2 = \\
+        &= - 2 X_2^3 X_3 - X_1 X_3^2
+    \end{align*}
+    \begin{align*}
+        S(f_1, f_3) &= \frac{X_1^2 X_2 X_3}{X_1^2} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1^2 X_2 X_3}{X_2 X_3} \cdot (X_2 X_3 + X_3) = \\
+        &= \cancel{X_1^2 X_2 X_3} - 2 X_2^2 X_3^2 - \cancel{X_1^2 X_2 X_3} - X_1^2 X_3 = \\
+        &= -2 X_2^2 X_3^2 - X_1^2 X_3
+    \end{align*}
+    \begin{align*}
+        S(f_2, f_3) &= \frac{X_1 X_2^2 X_3}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) - \frac{X_1 X_2^2 X_3}{X_2 X_3} \cdot (X_2 X_3 + X_3) = \\
+        &= X_3^3 - X_1 X_2 X_3
+    \end{align*}
+    
+    Now we will divide each \(S\)-polynomial by \(\Set{ f_1, f_2, f_3 }\) to check if we already have a Gröbner basis. We obtain that
+    \begin{align*}
+        S(f_1, f_2) = (- 2 X_2^2 + 2 X_2 - 2) f_3 + (- X_1 X_3^2 + 2 X_3)
+    \end{align*}
+    
+    and since the remainder is non-zero, we know we are not done, so we can add it to our set as \(f_4 = - X_1 X_3^2 + 2 X_3\) and continue. Note that \(\In(f_4) = X_1 X_3^2\), \(\LT(f_4) = - X_1 X_3^2\).
+    
+    We now compute the new \(S\)-polynomials:
+    \begin{align*}
+        S(f_1, f_4) &= \frac{X_1^2 X_3^2}{X_1^2} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1^2 X_3^2}{- X_1 X_3^2} \cdot (- X_1 X_3^2 + 2 X_3) = \\
+        &= - 2 X_2 X_3^3 + 2 X_1 X_3
+    \end{align*}
+    \begin{align*}
+        S(f_2, f_4) &= \frac{X_1 X_2^2 X_3^2}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) - \frac{X_1 X_2^2 X_3^2}{- X_1 X_3^2} \cdot (- X_1 X_3^2 + 2 X_3) = \\
+        &= X_3^4 + 2 X_2^2 X_3
+    \end{align*}
+    \begin{align*}
+        S(f_3, f_4) &= \frac{X_1 X_2 X_3^2}{X_2 X_3} \cdot (X_2 X_3 + X_3) - \frac{X_1 X_2 X_3^2}{- X_1 X_3^2} \cdot (- X_1 X_3^2 + 2 X_3) \\
+        &= X_1 X_3^2 + 2 X_2 X_3
+    \end{align*}
+    
+    Notice that
+    \[
+        S(f_1, f_4) = (-2 X_3^2) f_3 + (2 X_1 X_3 + 2 X_3^3)
+    \]
+    
+    The remainder is again non-zero. We take \(f_5 = 2 X_1 X_3 + 2 X_3^3\), with \(\In(f_5) = X_1 X_3\) and \(\LT(f_5) = 2 X_1 X_3\).
+    
+    \begin{align*}
+        S(f_1, f_5) &= \frac{X_1^2 X_3}{X_1^2} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1^2 X_3}{2 X_1 X_3} \cdot (2 X_1 X_3 + 2 X_3^3) = \\
+        &= - 2 X_2 X_3^2 - X_1 X_3^3 = (-2 X_3) f_3 + (X_3) f_4
+    \end{align*}
+    \begin{align*}
+        S(f_2, f_5) &= \frac{X_1 X_2^2 X_3}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) - \frac{X_1 X_2^2 X_3}{2 X_1 X_3} \cdot (2 X_1 X_3 + 2 X_3^3) = \\
+        &= X_3^3 - X_2^2 X_3^3 = (- X_2 X_3^2 + X_3^2) f_3
+    \end{align*}
+    \begin{align*}
+        S(f_3, f_5) &= \frac{X_1 X_2 X_3}{X_2 X_3} \cdot (X_2 X_3 + X_3) - \frac{X_1 X_2 X_3}{2 X_1 X_3} \cdot (2 X_1 X_3 + 2 X_3^3) = \\
+        &= X_1 X_3 - X_2 X_3^3 = (-X_3^2) f_3 + \frac{1}{2} f_5
+    \end{align*}
+    \begin{align*}
+        S(f_4, f_5) &= \frac{X_1 X_3^2}{- X_1 X_3^2} \cdot (- X_1 X_3^2 + 2 X_3) - \frac{X_1 X_3^2}{2 X_1 X_3} \cdot (2 X_1 X_3 + 2 X_3^3) = \\
+        &= - 2 X_3 - X_3^4
+    \end{align*}
+    
+    Now, \(S(f_4, f_5)\) is not reducible by \(\Set{f_1, \dots, f_5}\). In fact, it is its own remainder. By adding it to our set, as \(f_6 = -2 X_3 - X_3^4\), we conclude that all the \(S\)-polynomials are now reducible to \(0\) by \(\Set{ f_1, \dots, f_6 }\), so this is a Gröbner basis with regards to the lexicographic monomial order.
+
+    \item[``\(\degrevlexorder\)'':] We will denote ``\(\degrevlexorder\)'' by ``\(<\)''. The initial monomials of the three generating polynomials are:
+    \begin{align*}
+        \In(f_1) = X_2 X_3 \\
+        \In(f_2) = X_1 X_2^2 \\
+        \In(f_3) = X_2 X_3
+    \end{align*}
+    Now we will compute the three corresponding \(S\)-polynomials:
+    \begin{align*}
+        S(f_1, f_2) &= \frac{\LCM(\In(f_1), \In(f_2))}{\LT(f_1)} \cdot f_1 - \frac{\LCM(\In(f_1), \In(f_2))}{\LT(f_2)} \cdot f_2 = \\
+        &= \frac{X_1 X_2^2 X_3}{-2 X_2 X_3} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1 X_2^2 X_3}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) = \\
+        &= -\frac{1}{2} X_1^3 X_2 - X_3^3
+    \end{align*}
+    \begin{align*}
+        S(f_1, f_3) &= \frac{X_2 X_3}{-2 X_2 X_3} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_2 X_3}{X_2 X_3} \cdot (X_2 X_3 + X_3) = \\
+        &= -\frac{1}{2} X_1^3 X_2 - X_3^3
+    \end{align*}
+    \begin{align*}
+        S(f_2, f_3) &= \frac{X_1 X_2^2 X_3}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) - \frac{X_1 X_2^2 X_3}{X_2 X_3} \cdot (X_2 X_3 + X_3) = \\
+        &= X_3^3 - X_1 X_2 X_3
+    \end{align*}
+    
+    Note that \(S(f_1, f_2) = -\frac{1}{2} X_1^3 X_2 - X_3^3\) is not reducible at all by the current set \(\Set{f_1, f_2, f_3}\), hence it's a non-zero reminder and we add it as \(f_4 = -\frac{1}{2} X_1^3 X_2 - X_3^3\). We have \(\In(f_4) = X_1^3 X_2\).
+    
+    Now we compute the new \(S\)-polynomials:
+    
+    \begin{align*}
+        S(f_1, f_4) &= \frac{X_1^3 X_2 X_3}{-2 X_2 X_3} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1^3 X_2 X_3}{-\frac{1}{2} X_1^3 X_2} \cdot (- \frac{1}{2} X_1^3 X_2 - X_3^3) = \\
+        &= -\frac{1}{2} X_1^5 - 2 X_3^4
+    \end{align*}
+    \begin{align*}
+        S(f_2, f_4) &= \frac{X_1^3 X_2^2}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) - \frac{X_1^3 X_2^2}{-\frac{1}{2} X_1^3 X_2} \cdot (-\frac{1}{2} X_1^3 X_2 - X_3^3) = \\
+        &= X_1^2 X_3^2 - 2 X_2 X_3^3
+    \end{align*}
+    \begin{align*}
+        S(f_3, f_4) &= \frac{X_1^3 X_2 X_3}{X_2 X_3} \cdot (X_2 X_3 + X_3) - \frac{X_1^3 X_2 X_3}{-\frac{1}{2} X_1^3 X_2} \cdot (-\frac{1}{2} X_1^3 X_2 - X_3^3) = \\
+        &= X_1^3 X_3 - X_3^4
+    \end{align*}
+    
+    Notice that, once again, \(S(f_1, f_4)\) is not reductible at all by the existing polynomials. Therefore, add \(f_5 = -\frac{1}{2} X_1^5 - 2 X_3^4\) to the working set, where \(\In(f_5) = X_1^5\).
+    
+    Now we get the following \(S\)-polynomials:
+    \begin{align*}
+        S(f_1, f_5) &= \frac{X_1^5 X_2 X_3}{-2 X_2 X_3} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1^5 X_2 X_3}{-\frac{1}{2} X_1^5} \cdot (-\frac{1}{2} X_1^5 - 2 X_3^4) = \\
+        &= -\frac{1}{2} X_1^7 - 4 X_2 X_3^5 = 2 X_3^4 f_1 + X_1^2 f_5
+    \end{align*}
+    \begin{align*}
+        S(f_2, f_5) &= \frac{X_1^5 X_2^2}{X_1 X_2^2} \cdot (X_1 X_2^2 + X_3^2) - \frac{X_1^5 X_2^2}{-\frac{1}{2} X_1^5} \cdot (-\frac{1}{2} X_1^5 - 2 X_3^4) = \\
+        &= X_1^4 X_3^2 - 4 X_2^2 X_3^4 = (2 X_2 X_3^3 + X_1^2 X_3^2) f_1
+    \end{align*}
+    \begin{align*}
+        S(f_3, f_5) &= \frac{X_1^5 X_2 X_3}{-2 X_2 X_3} \cdot (X_1^2 - 2 X_2 X_3) - \frac{X_1^5 X_2 X_3}{-\frac{1}{2} X_1^5} \cdot (- \frac{1}{2} X_1^5 - 2 X_3^4) = \\
+        &= - \frac{1}{2} X_1^7 - 4 X_2 X_3^5 = S(f_1, f_5)
+    \end{align*}
+    \begin{align*}
+        S(f_4, f_5) &= \frac{X_1^5 X_2}{-\frac{1}{2} X_1^3 X_2} \cdot (-\frac{1}{2} X_1^3 X_2 - X_3^3) - \frac{X_1^5 X_2}{-\frac{1}{2} X_1^5} \cdot (-\frac{1}{2} X_1^5 - 2 X_3^4) = \\
+        &= 2 X_1^2 X_3^3 - 4 X_2 X_3^4 = 2 X_3^3 f_1
+    \end{align*}
+    
+    So all of these \(S\)-polynomials reduce to \(0\).
+    
+    Checking all the previous \(S\)-polynomials, they also reduce to \(0\) with regards to \(\Set{f_1, f_2, \dots, f_5}\). Hence, this set is a Gröbner basis for the starting ideal.
+\end{itemize}
+\end{proof}
+
+\begin{problem}
+Let \(f, g \in S\) such that \(\In(f)\) and \(\In(g)\) are relatively prime and let \(u\) and \(v\) be monomials in \(S\). Then \(S(uf, vg)\) reduces to zero with regards to \(uf\) and \(vg\).
+\end{problem}
+\begin{proof}
+Note that, since ``\(<\)'' is a monomial ordering and \(u\), \(v\) are monomials, we have:
+\[
+    \LCM(\In(uf), \In(vg)) = \LCM(u \In(f), v \In(g))
+\]
+And because \(\In(f)\) and \(\In(g)\) are coprime, this further reduces to
+\[
+    = \LCM(u, v) \cdot \In(f) \cdot \In(g)
+\]
+
+Thus, the \(S\)-polynomial we are asked to compute is
+\begin{align*}
+    S(uf, vg) &= \frac{\LCM(u, v) \cdot \cancel{\In(f)} \cdot \In(g)}{\cancel{\In(f)}} \cdot f - \frac{\LCM(u, v) \cdot \In(f) \cdot \cancel{\In(g)}}{\cancel{\In(g)}} \cdot g = \\
+    &= \LCM(u, v) \cdot \In(g) \cdot f - \LCM(u, v) \cdot \In(f) \cdot g \\
+    &= \frac{\LCM(u, v)}{u} \cdot \In(g) \cdot uf - \frac{\LCM(u, v)}{v} \cdot \In(f) \cdot vg
+\end{align*}
+which shows that \(S(uf, vg)\) reduces to 0 w.r.t. \(\Set{ uf, vg }\).
+\end{proof}
+
+\begin{problem}
+Let \(I, J \subset S\) be ideals. Then \(I \cap J = (tI + (1 - t)J) S[t] \cap S\).
+\end{problem}
+\begin{proof}
+We will prove this equality by double inclusion:
+\begin{itemize}
+    \item[\(\subseteq\)] Let \(f \in I \cap J\). Then, by definition, \(f \in I\) and \(f \in J\), and also \(f \in S\). Since \(I \subset tI \leq S[t]\), we also get that \(f \in tI \subset tI + (1 - t)J\).
+    
+    \item[\(\supseteq\)] Let \(f \in (tI + (1 - t)J) S[t] \cap S\). This means that
+    \[
+        f = t g + (1 - t) h
+    \]
+    for some \(g \in I\), \(h \in J\). Furthermore, since \(f \in S\), we can keep \(x_1, \dots, x_n\) fixed and evaluate \(f\) in \(t = 0\) and \(t = 1\). But this shows that \(f(x_1, \dots, x_n) = g(x_1, \dots, x_n)\) and that \(f(x_1, \dots, x_n) = h(x_1, \dots, x_n)\), and since we're working over a field of characteristic 0, this implies that \(f = g\) and \(f = h\). Hence \(f \in I \cap J\).
+\end{itemize}
+\end{proof}
+
+\begin{problem}
+Let \(f_1, \dots, f_n\) be polynomials in \(S' = K[Y_1, \dots, Y_m]\) and \(\varphi \colon S \to S'\) the \(K\)-algebra homomorphism defined by \(\varphi(X_i) = f_i\) for \(1 \leq i \leq n\). Let \(J\) be the ideal \((X_1 - f_1, \dots, X_n - f_n)\) of \(R = K[X_1, \dots, X_n, Y_1, \dots, Y_m]\). Then \(\ker(\varphi) = J \cap S\).
+\end{problem}
+\begin{proof}
+We will prove this by double inclusion.
+\begin{itemize}
+    \item[\(\subseteq\)] Let \(g \in \ker(\varphi)\). Since \(\ker(\varphi) \leq S\), clearly \(g \in S\). Now, fix any elimination ordering on \(R\), such that \(X_i > Y_j\), \(\forall i, j\). Then \(\Set{ X_1 - f_1, \dots, X_n - f_n }\) is already a Gröbner basis of \(J\). We can test if \(g \in J\) by reducing with this set; and since \(g \in S\) and \(g(f_1, \dots, f_n) = 0\), the remainder is zero, thus \(g \in J \cap S\).
+    
+    \item[\(\supseteq\)] Let \(g \in J \cap S\). Then \(g \in S\), so \(\varphi(g)\) makes sense, and knowing that \(g\) is an element of \((X_1 - f_1, \dots, X_n - f_n)\) shows that \(\varphi(g) = 0\).
+\end{itemize}
+\end{proof}
+
+\begin{comment}
+\begin{problem}
+Let \(f_1, \dots, f_n\) be polynomials in \(S' = K[Y_1, \dots, Y_m]\). Let \(J = (X_1 - f_1, \dots, X_n - f_n) \subset R = K[X_1, \dots, X_n, Y_1, \dots, Y_m]\) and \(G\) a GB of \(J\) w.r.t. some elimination order for \(Y_1, \dots, Y_m\). Let \(g\) be a polynomial of \(S'\) and \(h\) its reminder w.r.t. \(G\). Then:
+\begin{enumerate}[(i)]
+    \item \(g \in K[f_1, \dots, f_n] \iff h \in S\)
+    \item If \(g \in K[f_1, \dots, f_n]\), then \(g = h(f_1, \dots, f_n)\) is a representation of \(g\) as a polynomial in \(f_1, \dots, f_n\). 
+\end{enumerate}
+\end{problem}
+\begin{proof}
+~
+\begin{enumerate}[(i)]
+    \item Using the homomorphism \(\varphi\) from the previous problem, by the fundamental isomorphism theorem, we get that
+    \[
+        \frac{K[X_1, \dots, X_n]}{\ker(\varphi)} \cong \Ima(\varphi) \cong K[f_1, \dots, f_n]
+    \]
+    And by the result from that problem, we know that an element of \(\) is in \(\ker(\varphi)\) iff \(\)
+\end{enumerate}
+\end{proof}
+\end{comment}

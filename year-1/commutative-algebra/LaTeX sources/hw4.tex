@@ -1,0 +1,132 @@
+\section*{Problem set 4}
+\stepcounter{section}
+
+\begin{problem}
+Prove that:
+\begin{enumerate}[(i)]
+    \item If the polynomial ring \(R[X]\) is Noetherian, then the ring \(R\) is Noetherian as well.
+    \begin{proof}
+    Suppose that \(R\) isn't Noetherian. Then there exists an infinite ascending chain of ideals
+    \[
+        I_1 \subsetneq I_2 \subsetneq \dots
+    \]
+    with each \(I_k \subsetneq R\).
+    
+    Let \(J_k = I_k \cdot (X) = \left(f \cdot r \cdot X \mid f \in R[X], \, r \in I_k\right)\). We have that:
+    \begin{itemize}
+        \item \(J_k \leq R[X]\) (due to the way it is defined)
+        \item \(J_k \neq R[X]\) (polynomials with \(\deg f > 0\) cannot be inverted)
+        \item \(J_k \subset J_{k + 1}\) (since, in the definition above, \(r \in I_k\) also implies \(r \in I_{k + 1}\))
+        \item \(J_k \neq J_{k + 1}\) (take \(r' \in I_{k + 1} \setminus I_k\). Then \(r' X \in J_{k + 1}\) but \(r' X \not\in J_k\))
+    \end{itemize}
+    Therefore, we also have an infinite ascending chail of ideals in \(R[X]\):
+    \[
+        J_1 \subsetneq J_2 \subsetneq \dots
+    \]
+    contradicting the fact that \(R[X]\) is Noetherian.
+    
+    \end{proof}
+    
+    \item If the formal power series ring \(\powerseriesring{R}{X}\) is Noetherian, then the ring \(R\) is as well.
+    \begin{proof}
+    We will denote with \(a_i\) the coefficients of the formal power series
+    \[
+        f = \sum_{i = 0}^{\infty} a_i X^i
+    \]
+    
+    Suppose that \(R\) isn't Noetherian. Then, just as for the previous exercise, we can take an infinite chain of ideals \(I_k \subsetneq R\).
+    
+    Let \(J_k = I_k \cdot (X) = \left(f \cdot r \cdot X \mid f \in \powerseriesring{R}{X}, r \in I_k\right)\) be defined as above, but with \(X\) representing the formal power series with \(a_1 = 1\), and \(a_i = 0\) for all other \(i\).
+    
+    Again, we have:
+    \begin{itemize}
+        \item \(J_k \leq \powerseriesring{R}{X}\) (by definition)
+        \item \(J_k \neq \powerseriesring{R}{X}\) (we know from exercise 1 in problem set 2 that an element from the power series ring is invertible if and only if \(a_0\) is invertible. In our case, \(a_0 = 0, \forall f \in J_k\), therefore all elements of the ideals are non-units)
+        \item \(J_k \subset J_{k + 1}\) (since \(r \in I_k \implies r \in I_{k + 1}\))
+        \item \(J_k \neq J_{k + 1}\) (as above, consider \(r' \in I_{k + 1} \setminus I_k\) and observe that \(r' X \in J_{k + 1}\) but \(r' X \not\in J_k\))
+    \end{itemize}
+    
+    Therefore, the \(J_k\)s form an ascending chain of ideals which doesn't stabilize, contradicting the fact that \(\powerseriesring{R}{X}\) is Noetherian.
+    \end{proof}
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[(i)]
+    \item[(ii)] Let \(I = (X^3 Y, X Z^2, Y^2 Z^3, Y Z^4)\) and \(J = XYZ, X^3\) be ideals in the polynomial ring \(K[X, Y, Z]\). Find a minimal set of generators for the ideal \(I : J\).
+    \begin{proof}
+    To find the minimal set of generators for \(I : J\), first look at the simplest monomials which ``throw" the element \(XYZ\) into \(I\). These would be \(X^2, Z, YZ^2, YZ^3\). Now we must find the simplest monomials which are multiples of those one but also ``throw" \(X^3\) into \(I\). This gives us \(X^2 Y\) and \(X^2 Z^2\) from the first one, \(YZ\) and \(Z^2\) from the second one, \(YZ^2\) from the third one and \(YZ^3\) from the fourth one. Now from this new list we can ignore the monomials which are multiples of any others. So we're left with
+    \[
+        G(I : J) = \Set{ X^2 Y, YZ, Z^2 }
+    \]
+    \end{proof}
+\end{enumerate}
+\end{problem}
+
+\begin{problem*}{6}
+\begin{enumerate}[(a)]
+    \item Let \(f \colon R_1 \to R_2\) be a ring homomorphism. Prove that if \(q\) is a \(p\)-primary ideal in \(R_2\), then \(f^{-1} (q)\) is an \(f^{-1} (p)\)-primary ideal in \(R_1\).
+    
+    \begin{proof}
+    We will first prove that \(\sqrt{f^{-1}(q)} = f^{-1}(\sqrt{q})\):
+    \begin{gather*}
+        x \in \sqrt{f^{-1}(q)} \iff \\
+        \exists n \in \naturals \text{ such that } x^n \in f^{-1}(q) \iff \\
+        \exists n \in \naturals \text{ such that } f(x^n) \in q \iff \\
+        \exists n \in \naturals \text{ such that } f(x)^n \in q \iff \\
+        f(x) \in \sqrt{q} \iff \\
+        x \in f^{-1}(\sqrt{q})
+    \end{gather*}
+    
+    Now we can prove the statement starting from the definition. Let \(x, y \in R_1\) such that \(x y \in f^{-1}(q)\) and \(x \not\in \sqrt{f^{-1}(q)}\). We want to show that \(y \in f^{-1}(q)\).
+    
+    Since \(f\) is a ring homomorphism:
+    \[
+        x y \in f^{-1}(q) \implies f(x y) \in q \implies f(x) f(y) \in q
+    \]
+
+    Using what we've shown above:
+    \[x \not\in \sqrt{f^{-1}(q)} \implies x \not\in f^{-1}(\sqrt{q}) \implies f(x) \not\in \sqrt{q}\]
+    
+    Since \(q\) is a \(p\)-primary ideal, we have that \(f(y) \in q\). But this means \(y \in f^{-1}(q)\), as needed.
+    
+    Additionally, \(f^{-1}(q)\) is a \(f^{-1}(p)\)-primary ideal since 
+    \[
+        \sqrt{f^{-1}(q)} = f^{-1}(\sqrt{q}) = f^{-1}(p)
+    \]
+    \end{proof}
+    
+    \item Let \(I \subseteq q\) be ideals in the ring \(R\). Prove that if \(q\) is a \(p\)-primary ideal in \(R\), then \(q/I\) is a \(p/I\)-primary ideal in \(R/I\).
+    \begin{proof}
+    An equivalent definition of a primary ideal from Atiyah-MacDonald is:
+    \[
+        q \text{ primary} \iff \text{every zerodivisor in } R/q \text{ is nilpotent}
+    \]
+    Therefore, to show that \(q/I\) is primary it's enough to check that
+    \[
+        \frac{R/I}{q/I}
+    \]
+    is primary. As a consequence of the isomorphism theorems, we have that:
+    \[
+        \frac{R/I}{q/I} \cong R/q
+    \]
+    Since \(q\) is primary, we have that every zerodivisor in \(R/q\) is nilpotent, which shows that every zerodivisor in \((R/I)/(q/I)\) is nilpotent, as needed.
+    
+    To show that \(q/I\) is \(p/I\)-primary, we'll first prove an intermediate result about the image of radicals of ideals through homomorphisms: if \(f\) is a surjective ring homomorphism and \(\ker f \subseteq I\), then \(f\left(\sqrt{I}\right) = \sqrt{f(I)}\).
+    
+    The proof is by double inclusion:
+    \begin{itemize}
+        \item[``\(\subseteq\)''] If \(y \in f\left(\sqrt{I}\right)\), then \(\exists x \in \sqrt{I}\) such that \(y = f(x)\). Since \(x \in \sqrt{I}\), \(\exists n \in \naturals\) such that \(x^n \in I\). Then \(y^n = f(x)^n = f(x^n) \in f(I)\), which shows that \(y \in \sqrt{f(I)}\).
+        
+        \item[``\(\supseteq\)''] If \(y \in \sqrt{f(I)}\), by surjectivity there must be an element \(x \in R\) such that \(y = f(x)\). In addition, \(\exists n \in \naturals\) such that \(y^n \in f(I)\), so we also have that \(\exists x' \in I\) with \(y^n = f(x')\). If we now also compute \(f(x)^n\) we get
+        \[
+            0 = y^n - y^n = f(x') - f(x)^n = f(x') - f(x^n) = f(x' - x^n)
+        \]
+        From this we deduce that \(x' - x^n \in \ker f \subseteq I\). We also have \(x' \in I\), therefore \(x^n \in I\), hence \(x \in \sqrt{I}\). So \(y \in f\left(\sqrt{I}\right)\).
+    \end{itemize}
+    
+    Applying the above result to the projection map, we have that \(\sqrt{q/I} = \sqrt{q}/I = p/I\).
+    \end{proof}
+\end{enumerate}
+\end{problem*}

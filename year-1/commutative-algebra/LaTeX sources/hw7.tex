@@ -1,0 +1,311 @@
+\section*{Course 8 homework}
+\stepcounter{section}
+
+\begin{exercise}
+Let \(R\) be a ring and \(S \subseteq R\) a multiplicatively closed set. Denote by \(\varepsilon\) the canonical homomorphism from \(R\) to \(S^{-1} R\).
+
+\begin{enumerate}
+    \item Every ideal in \(S^{-1} R\) is an extended ideal. That is, every ideal is of the form \(S^{-1} I\) with \(I \leq R\), where \(S^{-1} I = \Set{ \frac{a}{s} \vert a \in I, s \in S }\).
+    
+    \begin{proof}
+    Let \(J\) be an ideal of \(S^{-1} R\). Denote by \(N_J\) the set of all the possible numerators of \(J\), i.e. \(N_J = \Set{ a \in R \mid \exists s \in S \text{ s.t. } \frac{a}{s} \in J}\). We are going to prove that \(N_J\) is an ideal of \(R\).
+    
+    First, notice that if \(\frac{a}{s} \in J\), then
+    \[
+        \frac{s}{1} \cdot \frac{a}{s} = \frac{a}{1} \in J
+    \]
+    since \(J \leq S^{-1} R\). Hence, if \(a \in N_J\), then certainly \(\frac{a}{1} \in J\).
+    
+    Let \(a, b \in N_J\). Then
+    \[
+        \frac{a}{1} - \frac{b}{1} = \frac{a - b}{1} \in J
+    \]
+    which shows that \(a - b \in N_J\).
+    
+    Let \(r \in R\) and \(a \in N_J\). Then
+    \[
+        \varepsilon(r) \frac{a}{1} = \frac{r}{1} \cdot \frac{a}{1} = \frac{ra}{1} \in J
+    \]
+    which shows that \(ra \in N_J\).
+    
+    Hence, \(N_J \leq R\) and, by the way it has been defined, \(S^{-1} N_J = J\).
+    \end{proof}
+    
+    \item If \(\underline{a} \leq R\), then
+    \[
+        \varepsilon^{-1} (\underline{a} \, S^{-1} R) = \bigcup_{s \in S} \, \underline{a} : (s)
+    \]
+    Thus \(\underline{a} \, S^{-1} R = S^{-1} R \iff \underline{a} \cap S \neq \emptyset\).
+    
+    \begin{proof}
+    We will prove this equality by double inclusion.
+    
+    \begin{itemize}
+        \item[\(\subseteq\)] Let \(x \in \varepsilon^{-1} (\underline{a} \, S^{-1} R)\).
+        This means that
+        \[
+            \varepsilon(x) \in \underline{a} \, S^{-1} R \iff
+            \frac{x}{1} = \frac{a}{s}
+        \]
+        for some \(a \in \underline{a}\) and \(s \in S\). As we've seen in the previous exercise, because \(\underline{a} \, S^{-1} R\) is an ideal, we can strengthen this to
+        \[
+            \frac{x}{1} = \frac{a}{1}
+        \]
+        for some (possibly other) element \(a \in \underline{a}\).
+        
+        By the definition of equality in the localization, it means that \(\exists s \in S\) such that
+        \[
+            s(1x - 1a) = 0 \iff s x = s a
+        \]
+        But this simply shows that
+        \[
+            x \cdot (s) \subseteq (a) \subseteq \underline{a}
+        \]
+        hence \(x \in \underline{a} : (s)\) for some \(s \in S\).
+        
+        \item[\(\supseteq\)] Let \(y \in \underline{a} : (s)\) for some \(s \in S\). We want to show that \(y \in \varepsilon^{-1}(\underline{a} \, S^{-1} R)\). It's enough to check that
+        \[
+            \varepsilon(y) = \frac{y}{1} \in \underline{a} \, S^{-1} R
+        \]
+        
+        By the definition of the colon ideal, \(y \cdot (s) \subseteq \underline{a}\). In particular, \(y s \in \underline{a}\). Hence
+        \[
+            \frac{y}{1} = \frac{ys}{s} \in \underline{a} \, S^{-1} R
+        \]
+        as desired.
+    \end{itemize}
+    \end{proof}
+    
+    \item The prime ideals of \(S^{-1} R\) are in one-to-one correspondence with the prime ideals of \(R\) which do not intersect \(S\).
+    
+    \begin{proof}
+    Let \(q\) be an arbitrary prime ideal of \(S^{-1} R\).
+    
+    We know that \(\varepsilon^{-1}(q)\) is a prime ideal in \(R\) (the preimage of a prime ideal through a ring homomorphism is prime).
+    
+    It does not intersect \(S\), since otherwise we could take \(s \in S \cap \varepsilon^{-1}(q)\) and then \(\varepsilon(s) \in q\) would be an invertible element, contradicting the primality of \(q\). 
+    
+    This shows that the mapping we've built so far is surjective. To show that it is also injective, consider two arbitrary prime ideals \(q, q' \in \Spec(S^{-1} R)\) such that \(q \neq q'\). This means that \(\exists \, \frac{a}{s}\) with \(\frac{a}{s} \in q\) but \(\frac{a}{s} \not\in q'\). Hence by the correspondence between the ideals of \(R\) and the ideals of \(S^{-1} R\), we get that \(\varepsilon^{-1}(q) \neq \varepsilon^{-1}(q')\).
+    \end{proof}
+    
+    \item \(S^{-1}\) commutes with finite sums, products, intersections and radicals.
+    
+    \begin{proof}
+    It's enough to show this happens for two arbitrary ideals \(I\) and \(J\), then the result can be extended to the finite case by induction.
+    
+    We will prove that \(S^{-1} (I + J) = S^{-1} I + S^{-1} J\) using double inclusion.
+    \begin{itemize}
+        \item[\(\subseteq\)] Let \(\frac{a + b}{s} \in S^{-1}(I + J)\). Then
+        \[
+            \frac{a + b}{s} = \frac{a}{s} + \frac{b}{s} \in S^{-1} I + S^{-1} J
+        \]
+        
+        \item[\(\supseteq\)] Let \(\frac{a}{s} \in S^{-1} I\), \(\frac{b}{u} \in S^{-1} J\). Then
+        \[
+            \frac{a}{s} + \frac{b}{u} = \frac{u a + s b}{s u} \in S^{-1} (I + J)
+        \]
+        where \(ua \in I\), \(sb \in J\) since \(I, J\) are ideals.
+    \end{itemize}
+    
+    We will do the same for \(S^{-1} (I \cdot J) = S^{-1} I \cdot S^{-1} J\).
+    \begin{itemize}
+        \item[\(\subseteq\)] Let \(\frac{ab}{s} \in S^{-1} (I \cdot J)\). Then
+        \[
+            \frac{ab}{s} = \frac{a}{s} \cdot \frac{b}{1} \in S^{-1} I \cdot S^{-1} J
+        \]
+        
+        \item[\(\supseteq\)] Let \(\frac{a}{s} \in S^{-1} I\), \(\frac{b}{u} \in S^{-1} J\). Then
+        \[
+            \frac{a}{s} \cdot \frac{b}{u} = \frac{ab}{su} \in S^{-1} (I \cdot J)
+        \]
+    \end{itemize}
+    
+    And again for \(S^{-1} (I \cap J) = S^{-1} I \cap S^{-1} J\).
+    \begin{itemize}
+        \item[\(\subseteq\)] Let \(\frac{a}{s} \in S^{-1} (I \cap J)\). Then \(a \in I \cap J\), hence \(a \in I\) and \(a \in J\), which means that \(\frac{a}{s} \in S^{-1} I\) and \(\frac{a}{s} \in S^{-1} J\).
+        
+        \item[\(\supseteq\)] Let \(\frac{a}{s} \in S^{-1} I\) and \(\frac{b}{t} \in S^{-1} J\) with \(\frac{a}{s} = \frac{b}{t}\). Then \(\exists u \in S\) such that \(u(ta - sb) = 0 \iff uta = usb\), with \(a \in I\) and \(b \in J\). Hence \(uta \in I \cap J\) and \(usb \in I \cap J\), so \(\frac{a}{s} = \frac{uta}{uts} \in S^{-1} (I \cap J)\).
+    \end{itemize}
+    
+    For an arbitrary \(I \leq R\), we want \(S^{-1} \sqrt{I} = \sqrt{S^{-1} I}\).
+    \begin{itemize}
+        \item[\(\subseteq\)] Let \(\frac{a}{s} \in S^{-1} \sqrt{I}\). This means that \(a \in \sqrt{I}\), therefore \(\exists n \in \naturals\) such that \(a^n \in I\). Then \(\frac{a^n}{1} \in S^{-1} I \subseteq \sqrt{S^{-1} I}\).
+    
+        \item[\(\supseteq\)] Let \(\frac{a}{s} \in \sqrt{S^{-1} I}\). This means that \(\exists n \in \naturals\) such that \(\left(\frac{a}{s}\right)^n \in S^{-1} I\). Hence \(\frac{a^n}{s^n} \in S^{-1} I\), from which we deduce that \(a^n \in I\). Therefore \(a \in \sqrt{I}\).
+    \end{itemize}
+    \end{proof}
+    
+    \item If
+    \[
+        \begin{tikzcd}
+            0 \arrow[r] & M_1 \arrow[r, "f"] & M_2 \arrow[r, "g"] & M_3 \arrow[r] & 0
+        \end{tikzcd}
+    \]
+    is a short exact sequence of \(R\)-modules, then
+    \[
+        \begin{tikzcd}
+            0 \arrow[r] & S^{-1} M_1 \arrow[r, "S^{-1} f"] & M_2 \arrow[r, "S^{-1} g"] & M_3 \arrow[r] & 0
+        \end{tikzcd}
+    \]
+    is a short exact sequence of \(S^{-1} R\)-modules.
+    
+    \begin{proof}
+    We are going to prove that \(\Ima S^{-1} f = \ker S^{-1} g\) using double inclusion.
+    
+    \begin{itemize}
+        \item[\(\subseteq\)] Let \(\frac{m}{s} \in \Ima S^{-1} f\). We want to show that \(S^{-1} g\left(\frac{m}{s}\right) = 0\). By the definition of the image, \(\exists \frac{m'}{s'} \in S^{-1} M_1\) such that \(S^{-1} f \left(\frac{m'}{s'}\right) = \frac{m}{s}\). This means that \((f(m'), s') \sim (m, s)\), hence \(\exists u \in S\) such that
+        \[
+            u(s f(m') - s' m) = 0
+        \]
+        Applying \(g\) to the equation above and using its linearity, we get
+        \begin{align*}
+            g(u(s f(m') - s' m)) &= g(0) \iff \\
+            u(g(s f(m') - s' m)) &= 0 \iff \\
+            u(g(s f(m')) - g(s' m)) &= 0 \iff \\
+            u(s g (f(m')) - s' g (m)) &= 0 \iff \\
+            u(s \cdot 0 - s' g (m)) &= 0
+        \end{align*}
+        where on the last line we've used the fact that \(\Ima f \subseteq \ker g\), which we know to be true since the original sequence is exact. This shows that
+        \[
+            \frac{g(m)}{s} = 0 \implies S^{-1} g \left(\frac{m}{s}\right) = 0
+        \]
+        hence \(\frac{m}{s} \in \ker S^{-1} g\) as desired.
+        
+        \item[\(\supseteq\)] Let \(\frac{m}{s} \in \ker S^{-1} g\). We need to show that \(\frac{m}{s}\) is the image of something from \(S^{-1} M_1\) through \(f\). By the definition of the kernel of a homomorphism, we get that \(S^{-1} g\left(\frac{m}{s}\right) = 0\). By the definition of \(S^{-1} g\), we deduce that \(\frac{g(m)}{s} = 0\). Hence \((g(m), s) \sim (0,1)\), which means \(\exists u \in S\) such that
+        \[
+            u(1 \cdot g(m) - s \cdot 0) = 0 \iff
+            u \cdot g(m) = 0 \iff
+            g(um) = 0
+        \]
+        from which we deduce that \(um \in \ker g\).
+        
+        Now, since \(\ker g = \Ima f\), we know that \(um \in \Ima f\). Take \(m' \in M_1\) such that \(um = f(m')\). But then \(\frac{um'}{us} = \frac{m'}{s} \in S^{-1} M_1\) and
+        \[
+            S^{-1} f \left(u \cdot \frac{m'}{s}\right) = u \cdot S^{-1} f \left(\frac{um'}{us}\right) = u \cdot \frac{f(um')}{us} = u \cdot \frac{m}{us} = \frac{m}{s}
+        \]
+        which shows that \(\ker S^{-1} g \subseteq \Ima S^{-1} f\).
+    \end{itemize}
+    \end{proof}
+    
+    \begin{comment}
+    \item If \(I, J \leq R\) and \(J\) is finitely generated, then \(S^{-1} (I : J) = S^{-1} I : S^{-1} J\). Give a counterexample to show that \(J\) finitely generated is essential.
+    
+    \begin{proof}
+    We will prove this using double inclusion.
+    \begin{itemize}
+        \item[\(\subseteq\)] Let \(\frac{a}{s} \in S^{-1} (I : J)\). Then \(a \in I : J\).
+        
+        Take an arbitrary \(\frac{b}{t} \in S^{-1} J\). We have
+        \[
+            \frac{a}{1} \cdot \frac{b}{t} = \frac{\overbrace{a \cdot b}^{\in \, I}}{t} \in S^{-1} I
+        \]
+        hence \(\frac{a}{1} \in S^{-1} I : S^{-1} J\). But since the colon ideal of two ideals is also an ideal, we can multiply \(\frac{a}{1}\) by \(\frac{1}{s}\) to obtain
+        \[
+            \frac{1}{s} \cdot \frac{a}{1} = \frac{a}{s} \in S^{-1} I : S^{-1} J
+        \]
+        as desired.
+        
+        \item[\(\supseteq\)] Let \(\frac{a}{s} \in S^{-1} I : S^{-1} J\). To show that \(\frac{a}{s} \in S^{-1} (I : J)\), it's enough to check that \(a \in I : J\).
+        
+        By the definition of the colon ideal, we know that
+        \[
+            \frac{a}{s} \cdot S^{-1} J \subseteq S^{-1} I
+        \]
+        i.e. \(\forall b \in S^{-1} J\), \(\exists c \in S^{-1} I\) such that
+        \[
+            \frac{a}{s} \cdot \frac{b}{t} = \frac{c}{u}
+        \]
+    \end{itemize}
+    \end{proof}
+    \end{comment}
+    
+    \item[7.] If \(M\) is a finitely generated \(R\)-module, then \(S^{-1} (\Ann(M)) = \Ann(S^{-1} M)\). Give a counterexample to show that \(M\) finitely generated is necessary.
+    
+    \begin{proof}
+    This proof is inspired by the one in Atiyah--MacDonald.
+    
+    Since \(M\) is finitely generated, we can express it as
+    \[
+        M = R a_1 + R a_2 + \dots + R a_n
+    \]
+    for some \(a_1, a_2, \dots, a_n \in R\). Thus, we can prove the statement by induction.
+    
+    Let \(M' = R a_1\). Consider the short exact sequence:
+    \[
+        \begin{tikzcd}
+            0 \arrow[r] & \Ann(M') \arrow[hookrightarrow, r] & R \arrow[twoheadrightarrow, r, "\cdot \, a_1"] & M' \arrow[r] & 0
+        \end{tikzcd}
+    \]
+    Since \(S^{-1}\) is an exact functor, the following sequence is also exact:
+    \[
+        \begin{tikzcd}
+            0 \arrow[r] & S^{-1} \Ann(M') \arrow[hookrightarrow, r] & S^{-1} R \arrow[twoheadrightarrow, r] & S^{-1} M' \arrow[r] & 0
+        \end{tikzcd}
+    \]
+    Thus \(S^{-1} M' \cong (S^{-1}R) / (S^{-1} \Ann (M'))\). Taking the annihilator of both sides tells us that \(\Ann (S^{-1} M') \cong S^{-1} (\Ann(M'))\).
+
+    Now for the inductive step, let suppose we know the statement is true for all \(k < n\), and we want to prove it for \(k = n\). Then
+    \begin{align*}
+        S^{-1} (\Ann(R a_1 + \dots + R a_n)) &= S^{-1} (\Ann(R a_1) \cap \Ann(R a_2 + \dots + R a_n)) \\
+        &= S^{-1} (\Ann(R a_1)) \cap S^{-1} (\Ann(R a_2 + \dots + R a_n)) \\
+        &= \Ann (S^{-1} (R a_1)) \cap \Ann(S^{-1} (R a_2 \dots + R a_n)) \\
+        &= \Ann (S^{-1} (R a_1) + S^{-1} (R a_2 + \dots + R a_n)) \\
+        &= \Ann (S^{-1} (R a_1 + \dots + R a_n))
+    \end{align*}
+    where we've used the fact that the annihilator of a finite sum is the intersection of the annihilators, and that \(S^{-1}\) commutes with finite sums and finite intersections.
+    
+    Thus, for any finitely generated module \(M\), we get that \(S^{-1} (\Ann (M)) = \Ann(S^{-1} (M))\).
+    
+    For a counterexample, consider \(\integers\) as a \(\integers\)-module, with the quotient rings \(\integers_n, \forall n \in \naturals^*\) viewed as \(\integers\)-submodules. Define \(M\) to be
+    \[
+        M = \bigoplus_{n \in \naturals^*} \integers_n
+    \]
+    An element of \(M\) is a linear combination of finitely many non-zero terms from the various \(\integers_n\)s, with coefficients in \(\integers\).
+    
+    We remark that \(M\) is not finitely generated. Suppose \(a_1, \dots, a_k\) is a finite set of generators for \(M\). For each \(a_i\), denote by \(n_i\) the index of the largest component which is not \(0\) (\(n_i < \infty\) due to the properties of the direct sum). Let \(N = \max_{i = \overline{1, k}} \Set{ n_i }\). Then the element of \(M\) with \(1\) on its \(N\)-th position and zero everywhere else cannot be written as a linear combination of \(a_1, \dots, a_k\).
+    
+    If \(a m = 0\) for all \(m \in M\), it means that \(a \equiv 0 \mod k, \forall k \in \naturals^*\), hence \(a = 0\). In other words, \(\Ann(M) = 0\) and \(S^{-1} (\Ann(M)) = 0\).
+    
+    Let \(S = \integers^*\). Then \(S^{-1} M\) is an \(S^{-1} \integers \cong \rationals\)-module. We claim that \(S^{-1} M = 0\). For any \(\frac{m}{k} \in S^{-1} M\) which is not zero, take \(c \in \naturals^* \subseteq \integers^* = S\) to be the least common multiple of all of the indices of the non-zero components of \(m\). Then
+    \[
+        c (1 \cdot m - 0 \cdot k) = cm = 0
+    \]
+    since \(c \cdot a \equiv 0 \mod n\) if \(c\) is a multiple of \(n\). Thus, \(\Ann(S^{-1} M) = \Ann(0) = \rationals\).
+    
+    We conclude that
+    \[
+        0 = S^{-1} (\Ann(M)) \neq \Ann(S^{-1} M) = \rationals
+    \]
+    \end{proof}
+    
+    \item[8.] Prove that \(\dim (S^{-1} R) \leq \dim (R)\).
+    
+    \begin{proof}
+    If \(\dim(R) = \infty\), then the inequality is true.
+    
+    Otherwise, as we've previously shown, the prime ideals of \(S^{-1} R\) are the prime ideals of \(R\) which do not intersect \(S\). Thus, there cannot be more prime ideals in \(S^{-1} R\) than in \(R\), and therefore no chain of primes longer than the longest one in \(R\).
+    
+    The equality case happens if there exists at least one chain of maximal length in \(R\) composed of primes which do not intersect \(S\).
+    \end{proof}
+\end{enumerate}
+
+\end{exercise}
+
+\begin{comment}
+\begin{problem}
+Let \(\psi \colon R_1 \to R_2\) be a surjective ring homomorphism and \(I \in \Spec(R_1)\) (or \(I \in \SpecMax(R_2)\)). Is \(\psi(I) \in \Spec(R_2)\)? (or \(\psi(I) \in \SpecMax(R_2)\) respectively?)
+
+\begin{proof}
+~
+\begin{itemize}
+    \item If \(\ker \psi \subseteq I\), then the statement is true.
+    
+    Let \(\alpha, \beta \in R_2\) such that \(\alpha \beta \in \psi(I)\). We can pick \(a, b \in R_1\) and \(c \in \psi(I)\) such that \(\alpha = \psi(a)\), \(\beta = \psi(b)\) and \(\psi(a) \psi(b) = \psi(c)\). Hence \(\psi(c) - \psi(a) \psi(b) = \psi(c) - \psi(ab) = \psi(c - ab) = 0\). Since \(I \supseteq \ker \psi\), there exists a \(d \in I\) such that \(c - ab = d\). Reordering, we get \(ab = c + d \in I\), and by the primality of \(I\), at least one of \(a\) or \(b\) must be in \(I\). Then at least one of \(\psi(a)\) or \(\psi(b)\) is in \(\psi(I)\).
+
+    In this scenario, maximality is also preserved, since otherwise \(\psi(I) \subsetneq J \in \Spec(R_2)\) would imply \(I \subsetneq \psi^{-1}(J)\), where \(\psi^{-1}(J) \in \Spec(R_1)\) (by another result from the course).
+    
+    \item To show that the statement is false if \(\ker \psi \not\subseteq I\), consider the canonical projection \(p\) between \(\integers\) and \(\integers_2\). We have \(\ker p = 2\integers \not\subseteq 3\integers \in \Spec(\integers)\), yet \(p(3 \integers) = \integers_2\) (the whole ring), which clearly cannot be prime.
+\end{itemize}
+\end{proof}
+\end{problem}
+\end{comment}

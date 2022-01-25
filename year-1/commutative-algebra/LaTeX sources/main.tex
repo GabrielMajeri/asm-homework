@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+
+% Better font selection
+\usepackage{fontspec}
+
+% Support for embedded links
+\usepackage[colorlinks, urlcolor=blue]{hyperref}
+
+% Better enumerations
+\usepackage{enumerate}
+
+% Better captions
+\usepackage{caption}
+
+% Math support packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+% Support for set notation
+\usepackage{braket}
+
+% Use Unicode characters for math symbols
+\usepackage{unicode-math}
+
+% Use a different math font which has support for "\"
+\setmathfont{Libertinus Math}
+
+% tikz library for commutative diagrams
+\usepackage{tikz-cd}
+
+% Support for commenting-out blocks of LaTeX source code
+\usepackage{verbatim}
+
+% Supports canceling out expressions
+\usepackage{cancel}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+% Create a new theorem style for problems
+\newtheorem{problem}{Problem}[section]
+\renewcommand{\theproblem}{\arabic{problem}}
+\newtheorem{customproblem}{Problem}
+\newenvironment{problem*}[1]
+  {\renewcommand\thecustomproblem{#1}\customproblem}
+  {\endcustomproblem}
+\newtheorem*{exercise}{Exercise}
+
+% Change the word "Proof" in problem solutions
+\renewcommand*{\proofname}{Solution}
+
+\newcommand*{\naturals}{\symbb{N}}
+\newcommand*{\integers}{\symbb{Z}}
+\newcommand*{\rationals}{\symbb{Q}}
+\newcommand*{\reals}{\symbb{R}}
+
+\newcommand{\divides}{\mid}
+
+\newcommand{\powerseriesring}[2]{#1 [\![#2]\!]}
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\SpecMax}{Spec_{Max}}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\LCM}{LCM}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\height}{ht}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Mon}{Mon}
+\DeclareMathOperator{\diag}{diag}
+\newcommand*{\In}[1][<]{\mathop{\symrm{In}_{#1}}}
+\newcommand*{\LT}[1][<]{\symrm{LT}_{#1}}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\title{Lectures on Rings and Algebras - Homework}
+\author{Gabriel Majeri}
+\date{
+%\today
+}
+
+\begin{document}
+
+\maketitle
+
+\begingroup
+\let\clearpage\relax
+\include{hw1}
+\include{hw2}
+\include{hw3}
+\include{hw4}
+\include{hw5}
+\include{hw6}
+\include{hw7}
+\include{hw8}
+\endgroup
+
+\end{document}

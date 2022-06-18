@@ -1,0 +1,82 @@
+\section*{Homework 7}
+\stepcounter{section}
+
+\begin{exercise}
+Find the conjugacy classes and the normal subgroups of \(S_6\) and \(A_6\).
+\end{exercise}
+\begin{solution}
+The conjugacy classes of \(S_n\) correspond to the decomposition types of \(S_n\). For \(n = 6\), the partitions are
+\begin{gather*}
+    (0, 0, 0, 0, 0, 6) \\
+    (0, 0, 0, 0, 1, 5) \\
+    (0, 0, 0, 0, 2, 4) \\
+    (0, 0, 0, 1, 1, 4) \\
+    (0, 0, 0, 0, 3, 3) \\
+    (0, 0, 0, 1, 2, 3) \\
+    (0, 0, 1, 1, 1, 3) \\
+    (0, 0, 0, 2, 2, 2) \\
+    (0, 0, 1, 1, 2, 2) \\
+    (0, 1, 1, 1, 1, 2) \\
+    (1, 1, 1, 1, 1, 1)
+\end{gather*}
+whence the decomposition types/conjugacy classes are
+\begin{center}
+    \begin{tabular}{c|c|c}
+        Conjugacy class & Decomposition type & Size of conjugacy class \\
+        \hline
+        \(C_{1}\) & \((6, 0, 0, 0, 0, 0)\) & \(1\) \\
+        \(C_{2}\) & \((4, 1, 0, 0, 0, 0)\) & \(15\) \\
+        \(C_{3}\) & \((2, 2, 0, 0, 0, 0)\) & \(45\) \\
+        \(C_{4}\) & \((3, 0, 1, 0, 0, 0)\) & \(40\) \\
+        \(C_{5}\) & \((0, 3, 0, 0, 0, 0)\) & \(15\) \\
+        \(C_{6}\) & \((1, 1, 1, 0, 0, 0)\) & \(120\) \\
+        \(C_{7}\) & \((2, 0, 0, 1, 0, 0)\) & \(90\) \\
+        \(C_{8}\) & \((0, 0, 2, 0, 0, 0)\) & \(40\) \\
+        \(C_{9}\) & \((0, 1, 0, 1, 0, 0)\) & \(90\) \\
+        \(C_{10}\) & \((1, 0, 0, 0, 1, 0)\) & \(144\) \\
+        \(C_{11}\) & \((0, 0, 0, 0, 0, 1)\) & \(120\)
+    \end{tabular}
+\end{center}
+
+Representatives from each of these conjugacy classes could be: \(e\), \((1 \; 2)\), \((1 \; 2) (3 \; 4)\), \((1 \; 2 \; 3)\), \((1 \; 2) (3 \; 4) (5 \; 6)\), \((1 \; 2) (3 \; 4 \; 5)\), \((1 \; 2\; 3 \; 4)\), \((1 \; 2 \; 3) (4 \; 5 \; 6)\), \((1 \; 2) (3 \; 4 \; 5 \; 6)\), \((1 \; 2 \; 3 \; 4 \; 5)\), \((1 \; 2 \; 3 \; 4 \; 5 \; 6)\).
+
+Using the criterion from the course, the conjugacy classes of \(A_6\) are: \(C_1\), \(C_3\), \(C_4\), \(C_8\) and \(C_9\), while \(C_{10}\) splits into two conjugacy classes of size \(72\) in \(A_6\).
+
+We can determine the normal subgroups of \(S_6\) by taking unions of conjugacy classes of \(S_6\), such that the conjugacy class of \(C_1 = e\) is included and \(1 + \abs{C_2} + \dots + \abs{C_r} \divides \abs{G}\).
+
+The normal subgroups of \(S_6\) are the trivial subgroup, \(A_6\) and the whole group.
+
+\(A_n\) is a simple group for \(n \geq 5\), therefore \(A_6\) has no normal subgroups besides the trivial subgroup and itself.
+\end{solution}
+
+\begin{exercise}
+Let \(p\) be a prime number, \(n \in \naturals \setminus \Set{0, 1, 2}\) and \(\symrm{G}\) a group of order \(p^n\). Prove that \(\symrm{G}\) has a conjugacy class of size \(p\), provided that \(\abs{\centerofgroup(\symrm{G})} = p\). Give an example of such a group \(G\).
+\end{exercise}
+\begin{solution}
+First of all, we remark that the center of the group is the union of the conjugacy classes of order 1. Writing \(C_{g_1}, C_{g_2}, \dots, C_{g_k}\) for the remaining conjugacy classes of \(\symrm{G}\), we get that
+\begin{align*}
+    p^n &= \abs{\centerofgroup(\symrm{G})} + \abs{C_{g_1}} + \dots + \abs{C_{g_k}} \iff \\
+    p^n &= p + \abs{C_{g_1}} + \dots + \abs{C_{g_k}} \iff \\
+    p (p^{n-1} - 1) &= \abs{C_{g_1}} + \dots + \abs{C_{g_k}}
+\end{align*}
+
+We remark that \(\abs{C_{g_i}} > 1\), \(\forall i = \overline{1, k}\), since otherwise \(g_i\) would be in the center. Furthermore, \(\abs{C_{g_i}}\) is the order of the centralizer in the group, hence \(\abs{C_{g_i}} \divides p^n\). The only possibility left is that each \(C_{g_i}\) is of size \(p\).
+
+An example of such a group is \(\dihedralgroup{4}\), with \(\abs{\dihedralgroup{4}} = 8 = 2^3\). Its center is \(\centerofgroup(\dihedralgroup{4}) = \Set{e, r^2}\). The element \(r\) has a conjugacy class of size \(2\).
+\end{solution}
+
+\begin{exercise}
+Let \(\rho \colon \symrm{G} \to GL_n(\complex)\) be a representation of a group \(G\).
+\begin{enumerate}[(a)]
+    \item Show that \(\delta \colon \symrm{G} \to \complex\), \(\delta(g) = \det(\rho(g))\), \(\forall g \in \symrm{G}\), is a character of \(\symrm{G}\).
+    \item If \(-1 \in \ima \delta\), show that \(\symrm{G}\) has a normal subgroup of index \(2\).
+\end{enumerate}
+\end{exercise}
+\begin{proof}
+~
+\begin{enumerate}[(a)]
+    \item By Cayley's theorem, \(\symrm{G}\) can be viewed as a subgroup of the symmetric group \(S_m\). When considering the standard permutation representation of \(S_m\), the determinant is the same as the sign of the permutation, which we know is a linear character of \(S_m\). Thus the determinant is also a character when restricted to \(\symrm{G}\).
+    
+    \item Since \(\delta(e) = 1\), if \(-1 \in \ima \delta \) then \(\ima \delta = \Set{1, -1}\). The determinant is a linear character and also a group homomorphism, thus \(\ker \delta\) is a normal subgroup of \(\symrm{G}\). By the fundamental isomorphism theorem, \(\symrm{G} / \ker \delta \cong \ima \delta\), hence \([G : \ker \delta] = 2\), as claimed.
+\end{enumerate}
+\end{proof}

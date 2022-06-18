@@ -1,0 +1,104 @@
+\section*{Homework 4}
+\stepcounter{section}
+
+\begin{exercise}
+Prove that for every finite simple group \(\symrm{G}\) there exists a faithful irreducible \(\complex \symrm{G}\)-module.
+\end{exercise}
+\begin{proof}
+Consider the decomposition of the regular \(\complex \symrm{G}\)-module
+\[
+    \complex[\symrm{G}] = V_1 \oplus \dots \oplus V_k,
+\]
+where each \(V_i\) is an irreducible \(\complex \symrm{G}\)-submodule of \(\complex[\symrm{G}]\).
+
+Choose any \(1 \leq j \leq k\) such that \(\rho_j\), the representation associated to the irreducible \(\complex \symrm{G}\)-module \(V_j\), is not trivial. Then \(\ker \rho_j\) is a normal subgroup of \(\symrm{G}\). But since \(\symrm{G}\) is simple, and \(\rho_j\) is not trivial, we must have \(\ker \rho_j = \Set{e}\). This shows that \(\rho_j\) is faithful, and hence \(V_j\) is a faithful irreducible \(\complex \symrm{G}\)-module.
+\end{proof}
+
+\begin{exercise}
+Let \(G = D_3 = \Set{ r, s \vbar r^3 = s^2 = e, sr = r^{-1} s }\), \(\omega = e^{\frac{2 \pi i}{3}}\) and \(W\) the irreducible \(\complex G\)-submodule of the regular \(\complex G\)-module defined by
+\[
+    W = \complex{\generatedby{e + \omega^2 r + \omega r^2, s + \omega^2 r s + \omega r^2 s}}
+\]
+\begin{enumerate}[(a)]
+    \item Show that \(r + r^{-1} \in \centerofgroup(\complex[\symrm{G}])\).
+    \item Find \(\lambda \in \complex\) such that \(w (r + r^{-1}) = \lambda w\), \(\forall w \in W\).
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+\begin{enumerate}[(a)]
+    \item Straightforward computation shows us that
+    \begin{align*}
+        r (r + r^{-1}) &= rr + r r^{-1} \\
+        &= r^2 + e \\
+        &= r r + r^{-1} r \\
+        &= (r + r^{-1}) r
+    \end{align*}
+    \begin{align*}
+        s (r + r^{-1}) &= s r + s r^{-1} = \\
+        &= s r + s r^2 \\
+        &= r^{-1} s + r^{-2} s \\
+        &= r^{-1} s + r s \\
+        &= r s + r^{-1} s \\
+        &= (r + r^{-1}) s
+    \end{align*}
+    and since \(r\) and \(s\) generate \(D_3\), this shows us that \(r + r^{-1}\) commutes with any element from \(D_3\). Since the elements of \(D_3\) form a basis for \(\complex[\symrm{G}]\), extending by linearity we conclude that \(r + r^{-1} \in \centerofgroup(\complex[\symrm{G}])\).
+    
+    \item Let us take \(w = e + \omega^2 r + \omega r^2 \in W\). We have that
+    \begin{align*}
+        w(r + r^{-1}) &= (e + \omega^2 r + \omega r^2)(r + r^{-1}) \\
+        &= (r + \omega^2 r^2 + \omega r^3) + (r^{-1} + \omega^{2} e + \omega r) \\
+        &= (\omega e + r + \omega^2 r^2) + (\omega^2 e + \omega r + r^2) \\
+        &= (\omega + \omega^2) e + (1 + \omega) r + (1 + \omega^2) r^2
+    \end{align*}
+    Setting \(\lambda = (\omega + \omega^2)\), we have
+    \begin{align*}
+        \lambda w &= (\omega + \omega^2) (e + \omega^2 r + \omega r^2) \\
+        &= (\omega + \omega^2) e + (\omega^3 + \omega^4) r + (\omega^2 + \omega^3) r^2 \\
+        &= (\omega + \omega^2) e + (1 + \omega) r + (1 + \omega^2) r^2 \\
+        &= w (r + r^{-1})
+    \end{align*}
+
+    Straightforward computation shows that \((s + \omega^2 r s + \omega r^2 s) (r + r^{-1}) = \lambda (s + \omega^2 r s + \omega r^2 s)\) as well, hence \(w (r + r^{-1}) = \lambda w\), \(\forall w \in W\).
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+Let \(\symrm{G} = \dihedralgroup{4} = \generatedby{ r, s \vbar r^4 = s^2 = e, sr = r^{-1} s }\). Find all the irreducible representations of \(\dihedralgroup{4}\) over \(\complex\).
+\end{exercise}
+\begin{solution}
+The conjugacy classes of \(\dihedralgroup{4}\) are:
+\begin{itemize}
+    \item \(\Set{e}\)
+    \item \(\Set{r^2}\)
+    \item \(\Set{r, r^{-1}}\)
+    \item \(\Set{s, r^2 s}\)
+    \item \(\Set{ rs, r^{-1}s }\)
+\end{itemize}
+Hence, we must find 5 non-isomorphic irreducible representations of \(\dihedralgroup{4}\) over the complex numbers.
+
+From the character table of \(\dihedralgroup{4}\), we can determine that there are four irreducible representations of degree 1 and one of degree 2.
+
+The irreducible representations of \(\dihedralgroup{4}\) can be classified as:
+\begin{itemize}
+    \item \(\rho_1 (r) = 1\), \(\rho_1 (s) = 1\)
+    
+    \item \(\rho_2 (r) = 1\), \(\rho_2 (s) = -1\).
+    
+    \item \(\rho_3 (r) = -1\), \(\rho_3 (s) = 1\).
+    
+    \item \(\rho_4 (r) = -1\), \(\rho_4 (s) = -1\).
+    
+    \item 
+    \(
+        \rho_5 (r) = \begin{pmatrix}
+            i & 0 \\
+            0 & -i
+        \end{pmatrix},
+        \;
+        \rho_5 (s) = \begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{pmatrix}
+    \)
+\end{itemize}
+\end{solution}

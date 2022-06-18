@@ -1,0 +1,95 @@
+\section*{Homework 13}
+\stepcounter{section}
+
+\begin{exercise}
+Find the character table of \(S_3 \times C_2\) (is it isomorphic to \(D_6\))?
+\end{exercise}
+\begin{solution}
+We will recall from the course that the character table of \(S_3\) is
+\begin{center}
+    \begin{tabular}{c|c|c|c}
+        \(S_3\) & \(e\) & (1 \; 2) & (1 \; 2 \; 3) \\
+        \hline
+        \(\chi_1\) & 1 & 1 & 1 \\
+        \hline
+        \(\chi_2\) & 1 & -1 & 1 \\
+        \hline
+        \(\chi_3\) & 2 & 0 & -1
+    \end{tabular}
+\end{center}
+while the character table for \(C_2\) is
+\begin{center}
+    \begin{tabular}{c|c|c}
+        \(C_2\) & \(e\) & \(a\) \\
+        \hline
+        \(\psi_1\) & 1 & 1 \\
+        \hline
+        \(\psi_2\) & 1 & -1
+    \end{tabular}
+\end{center}
+
+A result from the course tells us that the irreducible characters of the direct product of groups \(G \times H\) are products \(\chi \times \psi\) of irreducible characters \(\chi\), \(\psi\) of \(G\), respectively \(H\). Thus, the the character table of \(S_3 \times C_2\) is
+\begin{center}
+    \begin{tabular}{c|c|c|c|c|c|c|c}
+        \(S_3 \times C_2\) & \((e, e)\) & \((e, a)\) & \(((1 \; 2), e)\) & \(((1 \; 2), a)\) & \(((1 \; 2 \; 3), e)\) & \(((1 \; 2 \; 3), a)\) \\
+        \hline
+        \(\chi_1 \times \psi_1\) & 1 & 1 & 1 & 1 & 1 & 1 \\
+        \hline
+        \(\chi_1 \times \psi_2\) & 1 & -1 & 1 & -1 & 1 & -1 \\
+        \hline
+        \(\chi_2 \times \psi_1\) & 1 & 1 & -1 & -1 & 1 & 1 \\
+        \hline
+        \(\chi_2 \times \psi_2\) & 1 & -1 & -1 & 1 & 1 & -1 \\
+        \hline
+        \(\chi_3 \times \psi_1\) & 2 & 2 & 0 & 0 & -1 & -1 \\
+        \hline
+        \(\chi_3 \times \psi_2\) & 2 & -2 & 0 & 0 & -1 & 1
+    \end{tabular}
+\end{center}
+where we've labeled with \(c_1, \dots, c_6\) the corresponding conjugacy classes.
+
+The table looks precisely like the table for \(D_6\), which suggest to us that we should define a homomorphism \(\varphi \colon S_3 \times C_2 \to D_6\) with \(\varphi(((1 \; 2 \; 3), a)) = r\), \(\varphi(((1 \; 2), e)) = s\). We have that
+\[
+    \underbrace{((1 \; 2 \; 3), a)}_{r}^6 = \underbrace{(e, e)}_{e}
+\]
+\[
+    \underbrace{((1 \; 2), e)}_{s}^2 = \underbrace{(e, e)}_{e}
+\]
+\[
+    \underbrace{((1 \; 2 \; 3), a)}_{r} \underbrace{((1 \; 2), e)}_{s} = ((1 \; 3), a) = \underbrace{((1 \; 2), e)}_{s} \underbrace{((3 \; 2 \; 1), a)}_{r^{-1}}
+\]
+which shows that \(S_3 \times C_2\) and \(D_6\) are isomorphic.
+\end{solution}
+
+\begin{exercise}
+Suppose that \(\chi\), \(\psi\) are irreducible characters of \(G\). Prove that
+\[
+    \innerproduct{\chi\psi}{1_G} =
+    \begin{cases}
+        1, \text{ if } \chi = \overline{\psi} \\
+        0, \text{ if } \chi \neq \overline{\psi}
+    \end{cases}
+\]
+(recall that \(\overline{\psi} (g) = \overline{\psi(g)}\), \(\forall g \in G\) is a character of \(G\)).
+\end{exercise}
+\begin{proof}
+Using the definition of the inner product of two characters, we have that
+\begin{align*}
+    \innerproduct{\chi\psi}{1_G} &= \frac{1}{\abs{G}} \sum_{g \in G} \chi(g)\psi(g)\overline{1_{G}(g)} \\
+    &= \frac{1}{\abs{G}} \sum_{g \in G} \chi(g)\psi(g) \\
+    &= \frac{1}{\abs{G}} \sum_{g \in G} \chi(g)\overline{\overline{\psi}(g)} = \innerproduct{\chi}{\overline{\psi}}
+\end{align*}
+We remark that, since \(\psi\) is irreducible, \(\overline{\psi}\) is as well. The orthogonality relations tell us that the inner product of two irreducible characters \(\innerproduct{\chi}{\overline{\psi}}\) is \(1\) if \(\chi = \overline{\psi}\) and \(0\) otherwise.
+\end{proof}
+
+\begin{exercise}
+Let \(\chi\) be a character of \(\symrm{G}\) which is not faithful. Show that there exists an irreducible character \(\psi\) of \(\symrm{G}\) such that \(\innerproduct{\chi^n}{\psi} = 0\), \(\forall n \in \naturals\).
+\end{exercise}
+\begin{proof}
+Let \(\rho\) be the representation corresponding to \(\chi\), and \(V\) the associated \(\complex \symrm{G}\)-module. Since \(\chi\) is not faithful, there exists some \(g \in \symrm{G}\), \(g \neq e\), which acts trivially (i.e. \(\rho(g) v = v\), \(\forall v \in V\)). We remark that \(g\) also acts trivially on any power \(V^{\tensor n}\), since \[
+    (\rho(g) \tensor \dots \tensor \rho(g)) (v_1 \tensor \dots \tensor v_n) = (\rho(g) v_1) \tensor \dots \tensor (\rho(g) v_n) = v_1 \tensor \dots \tensor v_n
+\]
+It therefore acts trivially on any subspace of \(V^{\tensor n}\).
+
+From a previous homework exercise, we know that there exists some irreducible character \(\psi\) such that \(\psi(g) \neq \psi(e)\). Now, take the character \(\chi^n\) (corresponding to \(V^{\tensor n}\)) and break it up into its constituent irreducible parts, say \(\varphi_1, \dots, \varphi_k\). Based on the remarks above, we get that \(\varphi_i(g) = \varphi_i (e)\), \(\forall i = \overline{1, k}\), and hence we must have \(\innerproduct{\varphi_i}{\psi} = 0\), \(\forall i = \overline{1, k}\), hence \(\innerproduct{\chi^n}{\psi} = 0\). This holds for all \(n\).
+\end{proof}

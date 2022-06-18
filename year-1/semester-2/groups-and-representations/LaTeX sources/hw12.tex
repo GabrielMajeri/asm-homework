@@ -1,0 +1,90 @@
+\section*{Homework 12}
+\stepcounter{section}
+
+\begin{exercise}
+Use the character table of \(\dihedralgroup{6}\) to find seven distinct normal subgroups of \(\dihedralgroup{6}\).
+\end{exercise}
+\begin{solution}
+We will use the result from the course which describes the character table of \(\dihedralgroup{n}\). Letting \(\omega\) be a root of unity of degree 6, the character table of \(\dihedralgroup{6}\) is:
+\begin{center}
+    \begin{tabular}{c|c|c|c|c|c|c}
+        & \(\Set{e}\) & \(\Set{r^3}\) & \(\Set{r, r^5}\) & \(\Set{r^2, r^4}\) & \(\Set{s, r^2 s, r^4 s}\) & \(\Set{rs, r^3 s, r^5 s}\) \\
+        \hline
+        \(\chi_1\) & \(1\) & \(1\) & \(1\) & \(1\) & \(1\) & \(1\) \\
+        \hline
+        \(\chi_2\) & \(1\) & \(1\) & \(1\) & \(1\) & \(-1\) & \(-1\) \\
+        \hline
+        \(\chi_3\) & \(1\) & \(-1\) & \(-1\) & \(1\) & \(1\) & \(-1\) \\
+        \hline
+        \(\chi_4\) & \(1\) & \(-1\) & \(-1\) & \(1\) & \(-1\) & \(1\) \\
+        \hline
+        \(\chi_5\) & \(2\) & \(-2\) & \(\omega + \omega^{-1}\) & \(\omega^2 + \omega^{-2}\) & \(0\) & \(0\) \\
+        \hline
+        \(\chi_6\) & \(2\) & \(2\) & \(\omega^2 + \omega^{-2}\) & \(\omega + \omega^{-1}\) & \(0\) & \(0\)
+    \end{tabular}
+\end{center}
+
+Every normal subgroup of \(\dihedralgroup{6}\) is the intersection of the kernels of some characters. Thus, 7 normal subgroups of \(\dihedralgroup{6}\) are:
+\begin{itemize}
+    \item The whole group \(\dihedralgroup{6}\), the kernel of \(\chi_1\).
+    \item The cyclic subgroup \(\Set{e, r, r^2, r^3, r^4, r^5}\), the kernel of \(\chi_2\).
+    \item The subgroup \(\Set{e, r^2, r^4, s, r^2 s, r^4 s}\), the kernel of \(\chi_3\).
+    \item The subgroup \(\Set{e, r^2, r^4, rs, r^3 s, r^5 s}\), the kernel of \(\chi_4\).
+    \item The subgroup \(\Set{e, r^2, r^4}\), the intersection of the kernels of \(\chi_3\) and \(\chi_4\).
+    \item The trivial subgroup \(\Set{e}\), the kernel of \(\chi_5\).
+    \item The center \(\Set{e, r^3}\), the kernel of \(\chi_6\).
+\end{itemize}
+\end{solution}
+
+\begin{exercise}
+Find the character table of the quaternions,
+\[
+    \symrm{Q} = \generatedby{ a, b \vbar a^4 = e, a^2 = b^2, b^{-1} a b = a^{-1} }.
+\]
+\end{exercise}
+\begin{solution}
+In a previous homework, we've computed the conjugacy classes of \(\symrm{Q}\). They are \(\Set{e}\), \(\Set{a^2}\), \(\Set{a, a^{-1}}\), \(\Set{b, b^{-1}}\) and \(\Set{ab, ba}\).
+
+We remark that \(\symrm{H} = \centerofgroup(\symrm{Q}) = \Set{e, a^2}\) is a normal subgroup of \(\symrm{Q}\), hence we can use the quotient group to obtain a part of the character table for \(\symrm{Q}\). \(\symrm{Q} / \symrm{H}\) is a group of order 4 and all elements have order 2, hence it's isomorphic to the Klein 4-group, for which we computed the character table in a previous homework. This will provide us with four irreducible characters of degree 1.
+
+Since \(\symrm{Q}\) is not commutative, the character table will also contain a character of degree 2. An irreducible representation of \(\symrm{Q}\) of degree 2 is \(\rho \colon \symrm{Q} \to GL_2(\complex)\), defined by
+\[
+    \rho(a) = \begin{pmatrix}
+        i & 0 \\
+        0 & -i
+    \end{pmatrix},
+    \quad
+    \rho(b) = \begin{pmatrix}
+        0 & 1 \\
+        -1 & 0
+    \end{pmatrix}
+\]
+
+Thus, the character table of the quaternion group is
+\begin{center}
+    \begin{tabular}{c|c|c|c|c|c}
+        & \(\Set{e}\) & \(\Set{a^2}\) & \(\Set{a, a^{-1}}\) & \(\Set{b, b^{-1}}\) & \(\Set{ab, ba}\) \\
+        \hline
+        \(\chi_1\) & 1 & 1 & 1 & 1 & 1 \\
+        \hline
+        \(\chi_2\) & 1 & 1 & 1 & -1 & -1 \\
+        \hline
+        \(\chi_3\) & 1 & 1 & -1 & 1 & -1 \\
+        \hline
+        \(\chi_4\) & 1 & 1 & -1 & -1 & 1\\
+        \hline
+        \(\chi_5\) & 2 & -2 & 0 & 0 & 0
+    \end{tabular}
+\end{center}
+\end{solution}
+
+\begin{exercise}
+Let \(p\) be a prime number and \(\symrm{G}\) a non-abelian group of order \(p^3\). Show that \(\symrm{G}' = \centerofgroup(\symrm{G})\) (the center of \(\symrm{G}\)).
+\end{exercise}
+\begin{proof}
+Since \(\symrm{G}'\) is a subgroup of \(\symrm{G}\), \(\abs{\symrm{G}'} \in \Set{1, p, p^2, p^3}\). Furthermore, \(\symrm{G}'\) is trivial only when \(\symrm{G}\) is abelian. We know this isn't the case from the hypothesis, hence \(\abs{\symrm{G}'} \in \Set{p, p^2, p^3}\). From the Sylow theorems, there exists a normal subgroup \(\symrm{H}\) of order \(p^2\). Then \(\symrm{G} / \symrm{H}\) is cyclic (hence abelian). This forces \(\abs{\symrm{G}'} \leq p^2\).
+
+The center of \(\symrm{G}\) is also a subgroup of \(\symrm{G}\), hence \(\abs{\centerofgroup(\symrm{G})} \in \Set{1, p, p^2, p^3}\). The center of a \(p\)-group is non-trivial, i.e.\ \(\abs{\centerofgroup(\symrm{G})} > 1\). If \(\abs{\symrm{G} / \centerofgroup(\symrm{G})} = 1\) or \(\abs{\symrm{G} / \centerofgroup(\symrm{G})} = p\), then \(\symrm{G} / \centerofgroup(\symrm{G})\) is cyclic, and a result from the course would imply that \(\symrm{G}\) is abelian, a contradiction with the hypothesis. Hence \(\abs{\centerofgroup(\symrm{G})} = p\).
+
+Now, \(\abs{\symrm{G} / \centerofgroup(\symrm{G})} = p^2\), and this must be an abelian group (reasoning like above, we must have \((\symrm{G} / \centerofgroup(\symrm{G}))' = \Set{e}\), otherwise \(\centerofgroup(\symrm{G} / \centerofgroup(\symrm{G}))\) is nontrivial and \((\symrm{G} / \centerofgroup(\symrm{G})) / \centerofgroup(\symrm{G} / \centerofgroup(\symrm{G}))\) is cyclic). Using a result from the course, we deduce that \(\symrm{G}' \leq \centerofgroup(\symrm{G})\). This forces \(\abs{\symrm{G}'} = p\), and therefore \(\symrm{G}'\) and \(\centerofgroup(\symrm{G})\) are both isomorphic to the cyclic group of order \(p\).
+\end{proof}

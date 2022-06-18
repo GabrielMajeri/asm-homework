@@ -1,0 +1,79 @@
+\section*{Homework 6}
+\stepcounter{section}
+
+\begin{exercise}
+For \(\sigma \in A_n\), show that \(\sigma^{S_n} = \sigma^{A_n}\) if and only if \(\sigma\) commutes with some odd permutation in \(S_n\).
+\end{exercise}
+\begin{proof}
+Clearly, \(\sigma^{A_n} \subseteq \sigma^{S_n}\) for all \(\sigma \in S_n\). In what follows, we will only focus on proving the converse inclusion.
+
+\begin{itemize}
+    \item[\(\implies\)] Suppose that \(\sigma\) doesn't commute with any odd permutation in \(S_n\). That means that \(\sigma \tau \neq \tau \sigma\) for any \(\tau \in S_n \setminus A_n\). This implies \(\tau^{-1} \sigma \tau \neq \tau\). However, since \(\sigma^{S_n} = \sigma^{A_n}\), we know that \(\tau^{-1} \sigma \tau = \pi^{-1} \sigma \pi\) for some even permutation \(\pi \in A_n\). Manipulating this expression, we obtain
+    \begin{gather*}
+        \tau^{-1} \sigma \tau = \pi^{-1} \sigma \pi \iff \\
+        \pi \tau^{-1} \sigma \tau \pi^{-1} = \sigma \iff \\
+        (\tau \pi^{-1})^{-1} \sigma (\tau \pi^{-1}) = \sigma \iff \\
+        \tau'^{-1} \sigma \tau' = \sigma \iff \\
+        \sigma \tau' = \tau' \sigma
+    \end{gather*}
+    where \(\tau' = \tau \pi^{-1}\) is odd. This shows that \(\sigma\) commutes with \(\tau'\).
+    
+    \item[\(\impliedby\)] Let \(\tau\) be an odd permutation in \(S_n\) such that \(\sigma \tau = \tau \sigma\). Let \(\tau'\) be any other odd permutation from \(S_n\). Then \(\tau \tau'\) is even, and hence
+    \[
+        \sigma^{\tau \tau'} \in \sigma^{A_n}
+    \]
+    However, we also have
+    \begin{align*}
+       \sigma^{\tau \tau'} &= (\tau \tau')^{-1} \sigma (\tau \tau') \\
+       &= \tau'^{-1} \tau^{-1} \sigma \tau \tau' \\
+       &= \tau'^{-1} \tau^{-1} \tau \sigma \tau' \\
+       &= \tau'^{-1} \sigma \tau' \\
+       &= \sigma^{\tau'}
+    \end{align*}
+    hence \(\sigma^{\tau'} \in \sigma^{A_n}\), for an arbitrary \(\tau' \in S_n \setminus A_n\).
+\end{itemize}
+\end{proof}
+
+\begin{exercise}
+What are the decomposition types of those permutations \(\sigma \in A_6\) for which \(\sigma^{A_6} \neq \sigma^{S_6}\)?
+\end{exercise}
+\begin{solution}
+Based on the previous exercise, the conjugacy classes of permutations stay the same in \(A_6\), as long as they commute with some odd permutation.
+
+Going through all of the permutation types which are contained in \(A_6\), we obtain that cycles of length 5 are even, however no odd permutation commutes with them. Hence, if \(\sigma = (1 \; 2 \; 3 \; 4 \; 5)\), \(\sigma^{S_n} \neq \sigma^{A_n}\).
+\end{solution}
+
+\begin{exercise}
+Find the conjugacy classes of the quaternion group
+\[
+    \symrm{Q} = \generatedby{a, b \vbar a^4 = e, a^2 = b^2, b^{-1} a b = a^{-1}}.
+\]
+\end{exercise}
+\begin{solution}
+Denote \(c \coloneqq a^2 = b^2\). Since \(c\) is a power of \(a\), but also a power of \(b\), it commutes with all other powers of \(a\), of \(b\), and all products of these elements (i.e.\ the whole group). It is in the center of \(\symrm{G}\), and thus in a conjugacy class of its own.
+
+Since \(a^4 = e\), we deduce that \(a^3 = a^{-1}\). Furthermore, from \(c^2 = (b^2)^2 = e\) we conclude that \(b^4 = e\) as well.
+
+The relation \(b^{-1} a b = a^{-1}\) tells us that \(a\) and \(a^{-1}\) are in the same conjugacy class. By manipulating it further, we can obtain
+\begin{align*}
+    b^{-1} a b &= a^{-1} \iff \\
+    a b^{-1} a b &= e  \iff \\
+    a b^{-1} a &= b^{-1} \iff \\
+    a^2 (a b^{-1} a) &= a^2 b^{-1} \iff \\
+    a^3 b^{-1} a &= a^2 b^{-1} \iff \\
+    a^{-1} b a &= b^2 b^{-1} \iff \\
+    a^{-1} b^{-1} a &= b
+\end{align*}
+thus showing that \(b\) and \(b^{-1}\) are conjugated as well.
+
+Finally,
+\[
+    a^{-1} (ab) a = ba
+\]
+\[  
+b^{-1} (ab) b = b^{-1} a b^2 = b^3 a a^2 = b^3 a^3 = b (b^2 a^2) a = b c^2 a = b a
+\]
+which gives us the last conjugacy class.
+
+Hence, the conjugacy classes of \(\symrm{Q}\) are \(\Set{e}\), \(\Set{a^2}\) \(\Set{a, a^{-1}}\), \(\Set{b, b^{-1}}\) and \(\Set{ab, b a}\).
+\end{solution}

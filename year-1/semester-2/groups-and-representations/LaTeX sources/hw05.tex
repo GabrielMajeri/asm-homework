@@ -1,0 +1,118 @@
+\section*{Homework 5}
+\stepcounter{section}
+
+\begin{exercise}
+Let \(\symrm{G} = \symrm{Q} = \generatedby{a, b \vbar a^4 = e, b^2 = a^2, b^{-1} a b = a^{-1}}\) and \(V\) the \(\complex \symrm{G}\)-module with basis \(\Set{v_1, v_2}\) defined by
+\[
+    v_1 a = i v_1, v_1 b = v_2, v_2 a = - i v_2, v_2 b = - v_1.
+\]
+Show that \(V\) is irreducible and find a \(\complex \symrm{G}\)-submodule of \(\complex[\symrm{G}]\) which is isomorphic to \(V\).
+
+Do something similar for the modules
+\begin{itemize}
+    \item \(U_1 = \generatedby{w_1}\) with \(w_1 a = w_1 b = w_1\) (the trivial \(\complex \symrm{Q}\)-module);
+    \item \(U_2 = \generatedby{w_2}\) with \(w_2 a = w_2\), \(w_2 b = -w_2\);
+    \item \(U_3 = \generatedby{w_3}\) with \(w_3 a = -w_3\), \(w_3 b = w_3\);
+    \item \(U_4 = \generatedby{w_4}\) with \(w_4 a = -w_4\), \(w_4 b = -w_4\);
+    \item \(U_6 = \generatedby{v_1, v_2}\) with \(v_1 a = i v_2, v_1 b = -v_2, v_2 a = i v_1, v_2 b = v_1\).
+\end{itemize}
+and determine a decomposition for \(\complex[\symrm{G}]\).
+\end{exercise}
+\begin{solution}
+The \(\complex \symrm{G}\)-module \(V\) corresponds to the representation
+\[
+    \rho(a) = \begin{pmatrix}
+        i & 0 \\
+        0 & -i
+    \end{pmatrix},
+    \quad
+    \rho(b) = \begin{pmatrix}
+        0 & -1 \\
+        1 & 0
+    \end{pmatrix}
+\]
+Notice that
+\[
+    \rho(a) \rho(b) = \begin{pmatrix}
+        0 & -i \\
+        -i & 0
+    \end{pmatrix} \neq \begin{pmatrix}
+        0 & i \\
+        i & 0
+    \end{pmatrix} = \rho(b) \rho(a)
+\]
+hence \(\rho\) is irreducible, by a result from a previous homework. \(U_1, \dots, U_4\) are irreducible since they are of degree 1, while \(U_6\) corresponds to the representation
+\[
+    \rho'(a) = \begin{pmatrix}
+        0 & i \\
+        i & 0
+    \end{pmatrix},
+    \quad
+    \rho'(b) = \begin{pmatrix}
+        0 & 1 \\
+        -1 & 0
+    \end{pmatrix}
+\]
+for which
+\[
+    \rho'(a) \rho'(b) = \begin{pmatrix}
+        -i & 0 \\
+        0 & i
+    \end{pmatrix} \neq \begin{pmatrix}
+        i & 0 \\
+        0 & -i
+    \end{pmatrix} = \rho'(b) \rho'(a).
+\]
+
+Let \(w = x_1 e + x_2 a + x_3 a^2 + x_4 a^3 + x_5 b + x_6 a b + x_7 a^2 b + x_8 a^3 b \in \complex[\symrm{G}]\). Then
+\begin{align*}
+    w a &= (x_1 e + x_2 a + x_3 a^2 + x_4 a^3 + x_5 b + x_6 a b + x_7 a^2 b + x_8 a^3 b) a \\
+    &= x_1 a + x_2 a^2 + x_3 a^3 + x_4 a^4 + x_5 b a + x_6 a b a + x_7 a^2 b a + x_8 a^3 b a \\
+    &= x_4 e + x_1 a + x_2 a^2 + x_3 a^3 + x_6 b + x_7 a b + x_8 a^2 b + x_5 a^3 b \\
+    w b &= (x_1 e + x_2 a + x_3 a^2 + x_4 a^3 + x_5 b + x_6 a b + x_7 a^2 b + x_8 a^3 b) b \\
+    &= x_1 b + x_2 a b + x_3 a^2 b + x_4 a^3 b + x_5 b^2 + x_6 a b^2 + x_7 a^2 b^2 + x_8 a^3 b^2 \\
+    &= x_7 e + x_8 a + x_5 a^2 + x_6 a^3 + x_1 b + x_2 a b + x_3 a^2 b + x_4 a^3 b
+\end{align*}
+
+The \(\complex \symrm{G}\)-submodules of \(\complex[\symrm{G}]\) corresponding to the irreducible \(\complex \symrm{G}\)-modules defined above are:
+\begin{itemize}
+    \item \(U_1\) corresponds to \(\complex\generatedby{e + a + a^2 + a^3 + b + a b + a^2 b + a^3 b}\)
+    
+    \item \(U_2\) corresponds to \(\complex\generatedby{e + a + a^2 + a^3 - b  - a b - a^2 b - a^3 b}\)
+    
+    \item \(U_3\) corresponds to \(\complex\generatedby{e - a + a^2 - a^3 + b - ab + a^2 b - a^3 b}\)
+    
+    \item \(U_4\) corresponds to \(\complex\generatedby{e - a + a^2 - a^3 - b + ab - a^2 b + a^3 b}\)
+    
+    \item \(V\) corresponds to \(\complex\generatedby{e + i a + i^2 a^2 + i^3 a^3, b + i a b + i^2 a^2 b + i^3 a^3 b}\)
+    
+    \item \(U_6\) corresponds to \(\complex\generatedby{e + i^3 a + i^2 a^2 + i a^3, b + i^3 ab + i^2 a^2 b + i a^3 b}\)
+    % TODO
+\end{itemize}
+A decomposition for \(\complex[\symrm{G}]\) is \(\complex[\symrm{G}] = U_1 \oplus U_2 \oplus U_3 \oplus U_4 \oplus U_5 \oplus V \oplus U_6\).
+\end{solution}
+
+\begin{exercise}
+For \(\symrm{G} = \dihedralgroup{4} = \generatedby{r, s \vbar r^4 = s^2 = e, sr = r^{-1} s}\) find a 1-dimensional \(\complex \symrm{G}\)-submodule of \(\complex[\symrm{G}]\), say \(\generatedby{u_1}\), such that \(u_1 r = u_1\), \(u_1 s = - u_1\). \\[0.5ex]
+Find also 1-dimensional \(\complex \symrm{G}\)-submodules of \(\complex[G]\), \(\generatedby{u_2}\) and \(\generatedby{u_3}\), such that \(u_2 r = -u_2\), \(u_2 s = u_2\) and \(u_3 r = -u_3\), \(u_3 s = -u_3\).
+
+Do something similar for the \(\complex \symrm{G}\)-modules
+\begin{itemize}
+    \item \(U_5 = \generatedby{v_2, w_4}\) with \(v_2 = e + i r - r^2 - i r^3\), \(w_4 = s v_4\);
+    \item \(U_6 = \generatedby{v_4, w_2}\) with \(v_4 = e - i r - r^2 + i r^3\), \(w_2 = s v_2\).
+\end{itemize}
+Determine a decomposition of \(\complex[\symrm{G}]\).
+\end{exercise}
+\begin{solution}
+We shall define
+\begin{itemize}
+    \item \(U_1 = \generatedby{u_1}\) with \(u_1 = e + r + r^2 + r^3 - s - rs - r^2 s - r^3 s\).
+    \item \(U_2 = \generatedby{u_2}\) with \(u_2 = e - r + r^2 - r^3 + s - rs + r^2 s - r^3 s\).
+    \item \(U_3 = \generatedby{u_3}\) with \(u_3 = e - r + r^2 - r^3 - s + rs - r^2 s + r^3 s\).
+    \item \(U_4 = \generatedby{u_4}\) with \(u_4 = e + r + r^2 + r^3 + s + rs + r^2 s + r^3 s\).
+    \item \(U_5 = \generatedby{v_2, w_4}\) with \(v_2 = e + i r - r^2 - i r^3\), \(w_4 = s - i r s - r^2 s + i r^3 s\);
+    \item \(U_6 = \generatedby{v_4, w_2}\) with \(v_4 = e - i r - r^2 + i r^3\), \(w_2 = s + i r s - r^2 s - i r^3 s\).
+\end{itemize}
+
+Then \(\complex[\symrm{G}] = U_1 \oplus U_2 \oplus U_3 \oplus U_4 \oplus U_5 \oplus U_6\).
+\end{solution}

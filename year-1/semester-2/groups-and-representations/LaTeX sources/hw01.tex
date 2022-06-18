@@ -1,0 +1,221 @@
+\section*{Homework 1}
+\stepcounter{section}
+
+\begin{exercise}
+Let \(G = D_6 = \braket{r, s \vbar r^6 = s^2 = e, sr = r^{-1}s}\) and define
+\begin{align*}
+    A &= \begin{pmatrix}
+        e^{\frac{i \pi}{3}} & 0 \\
+        0 & e^{-\frac{i \pi}{3}}
+    \end{pmatrix},
+    &B &= \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}, \\[0.5em]
+    C &= \begin{pmatrix}
+        \frac{1}{2} & \frac{\sqrt{3}}{2} \\
+        -\frac{\sqrt{3}}{2} & \frac{1}{2} 
+    \end{pmatrix},
+    &D &= \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix};
+\end{align*}
+all of which are matrices from \(M_2(\complex)\).
+
+Prove that each of the functions \(\rho_t \colon G \to GL_2(\complex)\), \(1 \leq t \leq 4\), given by
+\begin{align*}
+    &\rho_1 \colon r^\alpha s^\beta \mapsto A^\alpha B^\beta
+    &\rho_3 \colon r^\alpha s^\beta \mapsto (-A)^\alpha B^\beta \\
+    &\rho_2 \colon r^\alpha s^\beta \mapsto A^{3\alpha} (-B)^\beta
+    & \rho_4 \colon r^\alpha s^\beta \mapsto C^\alpha D^\beta
+\end{align*}
+for \(0 \leq \alpha \leq 5, 0 \leq \beta \leq 1\), is a representation of \(G\). Which of these representations are faithful? Which are equivalent?
+\end{exercise}
+\begin{solution}
+To show that the given functions are representations of the dihedral group \(D_6\), it's enough to check that
+\begin{align*}
+    A^6 &= \begin{pmatrix}
+        e^{2 i \pi} & 0 \\
+        0 & e^{- 2 i \pi}
+    \end{pmatrix} = I_2
+    &
+    B^2 &= \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}
+    = I_2 \\[0.5em]
+    C^6 &= I_2
+    &
+    D^2 &= \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix} = I_2
+\end{align*}
+and that
+\begin{align*}
+    BA &= \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+        e^{\frac{i \pi}{3}} & 0 \\
+        0 & e^{-\frac{i \pi}{3}}
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        0 & e^{-\frac{i \pi}{3}} \\
+        e^{\frac{i \pi}{3}} & 0
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        e^{-i \pi} & 0 \\
+        0 & e^{i \pi}
+    \end{pmatrix}
+    \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}
+    = A^{-1} B
+\end{align*}
+\begin{align*}
+    DC &= \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix}
+    \begin{pmatrix}
+        \frac{1}{2} & \frac{\sqrt{3}}{2} \\
+        -\frac{\sqrt{3}}{2} & \frac{1}{2}
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        \frac{1}{2} & \frac{\sqrt{3}}{2} \\
+        \frac{\sqrt{3}}{2} & -\frac{1}{2}
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        \frac{1}{2} & -\frac{\sqrt{3}}{2} \\
+        \frac{\sqrt{3}}{2} & \frac{1}{2}
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix} = C^{-1} D
+\end{align*}
+
+Thus, based on a result from the course, \(\rho_1\), \(\rho_2\), \(\rho_3\) and \(\rho_4\) are representations of \(G\).
+
+Out of these four representations, only \(\rho_1\), \(\rho_3\) and \(\rho_4\) are faithful, being injective group morphisms. \(\rho_2\) isn't faithful because \(\rho_2 (r^2) = I_2\), while \(r^2 \neq e\), showing that \(\ker \rho_2 \neq \Set{ e }\).
+
+As for the equivalency of these representations, we remark that \(\rho_2\) cannot be equivalent with \(\rho_1\), \(\rho_3\) nor \(\rho_4\), since it's not faithful, while the others are.
+
+Furthermore, \(\tr A = \tr C = 1\), \(\det A = \det C = 1\), \(\tr B = \tr D = 0\), \(\det B = \det D = -1\). Hence, the matrices \(A\) and \(C\), respectively \(B\) and \(D\), have the same eigenvalues, which means that they will be equal after diagonalization (which is a change-of-basis transformation). Therefore, the representations \(\rho_1\) and \(\rho_4\) are equivalent.
+
+The representation \(\rho_3\) is not equivalent to \(\rho_1\) (and hence, neither with \(\rho_4\)) since the eigenvalues of \(-A\) are different from those of \(A\).
+\end{solution}
+
+\begin{exercise}
+Let \(G = S_n\) and let \(V\) be a vector space over \(F\). Show that \(V\) becomes an \(\symrm{FG}\)-module if we define
+\[
+    vg = \begin{cases}
+        v, \text{if } g \text{ is even} \\
+        -v, \text{if } g \text{ is odd}
+    \end{cases}
+\]
+for all \(v \in V, g \in G\).
+\end{exercise}
+\begin{solution}
+If we denote the signature/parity of a permutation by \(\sigma \colon G \to F\), then we can redefine \(vg\) as
+\[
+    vg = \sigma(g) v
+\]
+Since \(\sigma\) is a group homomorphism, we then have that
+\[
+    (v g_1) g_2 = (\sigma(g_1) v) g_2 = \sigma(g_2) \sigma(g_1) v = \sigma(g_1) \sigma(g_2) v = \sigma(g_1 g_2) v = v (g_1 g_2)
+\]
+and
+\[
+    (\lambda v) g = \sigma(g) \lambda v = \lambda \sigma(g) v = \lambda (v g)
+\]
+for all \(v \in V, g \in G, \lambda \in F\), which shows that \(V\) is an \(\symrm{FG}\)-module.
+\end{solution}
+
+\begin{exercise}
+Let \(\symrm{Q} = \braket{a, b \vbar a^4 = 1, b^2 = a^2, b^{-1} a b = a^{-1}}\) be the quaternion group. Show that there is a \(\reals \symrm{Q}\)-module \(V\) of dimension \(4\) with basis \(v_1, v_2, v_3, v_4\) such that
+\begin{align*}
+    v_1 a &= v_2, &v_2 a &= - v_1, &v_3 a &= - v_4, &v_4 a &= v_3, \\
+    v_1 b &= v_3, &v_2 b &= v_4, &v_3 b &= - v_1, &v_4 b &= - v_2
+\end{align*}
+
+Find the representation of \(\symrm{Q}\) corresponding to this \(\reals \symrm{Q}\)-module structure on \(V\).
+\end{exercise}
+
+\begin{solution}
+We can assume that we are working with the standard basis of dimension 4, i.e.
+\[
+    v_1 = \begin{pmatrix}
+        1 \\
+        0 \\
+        0 \\
+        0
+    \end{pmatrix},
+    v_2 = \begin{pmatrix}
+        0 \\
+        1 \\
+        0 \\
+        0
+    \end{pmatrix},
+    v_3 = \begin{pmatrix}
+        0 \\
+        0 \\
+        1 \\
+        0
+    \end{pmatrix},
+    v_4 =
+    \begin{pmatrix}
+        0 \\
+        0 \\
+        0 \\
+        1
+    \end{pmatrix}
+\]
+Based on the relations given in the hypothesis, we define
+\[
+    \rho(a) = \begin{pmatrix}
+        0 & -1 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 1 \\
+        0 & 0 & -1 & 0
+    \end{pmatrix},
+    \quad
+    \rho(b) = \begin{pmatrix}
+        0 & 0 & -1 & 0 \\
+        0 & 0 & 0 & -1 \\
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0
+    \end{pmatrix}
+\]
+and consider the module action to be \(v g = \rho(g) v\). Notice that
+\[
+    \rho(a)^{-1} = \begin{pmatrix}
+        0 & 1 & 0 & 0 \\
+        -1 & 0 & 0 & 0 \\
+        0 & 0 & 0 & -1 \\
+        0 & 0 & 1 & 0
+    \end{pmatrix} = \rho(a)^T,
+    \;
+    \rho(b)^{-1} = \begin{pmatrix}
+        0 & 0 & -1 & 0 \\
+        0 & 0 & 0 & -1 \\
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0
+    \end{pmatrix} = \rho(b)^T
+\]
+
+Computation shows us that \(\rho(a)^4 = I_4\), \(\rho(b)^2 = \rho(a)^2\), \(\rho(b)^{-1} \rho(a) \rho(b) = \rho(a)^{-1}\). Hence, \(\rho\) is a representation of \(\symrm{Q}\).
+\end{solution}
+

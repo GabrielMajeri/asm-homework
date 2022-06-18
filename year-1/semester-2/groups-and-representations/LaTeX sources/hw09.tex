@@ -1,0 +1,52 @@
+\section*{Homework 9}
+\stepcounter{section}
+
+\begin{exercise}
+Let \(\symrm{G}\) be a group having precisely two non-isomorphic irreducible \(\complex \symrm{G}\)-modules. Show that \(\symrm{G} \cong C_2\).
+\end{exercise}
+\begin{proof}
+Irreducible \(\complex \symrm{G}\)-modules correspond to conjugacy classes, hence \(\symrm{G}\) has precisely two conjugacy classes. Let \(C_e\) be the conjugacy class of \(e\), and \(C_g\) the other conjugacy class.
+
+Since the conjugacy classes form a partition the finite group \(\symrm{G}\), we have that
+\[
+    \abs{G} = \abs{C_e} + \abs{C_g} = 1 + \abs{C_g}.
+\]
+
+Furthermore, a result from the course tells us that the size of each conjugacy class divides the order of the group, hence \(\abs{C_g}\) divides \(\abs{\symrm{G}} = 1 + \abs{C_g}\). This can only be the case if \(\abs{C_g} = 1\), hence \(\abs{\symrm{G}} = 1 + 1 = 2\). Since \(\symrm{G}\) has exactly two elements, it's isomorphic to \(C_2\).
+\end{proof}
+
+\begin{exercise}
+Let \(\pi\) be the permutation character of \(S_n\) (i.e. \(\pi(\sigma) = \abs{\Fix(\sigma)} = \Set{ 1 \leq i \leq n | \sigma(i) = i }\)). Prove that \(\innerproduct{\pi}{1_{S_n}} = 1\) (where \(1_{S_n}\) is the trivial character of \(S_n\)).
+\end{exercise}
+\begin{proof}
+Based on the definition of the inner product of characters, we get
+\[
+    \innerproduct{\pi}{1_{S_n}} = \frac{1}{\abs{S_n}} \sum_{\sigma \in S_n} \pi(\sigma) \overline{1_{S_n}(\sigma)} = \frac{1}{n!} \sum_{\sigma \in S_n} \abs{\Fix(\sigma)}
+\]
+Proving the desired statement is equivalent to showing that
+\[
+    \sum_{\sigma \in S_n} \abs{\Fix(\sigma)} = n!
+\]
+
+Denote by \(F_k\) the set of all permutations from \(S_n\) with exactly \(k\) fixed points (i.e. \(F_k = \Set{ \sigma \in S_n | \abs{\Fix(\sigma)} = k }\), for all \(0 \leq k \leq n\)). We have that
+\[
+    \sum_{\sigma \in S_n} \abs{\Fix(\sigma)}
+    = \sum_{i = 0}^{n} \left(\sum_{\substack{\sigma \in S_n \\ \abs{\Fix(\sigma)} = i}} \abs{\Fix(\sigma)}\right)
+    = \sum_{i = 0}^{n} \left(\sum_{\sigma \in F_i} i\right)
+    = \sum_{i = 0}^{n} i \abs{F_i}
+\]
+Now, if we pick \(1 \leq j \leq n\), the number of permutations which keep the element on the \(j\)-th position fixed is \((n - 1)!\) (we must have \(\sigma(j) = j\), while the other elements are arbitrary). If we take the sum for all \(j \in \Set{1, \dots, n}\), due to overlaps, we will count each permutation with \(k\) fixed points precisely \(k\) times. But this is precisely \(k \abs{F_k}\). Hence, we have
+\[
+    \sum_{i = 0}^{n} i \abs{F_i} = \sum_{j = 1}^{n} (n - 1)! = n \cdot (n - 1)! = n!
+\]
+as claimed.
+\end{proof}
+
+\begin{exercise}
+Suppose that \(\chi\) is a character of \(G\) and that, for every \(g \in G\), \(\chi(g)\) is an even integer. Does it follow that \(\chi = 2\psi\) for some character \(\psi\) of \(G\)?
+\end{exercise}
+\begin{solution}
+No. A counterexample can be found using the characters of \(C_2 = \generatedby{a \vbar a^2 = e}\).
+
+Let \(\psi_1 (e) = 1, \psi_1 (a) = 1\) and \(\psi_2 (e) = 1, \psi_2 (a) = -1\). Then \(\chi = \psi_1 + \psi_2\) is a character of \(C_2\) with \(\chi (e) = 2, \chi (a) = 0\) (so it satisfies the hypothesis), but there is no character of \(C_2\) for which \(\psi (e) = 1, \psi(a) = 0\). This is because such a character of degree 1 would have to be a group homomorphism \(\psi \colon C_2 \to \complex^*\), hence it couldn't take the value \(0\).
+\end{solution}

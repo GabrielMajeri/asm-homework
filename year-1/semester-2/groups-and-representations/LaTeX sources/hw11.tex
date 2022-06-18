@@ -1,0 +1,124 @@
+\section*{Homework 11}
+\stepcounter{section}
+
+\begin{exercise}
+Find the character table of \(\dihedralgroup{4}\).
+\end{exercise}
+\begin{solution}
+A normal subgroup of \(\dihedralgroup{4}\) is its center, which is \(\symrm{H} \coloneqq = \centerofgroup(\dihedralgroup{4}) = \Set{e, r^2}\). Notice that \(\widehat{r} \cdot \widehat{r} = \widehat{e}\), \(\widehat{s} \cdot \widehat{s} = \widehat{e}\), \(\widehat{r} \cdot \widehat{s} = \widehat{rs}\) and \(\widehat{rs} \cdot \widehat{rs} = \widehat{e}\) in the quotient, hence \(\dihedralgroup{4} / \symrm{H}\) is isomorphic to the Klein 4-group.
+
+The character table of the Klein 4-group can be found easily. Being an abelian group, all of its irreducible characters are of degree 1, and the entries must all be roots of unity of degree 2 (i.e.\ \(1\) or \(-1\)):
+\begin{center}
+    \begin{tabular}{c|c|c|c|c}
+        & \(\widehat{e}\) & \(\widehat{r}\) & \(\widehat{s}\) & \(\widehat{rs}\) \\
+        \hline
+        \(\chi_1\) & 1 & 1 & 1 & 1 \\
+        \hline
+        \(\chi_2\) & 1 & 1 & -1 & -1 \\
+        \hline
+        \(\chi_3\) & 1 & -1 & 1 & -1 \\
+        \hline
+        \(\chi_4\) & 1 & -1 & -1 & 1
+    \end{tabular}
+\end{center}
+This quotient helps us obtain the values of 4 of the 5 irreducible characters of \(\dihedralgroup{4}\).
+
+In order to obtain a degree 2 irreducible representation of \(\dihedralgroup{4}\), we can take \(\rho \colon \symrm{G} \to GL_2 (\complex)\) with
+\[
+    \rho(r) = \begin{pmatrix}
+        i & 0 \\
+        0 & -i
+    \end{pmatrix},
+    \quad
+    \rho(s) = \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}
+\]
+whence \(\chi(r) = 0\), \(\chi(s) = 0\).
+
+The character table of \(\dihedralgroup{4}\) is:
+\begin{center}
+    \begin{tabular}{c|c|c|c|c|c}
+        & \(e\) & \(\Set{r^2}\) & \(\Set{r, r^{-1}}\) & \(\Set{s, r^2 s}\) & \(\Set{rs, r^{-1} s}\) \\
+        \hline
+        \(\chi_1\) & 1 & 1 & 1 & 1 & 1 \\
+        \hline
+        \(\chi_2\) & 1 & 1 & 1 & -1 & -1 \\
+        \hline
+        \(\chi_3\) & 1 & 1 & -1 & 1 & -1 \\
+        \hline
+        \(\chi_4\) & 1 & 1 & -1 & -1 & 1 \\
+        \hline
+        \(\chi_5\) & 2 & -2 & 0 & 0 & 0
+    \end{tabular}
+\end{center}
+\end{solution}
+
+\begin{exercise}
+Let \(\chi_1, \dots, \chi_k\) be the irreducible characters of \(\symrm{G}\). Show that
+\[
+    \centerofgroup(\symrm{G}) = \Set{ g \in \symrm{G} | \sum_{i = 1}^{k} \chi_i (g) \overline{\chi_i (g)} = \abs{\symrm{G}} }.
+\]
+\end{exercise}
+\begin{proof}
+The orthogonality relations for characters tell us that
+\[
+    \sum_{i = 1}^{k} \chi_i (g_s) \chi_i (g_t) = \delta_{s, t} \abs{\centralizer{\symrm{G}}{g_s}}
+\]
+or, when \(g_s = g_t\),
+\[
+    \sum_{i = 1}^{k} (\chi_i (g))^2 = \abs{\centralizer{\symrm{G}}{g}}
+\]
+\vspace{4pt}
+
+We remark that \(g \in \centerofgroup(\symrm{G})\) iff \(\abs{\centralizer{\symrm{G}}{g}} = \abs{G}\). Thus, the center of \(\symrm{G}\) can be defined as
+\[
+    \centerofgroup(\symrm{G}) = \Set{ g \in \symrm{G} | \centralizer{\symrm{G}}{g} = \sum_{i = 1}^{k} (\chi_i (g))^2 = \abs{\symrm{G}} }
+\]
+
+Because \(z \cdot \overline{z} = \abs{z}^2\) for \(z \in \complex\), the equality from the hypothesis can be restated as
+\[
+    \sum_{i = 1}^{k} \abs{\chi_i(g)}^2 = \abs{\symrm{G}}
+\]
+Since \(\abs{\symrm{G}} \in \naturals^*\), this condition is equivalent to \(\sum_{i = 1}^{k} (\chi_i (g))^2 = \abs{\symrm{G}}\).
+\end{proof}
+
+\begin{exercise}
+Let \(\symrm{G}\) be a finite group and \(\Set{ g_1, \dots, g_k }\) a set of representative elements from the conjugacy classes of \(\symrm{G}\). If \(\chi_1, \dots, \chi_k\) are the irreducible characters of \(\symrm{G}\) and \(A = (\chi_i(g_j))_{1 \leq i, j \leq k}\) the character table of \(\symrm{G}\), show that:
+\begin{enumerate}[a)]
+    \item \(\det(A)\) is either real or purely imaginary;
+    \item \(\abs{\det(A)}^2 = \prod_{i=1}^k \abs{\centralizer{G}{g_i}}\)
+\end{enumerate}
+\end{exercise}
+\begin{proof}
+~
+\begin{enumerate}[a)]
+    \item If we permute the rows or columns of the matrix \(A\), the absolute value of the determinant stays the same but we possibly change the sign.
+    
+    Let us now replace \(\Set{ g_1, \dots, g_k }\) with \(\Set{ g_1^{-1}, \dots, g_k^{-1} }\). Since \(\chi_i (g_j^{-1}) = \overline{\chi_i (g_j)}\), we obtain the conjugate of the matrix \(A\), whose determinant is \(\overline{\det(A)}\). The resulting matrix is still a permutation of the original character table. Thus
+    \[
+        \det\left(\overline{A}\right) = \overline{\det(A)} = (-1)^l \det(A)
+    \]
+    for some \(l \in \naturals\), and this is only possible if \(\det(A)\) is real or purely imaginary.
+    
+    \item Let \(A^*\) denote the conjugate transpose of the character table, that is \(A^* = \overline{A^T} = (\overline{\chi_j (g_i)})_{1 \leq i, j \leq k}\). Then
+    \[
+        \det\left(A^*\right) = \det\left(\overline{A^T}\right) = \overline{\det\left(A^T\right)} = \overline{\det(A)}
+    \]
+    and
+    \[
+        (A^* A)_{i j} = \sum_{l = 1}^{k} A^*_{i l} A_{l j} = \sum_{l = 1}^{k} \overline{A_{l i}} A_{l j} = \sum_{l = 1}^{k} \chi_l (g_i) \overline{\chi_l (g_j)} = \delta_{i, j} \abs{\centralizer{\symrm{G}}{g_j}}.
+    \]
+    Thus, \(A^* A\) is a diagonal matrix with entries the orders of the centralizers of the elements of \(\symrm{G}\). 
+    
+    Since we're working over the complex numbers, we can derive the identity
+    \[
+        \abs{\det(A)}^2 = \det(A) \cdot \overline{\det(A)} =  \det(A) \cdot \det(A^*) = \det(A^* A)
+    \]
+    whence
+    \[
+        \abs{\det(A)}^2 = \prod_{i = 1}^{k} \abs{\centralizer{\symrm{G}}{g_i}}.
+    \]
+\end{enumerate}
+\end{proof}

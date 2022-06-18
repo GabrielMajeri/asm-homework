@@ -1,0 +1,144 @@
+\section*{Homework 3}
+\stepcounter{section}
+
+\begin{exercise}
+Let \(G = \generatedby{a \vbar a^3 = e}\) and \(V\) be a \(2\)-dimensional \(\complex\)-vector space with basis \(\Set{ v_1, v_2 }\).
+\begin{enumerate}[a)]
+    \item Show that \(V\) is a \(\complex \symrm{G}\)-module with \(v_1 a = v_2\), \(v_2 a = - v_1 - v_2\).
+    
+    \item Express \(V\) as a direct sum of irreducible \(\complex \symrm{G}\)-modules.
+\end{enumerate}
+\end{exercise}
+\begin{proof}
+~
+\begin{enumerate}[a)]
+    \item Writing the relations in the hypothesis in matrix format, we have
+    \[
+        A \begin{pmatrix}
+            1 \\ 0
+        \end{pmatrix} =
+        \begin{pmatrix}
+            0 \\ 1
+        \end{pmatrix},
+        \quad
+        A \begin{pmatrix}
+            0 \\ 1
+        \end{pmatrix} =
+        \begin{pmatrix}
+            -1 \\ -1
+        \end{pmatrix}.
+    \]
+    This helps us define the representation
+    \[
+        A \coloneqq \rho(a) = \begin{pmatrix}
+            0 & -1 \\
+            1 & -1
+        \end{pmatrix}
+    \]
+    and
+    \[
+        \rho(a^2) = \rho(a)^2 = A^2 = \begin{pmatrix}
+            -1 & 1 \\
+            -1 & 0
+        \end{pmatrix}
+    \]
+    Notice that \(\rho(a^3) = A^3 = I_2 = \rho(e)\), which is what we needed.
+    
+    \item For degree 2 representations, the easiest way to check if they are reducible is to look at their eigenvectors. If the matrices corresponding to the group elements share a common eigenvector, then they are reducible. \\[1ex]
+    Both \(A\) and \(A^2\) have the same eigenvalues, \(- \frac{1}{2} + \frac{\sqrt{3}}{2} i\) and \(- \frac{1}{2} - \frac{\sqrt{3}}{2} i\). Hence, this representation of \(G\) is reducible. \\[1ex]
+    The two degree 1 subrepresentations of \(\rho\) are
+    \begin{align*}
+        \rho_1(a^n) &= \left(- \frac{1}{2} + \frac{\sqrt{3}}{2} i\right)^n; \\
+        \rho_2(a^n) &= \left(- \frac{1}{2} - \frac{\sqrt{3}}{2} i\right)^n,
+    \end{align*}
+    corresponding to the \(\complex \symrm{G}\)-submodule structures \(V_1, V_2\) where the right action of \(a\) is multiplication by \(- \frac{1}{2} + \frac{\sqrt{3}}{2} i\), respectively by \(- \frac{1}{2} - \frac{\sqrt{3}}{2} i\).
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Let \(G\) be a finite group and \(\rho \colon G \to GL_2(\complex)\) a representation of \(G\). Suppose that there are \(g, h \in G\) such that \(\rho(g) \rho(h) \neq \rho(h) \rho(g)\). Show that \(\rho\) is irreducible.
+\end{exercise}
+\begin{proof}
+For finite groups, representations of degree two are irreducible iff the matrices \(\Set{ \rho(g) | g \in G }\) don't have any eigenvector in common.
+
+Suppose that \(\rho\) were reducible. This means there exists an eigenvector \(v \neq 0\) and corresponding eigenvalue \(\lambda \in \complex^*\) such that
+\[
+    \rho(g) v = \lambda v, \forall g \in G.
+\]
+But then, using the condition from the hypothesis, we obtain
+\begin{align*}
+    \rho(g) \rho(h) &\neq \rho(h) \rho(g) \\
+    \implies
+    \rho(g) \rho(h) v &\neq \rho(h) \rho(g) v 
+    \tag{\(v\) is non-zero} \\
+    \implies
+    \rho(g) (\lambda v) &\neq \rho(h) (\lambda v)
+    \tag{\(v\) is an eigenvector} \\
+    \implies
+    \lambda \rho(g) v &\neq \lambda \rho(h) v 
+    \tag{multiplication by scalar is commutative} \\
+    \implies
+    \lambda^2 v &\neq \lambda^2 v
+    \tag{\(v\) is an eigenvector} \\
+    \implies v &\neq v
+    \tag{\(\lambda\) is non-zero}
+\end{align*}
+We've derived an obvious contradiction, hence our initial assumption must be false; \(\rho\) is irreducible. 
+\end{proof}
+
+\begin{exercise}
+For \(\symrm{G} = \dihedralgroup{5} = \generatedby{r, s \vbar r^5 = s^2 = e, sr = r^{-1} s}\) and \(\omega = e^{\frac{2 \pi i}{5}} \in \complex\) show that \(\rho \colon \dihedralgroup{5} \to GL_2 (\complex)\) given by
+\[
+    \rho(r) = \begin{pmatrix}
+        \omega & 0 \\
+        0 & \omega^{-1}
+    \end{pmatrix},
+    \quad
+    \rho(s) = \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}
+\]
+is a well-defined representation of \(\symrm{G}\).
+\end{exercise}
+\begin{proof}
+It's enough to check that \(\rho(r)^5 = \rho(s)^2 = I_2\), \(\rho(s) \rho(r) = \rho(r)^{-1} \rho(s)\):
+\[
+    \rho(r)^5 = \begin{pmatrix}
+        \omega & 0 \\
+        0 & \omega^{-1}
+    \end{pmatrix}^5 = \begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{pmatrix} = I_2
+\]
+\[
+    \rho(s)^2 = \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}^2 = \begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{pmatrix} = I_2
+\]
+\begin{align*}
+    \rho(s) \rho(r) &= \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix} \begin{pmatrix}
+        \omega & 0 \\
+        0 & \omega^{-1}
+    \end{pmatrix} = \\
+    &\qquad = \begin{pmatrix}
+        0 & \omega^{-1} \\
+        \omega & 0
+    \end{pmatrix} = \\
+    &= \begin{pmatrix}
+        \omega^{-1} & 0 \\
+        0 & \omega
+    \end{pmatrix} \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix} = \rho(s) \rho(r)^{-1}
+\end{align*}
+\end{proof}

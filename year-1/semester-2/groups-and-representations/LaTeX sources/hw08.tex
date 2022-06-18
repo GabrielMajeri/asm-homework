@@ -1,0 +1,45 @@
+\section*{Homework 8}
+\stepcounter{section}
+
+\begin{exercise}
+Let \(\chi\) be a character of a group \(\symrm{G}\) and \(g \in \symrm{G}\) an element of order \(2\). Show that either:
+\begin{enumerate}
+    \item \(\chi(g) \equiv \chi(e) \Mod 4\) or
+    \item \(\symrm{G}\) has a normal subgroup of index \(2\).
+\end{enumerate}
+\end{exercise}
+\begin{proof}
+Let \(\delta(h) = \det(\rho(h)), \forall h \in \symrm{G}\) be the character defined in the previous homework.
+\begin{itemize}
+    \item If \(-1 \in \ima \delta\), then we've shown that \(\symrm{G}\) contains a normal subgroup of index 2.
+    
+    \item Otherwise, a result from the course tells us that \(\chi(g) - \chi(e) = - 2t\), where \(t\) is the number of \(-1\)s on the diagonal of \(\rho(g)\) (after diagonalization). Since \(\det(\rho(g))\) must be \(1\), we have an even number of \(-1\)s, i.e.\ \(t = 2k\) for some \(k \in \naturals\). Therefore \(\chi(g) - \chi(e) = -4k\) or, equivalently, \(\chi(g) \equiv \chi(e) \Mod 4\) as claimed.
+\end{itemize}
+\end{proof}
+
+\begin{exercise}
+Prove that if \(g\) is a non-identity element of a group \(\symrm{G}\) then \(\chi(g) \neq \chi(e)\) for some character \(\chi\) of \(\symrm{G}\).
+\end{exercise}
+\begin{proof}
+Let \(\chi_{\text{reg}}\) be the regular character \(\symrm{G}\). A result from the course tells us that \(\chi_{\text{reg}}(g)\) is equal to \(\abs{\symrm{G}}\) only if \(g = e\) and is \(0\) otherwise. Since \(\abs{\symrm{G}} > 0\), we get that \(\chi_{\text{reg}} (g) \neq \chi_{\text{reg}} (e)\).
+\end{proof}
+
+\begin{exercise}
+If \(\chi\) is a character of a group \(G\), show that \(\chi + \overline{\chi}\) is also a character of \(G\).
+\end{exercise}
+\begin{proof}
+Let \(\rho\) be the representation associated to \(\chi\) (i.e. \(\chi(g) = \tr(\rho(g))\)). Take \(\overline{\rho}\) to be the representation \(\overline{\rho}(g) = \overline{\rho(g)}\). Clearly, \(\overline{\chi}(g) = \tr(\overline{\rho}(g))\).
+
+Consider the direct sum of these representations, \(\rho \directsum \overline{\rho}\), defined as
+\[
+    (\rho \directsum \overline{\rho})(g) = \begin{pmatrix}
+        \rho(g) & 0 \\
+        0 & \overline{\rho}(g)
+    \end{pmatrix}, \forall g \in \symrm{G}
+\]
+whence
+\[
+    \chi_{\rho \directsum \overline{\rho}}(g) = \tr(\rho(g) + \overline{\rho}(g)) = \tr(\rho(g)) + \tr(\overline{\rho}(g)) = \chi(g) + \overline{\chi}(g)
+\]
+proving that \(\chi + \overline{\chi}\) is a character of \(G\).
+\end{proof}

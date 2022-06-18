@@ -8,3 +8,7 @@ This repository contains my homework, problem solutions and other material I've 
 
 - [Commutative Algebra](year-1/semester-1/commutative-algebra/)
 - [Real and Fourier Analysis](year-1/semester-1/fourier/)
+
+### Semester 2
+
+- [Groups and Representations](year-1/semester-2/groups-and-representations/)

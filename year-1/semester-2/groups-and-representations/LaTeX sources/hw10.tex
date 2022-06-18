@@ -1,0 +1,80 @@
+\section*{Homework 10}
+\stepcounter{section}
+
+\begin{exercise}
+Let \(\symrm{G}\) be a group which has exactly 3 non-isomorphic irreducible \(\complex \symrm{G}\)-modules. Show that \(\symrm{G} \cong C_3\) or \(\symrm{G} \cong S_3\). Find in each case a CSI for \(\symrm{G}\).
+\end{exercise}
+\begin{solution}
+Since \(\symrm{G}\) has exactly 3 irreducible \(\complex \symrm{G}\)-modules, it must have 3 conjugacy classes. Denote them by \(C_e = \Set{e}\), \(C_g\) and \(C_h\).
+
+Since the conjugacy classes partition the group, we know that
+\[
+    \abs{\symrm{G}} = \abs{C_e} + \abs{C_g} + \abs{C_h} = 1 + \abs{C_g} + \abs{C_h}
+\]
+The cardinal of each conjugacy class divides the order of the group, and since the order of the group is the sum of the three terms written above, we have \(\abs{C_g} \divides (1 + \abs{C_h})\) and \(\abs{C_h} \divides (1 + \abs{C_g})\).
+
+Let us assume, without loss of generality, that \(\abs{C_g} \leq \abs{C_h}\). Then \(\abs{C_h} \divides (1 + \abs{C_g})\) implies that either \(\abs{C_h} = \abs{C_g} = 1\) or \(\abs{C_h} = 1 + \abs{C_g}\).
+
+In the first case, the group is abelian and isomorphic to \(C_3\). In the second case, we get that \(\abs{C_g} \divides (2 + \abs{C_g})\), hence \(\abs{C_g} = 1\) or \(\abs{C_g} = 2\).
+
+If \(\abs{C_g} = 1\), \(\abs{C_h} = 2\) and \(\abs{G} = 4\). But all groups of order 4 are abelian, whence \(\abs{C_h}\) should be equal to 1, a contradiction.
+
+If \(\abs{C_g} = 2\), \(\abs{C_h} = 3\) and \(\abs{G} = 6\). There is only one non-abelian group of order 6, namely \(S_3\).
+
+For the CSIs, for \(C_3\) we have three irreducible \(\complex \symrm{G}\)-modules of degree 1: the one corresponding to the trivial representation, the one given by \(\rho(a) = e^{\frac{2 \pi i}{3}}\) and the one given by \(\rho(a) = e^{\frac{4 \pi i}{3}}\). For \(S_3\), we have two irreducible \(\complex \symrm{G}\)-modules of degree 1: the trivial one and the one corresponding to the sign of the permutation; and an irreducible \(\complex \symrm{G}\)-module of degree 2, given by \(\rho(r) = \begin{pmatrix} e^{\frac{2 \pi i}{3}} & 0 \\ 0 & e^{\frac{-2 \pi i}{3}} \end{pmatrix}\), \(\rho(s) = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\).
+\end{solution}
+
+\begin{exercise}
+Suppose that \(\rho\) and \(\rho'\) are representations of \(\symrm{G}\) and that for any \(g \in \symrm{G}\) there exists an invertible matrix \(T_g\) such that \(\rho(g) = T_g^{-1} \rho'(g) T_g\). Show that \(\rho\) and \(\rho'\) are equivalent representations.
+\end{exercise}
+\begin{proof}
+Two representations over \(\complex\) of a finite group \(\symrm{G}\) are equivalent iff the corresponding characters are equal. In our case, \(\forall g \in \symrm{G}\) we have
+\[
+    \chi(g) = \tr(\rho(g)) = \tr(T_g^{-1} \rho'(g) T_g) = \tr(\rho'(g)) = \chi'(g)
+\]
+hence the representations are equivalent.
+\end{proof}
+
+\begin{exercise}
+Let \(\symrm{G}\) be a group of order 12.
+\begin{enumerate}
+    \item Show that \(\symrm{G}\) cannot have exactly 9 non-isomorphic irreducible \(\complex \symrm{G}\)-modules.
+
+    \item Show that \(\symrm{G}\) has 4, 6 or 12 non-isomorphic irreducible \(\complex \symrm{G}\)-modules. Find groups in which each of these possibilities is realized.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+The number of non-isomorphic irreducible \(\complex \symrm{G}\)-modules is equal to the number of conjugacy classes. We will therefore try to determine what restrictions exist for this number.
+
+Let \(C_1 = \Set{e}, C_2, \dots, C_k\) be the conjugacy classes of the group \(\symrm{G}\). Clearly, \(k \leq \abs{\symrm{G}}\).
+    
+The size of each conjugacy class divides the order of the group, hence \(\abs{C_i} \in \Set{ 1, 2, 3, 4, 6, 12 }\).
+
+We also know that the center of the group \(\symrm{G}\) is the union of all conjugacy classes of size 1. Being a subgroup of \(\symrm{G}\), its size must be a divisor of the order of the group. Hence, the number of irreducible characters of degree 1 must divide 12.
+
+A result from the course tells us that \(\abs{G} = \sum_{i = 1}^{k} d_i^2\), where \(d_i\) is the degree of the irreducible character \(\chi_i\). 
+
+Let us now analyse the possibilities:
+\begin{itemize}
+    \item If we have 12 irreducible characters of degree 1, then \(\symrm{G}\) is abelian, and there are precisely 12 types of non-isomorphic \(\complex \symrm{G}\)-modules.
+
+    \item If we have 6 irreducible characters of degree 1, then it is impossible to write \(\abs{\symrm{G}}\) as a sum of squares of divisors of 12.
+    
+    \item If we have 4 irreducible characters of degree 1, then the only possibility is \(\abs{\symrm{G}} = 4 + 2^2 + 2^2\). In this case, we have 6 distinct types of non-isomorphic \(\complex \symrm{G}\)-modules.
+    
+    \item If we have 3 irreducible characters of degree 1, then \(\abs{\symrm{G}} = 3 + 3^2\). In this case, we have 4 distinct types of non-isomorphic \(\complex \symrm{G}\)-modules.
+    
+    \item If we have only one irreducible characters of degree 1, it is impossible to write \(\abs{\symrm{G}}\) as a sum of squares of divisors of 12.
+\end{itemize}
+
+In conclusion, the number of irreducible \(\complex \symrm{G}\)-modules of \(\symrm{G}\) must be either 4, 6 or 12. It cannot be 9.
+
+Examples of groups for each of these cases:
+\begin{itemize}
+    \item Example of a group with 4 conjugacy classes: \(A_4\), with the conjugacy classes corresponding to the following decomposition types: \((4, 0, 0, 0)\), \((0, 2, 0, 0)\) and \((1, 0, 1, 0)\) (splits in two classes in \(A_4\)).
+    
+    \item Example of a group with 6 conjugacy classes: \(\dihedralgroup{6}\), with the conjugacy classes represented by \(e\), \(r\), \(r^2\), \(r^3\), \(s\) and \(r s\).
+    
+    \item Example of a group with 12 conjugacy classes: \(C_{12}\). Each element is in its own conjugacy class.
+\end{itemize}
+\end{solution}

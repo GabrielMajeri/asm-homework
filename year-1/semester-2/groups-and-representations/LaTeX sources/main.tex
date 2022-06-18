@@ -1,0 +1,90 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Better font selection
+\usepackage{fontspec}
+
+% Better enumerations
+\usepackage{enumerate}
+
+% Math support packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+% Encode math symbols as Unicode characters
+\usepackage[math-style=ISO]{unicode-math}
+
+% Activate the default math font
+\setmathfont{Latin Modern Math}
+% The default math font is missing the character for the set difference symbol
+\setmathfont[range=\setminus]{Asana Math}
+
+% Support for set notation
+\usepackage{braket}
+
+% Support for commenting-out blocks of code
+\usepackage{verbatim}
+
+% Custom solution environment
+\newenvironment{solution}{\par\addvspace{6pt}\textit{Solution.}}{\hfill\(\mdlgwhtsquare\)}
+
+% Create a new theorem style for the exercises
+\theoremstyle{definition}
+\newtheorem{exercise}{}[section]
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+\newcommand*{\naturals}{\symbb{N}}
+\newcommand*{\reals}{\symbb{R}}
+\newcommand*{\complex}{\symbb{C}}
+
+\newcommand*{\centerofgroup}{\symrm{Z}}
+\newcommand*{\centralizer}[2]{\symrm{C}_{#1}\left(#2\right)}
+
+\newcommand*{\vbar}{\, | \,}
+
+\DeclareMathOperator*{\divides}{\mid}
+\DeclareRobustCommand{\divisibleby}{%
+  \mathrel{\vbox{\baselineskip.65ex\lineskiplimit0pt\hbox{.}\hbox{.}\hbox{.}}}%
+}
+
+\newcommand*{\abs}[1]{\left|#1\right|}
+\newcommand*{\innerproduct}[2]{\left\langle#1, #2\right\rangle}
+\DeclareMathOperator{\tensor}{\otimes}
+
+\newcommand*{\generatedby}[1]{\left\langle#1\right\rangle}
+
+\newcommand*{\dihedralgroup}[1]{\symrm{D}_{#1}}
+
+\DeclareMathOperator*{\ord}{ord}
+\DeclareMathOperator*{\ima}{im}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator*{\Fix}{Fix}
+\DeclareMathOperator*{\directsum}{\oplus}
+
+\newcommand*{\Mod}[1]{\ (\symrm{mod}\ #1)}
+
+\title{Groups and Representations - Homework}
+\author{Gabriel Majeri}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\input{hw01}
+\input{hw02}
+\input{hw03}
+\input{hw04}
+\input{hw05}
+\input{hw06}
+\input{hw07}
+\input{hw08}
+\input{hw09}
+\input{hw10}
+\input{hw11}
+\input{hw12}
+\input{hw13}
+
+\end{document}

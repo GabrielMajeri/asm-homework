@@ -1,0 +1,103 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Support for commenting-out blocks of code
+\usepackage{verbatim}
+
+% Additional graphics commands
+\usepackage{graphicx}
+
+% Width/height calculations
+\usepackage{calc}
+
+% Provides more settings for the document title
+\usepackage{titling}
+
+% Reduce the empty space before the title a bit
+\setlength{\droptitle}{-5em}
+
+% Expanded functionalities for the enumeration commands
+\usepackage[shortlabels]{enumitem}
+
+% Support for plotting of functions
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Useful math commands
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+
+% Use Unicode characters to encode mathematical symbols
+\usepackage[
+    warnings-off={mathtools-colon,mathtools-overbracket}
+]{unicode-math}
+
+% Support for set builder notation
+\usepackage{braket}
+
+% Interactive hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor=magenta,
+    urlcolor=blue
+}
+
+% Change the default text and math font
+\defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
+\setmainfont{Heuristica}
+
+% Change the math font as well
+\setmathfont{TeX Gyre Termes Math}
+% Fix missing set difference symbol
+\setmathfont[range=\setminus]{Asana Math}
+
+% Useful math commands
+\newcommand*{\naturals}{\symbb{N}}
+\newcommand*{\integers}{\symbb{Z}}
+\newcommand*{\rationals}{\symbb{Q}}
+\newcommand*{\reals}{\symbb{R}}
+\newcommand*{\complex}{\symbb{C}}
+
+\newcommand*{\torus}{\symbb{T}}
+
+\newcommand*{\Mod}[1]{\ (\symrm{mod}\ #1)}
+
+% The upright `d` letter used for differentials and integrals
+% Code based on https://tex.stackexchange.com/a/60546/263993
+\newcommand*{\diff}{\mathop{}\!\symrm{d}}
+
+% Definitions for the absolute value and norm symbols
+% Based on https://tex.stackexchange.com/a/43009/263993
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+    \let\oldabs\abs
+    \def\abs{\@ifstar{\oldabs}{\oldabs*}}
+    %
+    \let\oldnorm\norm
+    \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+    %
+    \let\oldceil\ceil
+    \def\ceil{\@ifstar{\oldceil}{\oldceil*}}
+\makeatother
+
+\DeclareMathOperator*{\supp}{supp}
+
+% Document metadata
+\author{Gabriel Majeri}
+
+\begin{document}
+
+\input{homework1}
+\input{homework2}
+
+\end{document}

@@ -1,0 +1,479 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Expanded options for the enumeration commands
+\usepackage[shortlabels]{enumitem}
+
+% Set builder notation support
+\usepackage{braket}
+
+% Useful math commands
+\usepackage{amsmath}
+% Custom theorem environments
+\usepackage{amsthm}
+% Advanced math commands
+\usepackage{mathtools}
+
+% Support for plotting functions
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Better font specification support
+\usepackage{fontspec}
+
+% Encode mathematical symbols using Unicode
+\usepackage[
+    warnings-off={mathtools-colon,mathtools-overbracket}
+]{unicode-math}
+
+% Change the default text and math font
+\defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
+\setmainfont{Heuristica}
+
+% Change the math font as well
+\setmathfont{TeX Gyre Termes Math}
+% Fix missing set difference symbol
+\setmathfont[range=\setminus]{Asana Math}
+
+% Define a new theorem environment for the exam problems
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+
+% Define some useful math commands
+\newcommand*{\naturals}{\symbb{N}}
+\newcommand*{\reals}{\symbb{R}}
+\newcommand*{\complex}{\symbb{C}}
+
+% Definitions for the absolute value and norm symbols
+% Based on https://tex.stackexchange.com/a/43009/263993
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+    \let\oldabs\abs
+    \def\abs{\@ifstar{\oldabs}{\oldabs*}}
+    %
+    \let\oldnorm\norm
+    \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+    %
+    \let\oldceil\ceil
+    \def\ceil{\@ifstar{\oldceil}{\oldceil*}}
+\makeatother
+
+% The upright `d` letter used for differentials and integrals
+% Code based on https://tex.stackexchange.com/a/60546/263993
+\newcommand*{\diff}{\mathop{}\!\symrm{d}}
+
+% Document metadata
+\title{Dynamical Systems \\ Final Exam}
+\author{Gabriel Majeri \\ Group 501}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+~
+\begin{enumerate}[a)]
+    \item Let \(x\) be a point of \(K\). This means that \(x\) can be represented as
+    \[
+        0. \, d_1 d_2 d_3 \dots
+    \]
+    with \(d_k \in \Set{ 0, 9 }\), \(\forall k \in \naturals^*\). This representation is not unique, since \(0.999\dots\) and \(0.000\dots\) describe the same point on \(\symbb{S}^1\), but the argument holds no matter which representative we pick, as long as we are consistent.
+
+    Applying the expanding map \(f\) to such a number gives us
+    \[
+        0. \, d_2 d_3 \dots
+    \]
+    which still has all digits either \(0\) or \(9\). Hence, \(f(x)\) is also in \(K\). This shows that \(K\) is a forward invariant under \(f\).
+
+    To show that \(f\) is chaotic on \(K\), we need to show that it is topologically transitive, it has a dense set of periodic points and that it has a sensitive dependency on initial conditions.
+
+    \begin{itemize}
+        \item To show that \(f\) is topologically transitive on \(K\), take an enumeration of all of the non-empty words which can be formed using the two digits \(0\) and \(9\), ordered by length (e.g. \(0\), \(9\), \(00\), \(09\), \(90\), \(99\), \(000\) etc.). Define the number
+        \[
+            y = 0. \, 0 \, 9 \, 00 \, 09 \, 90 \, 99 \, 000 \dots
+        \]
+        which is clearly an element of \(K\). Its orbit is dense in \(K\): for any \(x \in K\) and \(k \in \naturals^*\), we can find an \(n\) large enough such that the first \(k\) digits of \(x\) and \(f^{\circ n} (y)\) match up (by the construction of \(y\)). Hence,
+        \[
+            d \left(x, \, f^{\circ n} (y)\right) \leq 10^{-k}
+        \]
+        and we can make \(k\) arbitrarily large.
+
+        \item For any point \(x \in K\), we are going to construct a set of periodic points which are closer and closer to it, thus proving their density. Write \(x\) out on digits as
+        \[
+            x = 0. \, x_1 x_2 x_3 \dots
+        \]
+        For any \(k \in \naturals^*\), define the point \(p_k \in K\) by taking the first \(k\) digits of \(x\) and repeating them infinitely often:
+        \begin{align*}
+            p_1 &= 0. \, x_1 \, x_1 \, x_1 \dots \\
+            p_2 &= 0. \, x_1 x_2 \, x_1 x_2 \dots \\
+            p_3 &= 0. \, x_1 x_2 x_3 \, x_1 x_2 x_3 \dots
+        \end{align*}
+        Clearly, \(p_k\) is periodic (with period \(k\)) and \(d \left(x, p_k\right) \leq 10^{-k}\).
+
+        \item Let \(x \in K\), written out on digits as
+        \[
+            x = 0. \, x_1 x_2 x_3 \dots
+        \]
+        Any open set \(U\) around \(x\) contains an open ball of radius \(1/k\) centered at \(x\) (for \(k\) large enough). Then, we can take
+        \[
+            y = 0. \, x_1 x_2 \dots x_{k - 1} x_k y_{k + 1} y_{k + 2} \dots
+        \]
+        where we've defined \(y_j = 9 - x_j\). Clearly, \(y \in U\).
+        
+        Since the first digit of \(f^k(x)\) and of \(f^k(y)\) do not match up, we get
+        \[
+            d\left(\, f^k(x), \, f^k(y)\right) > 1/10
+        \]
+        Thus, we have sensitive dependence on initial conditions.
+    \end{itemize}
+
+    We thus conclude that \(f\) is chaotic on \(K\).
+
+    The topological entropy of \(f\) restricted to \(K\) is \(\log 2\). We will prove this using the separated set definition of topological entropy. 
+    
+    Let \(\varepsilon = 10^{-k}\) for some \(k \in \naturals^*\). A maximal \(\left(n, \varepsilon\right)\)-separated set for \(K\) will be of the form
+    \[
+        A = \Set{ \frac{i}{10^{n + k}} | \begin{array}{c}
+                i = 0, 1, \dots, 10^{n + k} - 1, \\
+                i \text{ contains only \(0\)s and \(9\)s in its base 10 representation}
+            \end{array}
+        }
+    \]
+    The set of integers between \(0\) and \(10^{n + k} - 1\) which contain only \(0\) and \(9\) in their decimal representation is in bijection with the binary numbers from \(0\) to \(2^{n + k} - 1\). This means that
+    \[
+        \operatorname{Sep} \left(\left.f\right|_{K}, \varepsilon, n\right) = 2^{n + k}
+    \]
+    whence
+    \[
+        h_{\operatorname{top}} \left(\left.f\right|_{K}\right) = \log 2
+    \]
+    
+    \item Take the enumeration of words from above and consider the number obtained by concatenating them while adding an extra \(1\) in between the words:
+    \[
+        z = 0. \, 1 \, 0 \, 1 \, 9 \, 00 \, 1 \, 09 \, 1 \, 000 \, 1 \, \dots
+    \]
+    This number is not in \(K\), and neither are any of its forward iterates, since they will always contain at least one \(1\) in their decimal representation. However, by an argument similar to the one above, the orbit closure of \(z\) consists of the orbit itself and every point on the set \(K\).
+
+    Taking \(z\) instead to be
+    \[
+        z = 0. \, 5 5 5 5 5 \dots
+    \]
+    we get a point in \(\symbb{S}^1\) whose orbit closure consists only of itself (since it is a fixed point of the map \(f\)) and which is not in \(K\) (and hence neither is its orbit closure).
+
+    \item Let \(g \colon \symbb{S}^1 \to \symbb{S}^1\) be an orientation-preserving circle homeomorphism.
+
+    If \(g\) has a rational rotation number \(\rho(g) = \frac{p}{q}\), then every non-periodic point is heteroclinic under \(g^q\) to two points on the same periodic orbit or different periodic orbits. In either case, it cannot have a point whose \(\omega\)-limit set consists of the orbit itself and a Cantor set.
+
+    In the case that \(g\) has an irrational rotation number, a proposition from the course tells us that the \(\omega\)-limit set of a point \(x\) is independent of the point \(x\). In this case, it would be impossible to find a point whose orbit closure contains a Cantor set \(K\) and one whose orbit closure is disjoint from \(K\).
+
+    \item Let \(A \subseteq \symbb{S}^1\) be a measurable set for which \(f^{-1} (A) = A\). In order to prove that \(f\) is ergodic, we are going to show that \(\mu(A)\) is equal to either \(0\) or \(1\).
+    
+    Suppose that \(0 < \mu(A) < 1\). Clearly, we also have \(0 < \mu(\symbb{S}^1 \setminus A) < 1\). Since the Lebesgue measure is inner regular, we can assume that we have some non-empty closed sets \([a, b] \subseteq \mu(A)\) and \([c, d] \subseteq \symbb{S}^1 \setminus A\).
+
+    Write the number \(a\) out on digits:
+    \[
+        a = 0. a_1 a_2 a_3 \dots
+    \]
+    and do the same for the endpoints \(c\) and \(d\):
+    \begin{align*}
+        c &= 0. c_1 c_2 c_3 \dots \\
+        d &= 0. d_1 d_2 d_3 \dots
+    \end{align*}
+    Since \(c \neq d\), for a \(k\) large enough we have \(c_k \neq d_k\). In fact, since \(c < d\), we can even be sure that \(c_k < d_k\). Then the number
+    \[
+        x = 0. c_1 c_2 \dots c_{k - 1} c_k 9 \dots 9 a_1 a_2 a_3 \dots
+    \]
+    is in \([c, d]\), where we've added \(9\)s for as long as \(c_{k + 1}, c_{k + 2}, \dots\) is greater than \(a_1\) (we will add a finite number of \(9\)s, since otherwise we'd get \(c = d\)).
+
+    Let \(n\) be the index at which the subsequence \(a_1 a_2 a_3 \dots\) starts in the representation of \(x\) from above. Then
+    \[
+        f^n (x) = 0. a_1 a_2 a_3 \dots = a \in A
+    \]
+    whence
+    \[
+        x \in f^{-n} (A)
+    \]
+    But since \(f^{-1} (A) = A\), we get that \(f^{-n} (A) = A\), so \(x \in A\). This is in contradiction with the fact that \(x \in \symbb{S}^1 \setminus A\).
+
+    Hence, the sets \(A\) and \(\symbb{S}^1 \setminus A\) cannot both contain a non-empty closed interval. This shows that either one of the sets has measure \(0\), with the other having measure \(1\).
+
+    \item Fix a digit \(i \in \Set{ 0, \dots, 9 }\). Define the set \(A_i\) as ``the set of all \(x \in \symbb{S}^1\) for which the first digit (after the period) in the decimal expansion of \(x\) is \(i\)''.
+    Since we have an ambiguity when it comes to decimal expansions (e.g. \(0.4999\dots = 0.5000\dots\)), we will always consider the representative with repeating \(0\)s. All of these sets are measurable, since they are half-open intervals. For example, \(A_0 = [0, 0.1)\).
+
+    Let \(\chi_i \colon \symbb{S}^1 \to \Set{0, 1}\) be the characteristic function corresponding to the set \(A_i\). Since the map \(f\) is ergodic on \(\symbb{S}^1\), by Birkhoff's Ergodic Theorem we get that for \(\mu\)-almost every \(x\)
+    \[
+        \lim_{n \to \infty} \frac{1}{n} \sum_{k = 0}^{n - 1} \chi_i\left(\, f^k (x)\right) = \int_{\symbb{S}^1} \chi_i(x) \diff \mu(x)
+    \]
+    But note that \(\chi_i \circ f^k\) is precisely the function which determines whether the \(k\)-th digit (after the period) in the decimal expansion of \(x\) is equal to \(i\) or not. In fact,
+    \[
+        \sum_{k = 0}^{n - 1} \chi_i \left(f^{k} (x)\right) = \operatorname{card} \Set{ k | 1 \leq k \leq n, x_k = i }
+    \]
+    while
+    \[
+        \int_{\symbb{S}^1} \chi_i(x) \diff \mu(x) = \mu \left(A_i\right) = \mu \left([0, 1)\right) = \frac{1}{10}
+    \]
+
+    Rephrasing the ``\(\mu\)-almost every \(x\)'' condition, we have that for every \(i\) there exists a measurable set \(B_i\) with \(\mu\left(B_i\right) = 1\) such that
+    \[
+        \lim_{n \to \infty} \frac{1}{n} \operatorname{card} \Set{ k | 1 \leq k \leq n, x_k = i } = \frac{1}{10}
+    \]
+    for all \(x \in B_i\).
+
+    In particular, for a probability space, the intersection of a finite number of almost-sure events is still an almost-sure event. Hence, we have
+    \[
+        B = B_0 \cap \dots \cap B_9
+    \]
+    with \(\mu\left(B\right) = 1\). But \(B\) is just the set of all normal numbers in the set \([0, 1]\). Hence, \(\mu\)-almost every point \(x \in [0, 1]\) is normal.
+
+    Since the elements of the Cantor set only have the digits \(0\) and \(9\) in their decimal representation, they clearly cannot be normal. However, they are in bijection with the set of infinite binary sequences \(2^{\naturals}\), which is uncountable.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[a)]
+    \item Let \(F\) be the family of holomorphic functions
+    \[
+        F = \Set{ f_n \colon V \to \complex, \; f_n \coloneq p^{\circ n}_c }
+    \]
+    If \(U = \bigcup_{n = 0}^{\infty} \, f_n (V)\) excludes at least two distinct points from \(\complex\), then it means that all the functions from \(F\) avoid those values. Hence, by Montel's Theorem, the family \(F\) is normal.
+
+    However, this contradicts the assumption that \(z \in J_c\). Since the Julia set is the topological boundary of both the filled-in Julia set and the escaping set, any neighborhood of \(z\) contains points whose norm stays bounded under forward iterations of \(p_c\) \emph{and} points who escape to infinity. Hence, the family \(F\) cannot be normal on \(V\).
+
+    \item We want to show that the backward orbit of \(z\) is dense in \(J_c\). Let \(x\) be any (other) point of the Julia set \(J_c\) and \(U\) an open neighborhood \(U\) of \(x\). We need to check that the intersection
+    \[
+        U \cap \left(\bigcup_{n=1}^{\infty} p_c^{-n} (z)\right)
+    \]
+    is not empty. This is equivalent to finding a \(y \in U\) and \(n \in \naturals\) such that \(p_c^{\circ n} (y) = z\).
+
+    By what we've shown above, the set \(\bigcup_{n = 0}^{\infty} \, p_c^{\circ n} (U)\) excludes at most one point of \(\complex\). If this excluded point were \(z\), we'd necessarily have \(p_c^{-1} (z) = \Set{ z }\). In this case, it's clear that the backward orbit cannot be dense in \(J_c\). So we may assume that \(z\) is not the point excluded by the forward orbit of \(U\), hence there exists a \(y \in U\) and an \(n \in \naturals\) for which \(p_c^{\circ n} (y) = z\).
+
+    The definition of topological transitivity of \(p_c\) on \(J_C\) would be: for any open sets \(U\) and \(V\), there exists an \(n\) such that
+    \[
+        f^{\circ n}(U) \cap V \neq \emptyset
+    \]
+    But taking any point \(y \in U\) and \(z \in V\), this is precisely what we've shown above.
+
+    \item
+    ~
+    \begin{enumerate}[i)]
+        \item Let \(q_{\varepsilon} = \frac{1}{2} - \varepsilon\) for \(0 < \varepsilon < \frac{1}{2}\). We get
+        \begin{align*}
+            p_c \left(q_{\varepsilon}\right) &= \left(\frac{1}{2} - \varepsilon\right)^2 + \frac{1}{4}
+            = \frac{1}{4} - \varepsilon + \varepsilon^2 + \frac{1}{4} \\[0.5em]
+            &= \frac{1}{2} - \varepsilon(1 - \varepsilon) 
+            = \frac{1}{2} - \varepsilon'
+        \end{align*}
+        where \(\varepsilon' \coloneq \varepsilon (1 - \varepsilon) < \varepsilon\), which shows that points to the left of \(\frac{1}{2}\) are attracted to \(\frac{1}{2}\).
+        
+        Let \(r_{\varepsilon} = \frac{1}{2} + \varepsilon\) for \(0 < \varepsilon < \frac{1}{2}\). In this case, we have
+        \begin{align*}
+            p_c \left(r_{\varepsilon}\right) &= \left(\frac{1}{2} + \varepsilon\right)^2 + \frac{1}{4}
+            = \frac{1}{4} + \varepsilon + \varepsilon^2 + \frac{1}{4} \\[0.5em]
+            &= \frac{1}{2} + \varepsilon(1 + \varepsilon) = \frac{1}{2} + \varepsilon'
+        \end{align*}
+        where \(\varepsilon' \coloneq \varepsilon(1 + \varepsilon) > \varepsilon\), which shows that points to the right of \(\frac{1}{2}\) are in the escaping set.
+
+        \item A theorem from the course tells us that the basin of an attracting periodic orbit is contained within the Fatou set. On compact subsets of \(B\), the iterates of \(p_c\) converge uniformly to the constant function \(f(x) = \frac{1}{2}\). Hence, \(B\) is actually contained within the filled-in Julia set.
+
+        Another theorem from the course tells us that the filled-in Julia set is connected iff \(0\) is not in the escaping set. In our case, the forward iterates of \(0\) converge to \(\frac{1}{4}\). Hence the filled-in Julia set is connected. The interior of its only connected component, which is an open set, must correspond to the basin of attraction \(B\).
+
+        Applying the result from point b) to the value \(z = \frac{1}{2}\), which we've previously shown to be in the Julia set, we get that \(J_c \subseteq \partial B\). From the course we already had that \(\partial B \subseteq J_c\), so we can conclude that \(\partial B = J_c\).
+
+        \item A theorem from the course tells us that \(p_c\) is hyperbolic on \(J_c\) iff the closure of the orbit of \(0\) is disjoint from \(J_c\). We've just argued previously that \(0\) is inside the basin of attraction \(B\), hence the closure of its forward orbit contains \(\frac{1}{2} \in J_c\). So \(p_c\) is not hyperbolic on \(J_c\).
+
+        The polynomial \(p_{1/4}\) is not structurally stable, since it's on the boundary of the Mandelbrot set. For \(\delta \in \reals\) and \(\delta < 0\), the polynomial \(p_{1/4 + \delta}\) sits in the hyperbolic component of \(\symcal{M}\) which contains polynomials having an attracting fixed point. For \(\delta > 0\), the polynomial \(p_{1/4 + \delta}\) lands outside of the Mandelbrot set. It doesn't have attracting periodic points.
+    \end{enumerate}
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[a)]
+    \item The phase portrait of \(h\) is graphed in figure \ref{fig:phase_portrait_of_h}.
+    \begin{figure}[htbp]
+        \centering
+        \begin{tikzpicture}[
+                declare function={
+                    func(\x) = \x + 0.1 * ((sin(deg(pi * \x))) ^ 2)
+                ;
+              }
+            ]
+            
+            \begin{axis}[
+                axis x line=middle, axis y line=middle,
+                ymin=0, ymax=1.2, ytick={0,0.2,...,1}, ylabel=$y$,
+                xmin=0, xmax=1.2, xtick={0,0.2,...,1}, xlabel=$x$,
+                domain=0:1, samples=200
+            ]
+                \draw[dashed] (axis cs:0, 1) -- (axis cs:1, 1);
+                \draw[dashed] (axis cs:1, 0) -- (axis cs:1, 1);
+                \draw[dashed] (axis cs:0, 0) -- (axis cs:1, 1);
+    
+                \addplot [blue,thick] {func(x)};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Phase portrait of circle homeomorphism \(h\)}
+        \label{fig:phase_portrait_of_h}
+    \end{figure}
+
+    Since \(h (0) = h (1)\), this homeomorphism can be lifted to a map \(H \colon \reals \to \reals\), given by
+    \[
+        H(x) = x + \frac{1}{10} \sin^2 (\pi x)
+    \]
+    The rotation number is then
+    \begin{gather*}
+        \rho(H) = \lim_{n \to \infty} \frac{H^{\circ n} (x) - x}{n} \\
+        = \lim_{n \to \infty} \frac{x + \frac{1}{10} \sin^2 \left(\pi H^{\circ n - 1}(x)\right) - x}{n} \\
+        = \lim_{n \to \infty} \frac{\frac{1}{10} \sin^2 (\dots)}{n} \\
+        = 0
+    \end{gather*}
+
+    \item To show that \(h\) is uniquely ergodic, it's enough to show that the time averages of any continuous function iterated under \(h\) converge uniformly to a constant. In fact, we can just check this for a dense set of continuous functions, such as the trigonometric polynomials
+    \[
+        \varphi_m (x) = e^{2 \pi i \, m \, x}
+    \]
+
+    We have
+    \begin{align*}
+        \varphi_m (h (x)) = e^{2 \pi i \, m \, h(x)} &= e^{2 \pi i \, m \, \left(x + \frac{1}{10} \sin^2 (x)\right)} \\
+        &= e^{2 \pi i \, m \, x} \cdot e^{2 \pi i \, m \, \frac{1}{10} \sin^2(x)} \\
+        &= e^{2 \pi i \, m \, \frac{1}{10} \sin^2(x)} \cdot \varphi_m(x)
+    \end{align*}
+    whence
+    \[
+        \varphi_m \left(h^{\circ k} (x)\right) = e^{2 \pi i \, m \, k \, \frac{1}{10} \sin^2 \left(h^{\circ k - 1} (x)\right)} \cdot \varphi_m(x)
+    \]
+
+    Computing the time averages, we obtain
+    \begin{gather*}
+        \abs{\, \frac{1}{n} \sum_{k = 0}^{n - 1} \varphi_m \left(h^{\circ k} (x)\right)} = \frac{1}{n} \abs{\, \sum_{k = 0}^{n - 1} e^{2 \pi i \, m \, k \, \frac{1}{10} \sin^2 \left(h^{\circ k - 1} (x)\right) }} \\[0.5em]
+        \leq \frac{1}{n} \abs{\, \sum_{k = 0}^{n - 1} e^{2 \pi i \, \frac{m}{10} \, k}}
+        =
+        \frac{1}{n} \cdot \frac{\abs{1 - e^{2 \pi i \, \frac{m n}{10}}}}{\abs{1 - e^{2 \pi i \, \frac{m}{10}}}}
+        \leq
+        \frac{1}{n} \cdot \frac{2}{\abs{1 - e^{2 \pi i \frac{m}{10}}}} \xrightarrow[n \to \infty]{} 0
+    \end{gather*}
+    which proves that \(h\) is uniquely ergodic.
+
+    We can easily see that \(h\) is not topologically transitive by looking at a small neighborhood \(U\) of the point \(0.2\) (for example, an open ball of radius \(\varepsilon = 0.1\)) which intersects a small neighborhood of the point \(0.3\) (for example, another open ball of radius \(\varepsilon' = 0.1\)). As we keep iterating the map \(h\), all of the points in this neighborhood keep moving closer to the attracting fixed point \(1\). Eventually, they will all become larger than \(0.3 + \varepsilon'\) and never return, hence its not possible for \(h\) to be topologically transitive.
+
+    \item Fix \(\varepsilon > 0\) and set \(\delta_{\varepsilon} = \ceil{\frac{1}{\varepsilon}}\). Denote by \(E_0\) the set
+    \[
+        E_0 = \Set{ 0, \frac{1}{\delta_{\varepsilon}}, \dots, \frac{\delta_{\varepsilon} - 1}{\delta_{\varepsilon}} }
+    \]
+    This is clearly a \(\left(0, \varepsilon\right)\)-spanning set. For any \(n \in \naturals\), define
+    \[
+        E_n = \bigcup_{k = 0}^{n - 1} \, h^{-k} \left(E_0\right)
+    \]
+    We claim that this is an \(\left(n, \varepsilon\right)\)-spanning set for \(\symbb{S}^1\). In other words, for any \(x \in \symbb{S}^1\) there exists a \(y \in E_n\) for which \(d_n (x, y) < \varepsilon\).
+    
+    Assume the contrary, i.e.\ that there exists an \(x \in \symbb{S}^1\) with \(d_n (x, y) \geq \varepsilon\) for any \(y \in E_n\). Let \(z \in E_n\) be the point closest to \(x\) with respect to this distance. There are at most two points with this property, in which case \(x\) is equidistant to them and we can pick either of them for the purpose of our argument.
+    
+    By definition,
+    \[
+        d_n (x, z) = \max_{0 \leq k \leq n - 1} d \left(\, h^{\circ k} (x), \, h^{\circ k} (z)\right)
+    \]
+    hence there must be some \(k \in \Set{0, \dots, n - 1}\) for which
+    \[
+        d\left(\, h^{\circ k} (x), \, h^{\circ k} (z)\right) \geq \varepsilon
+    \]
+    This means that we can fit an open ball of radius \(\varepsilon\) (with respect to the distance \(d\)) between \(h^{\circ k} (x)\) and \(h^{\circ k} (z)\). But since \(E_0\) is a \(\left(0, \varepsilon\right)\)-spanning set, there exists some \(t \in E_0\) which is also contained in the interval
+    \[
+        I = \left(\, h^{\circ k} (x), \, h^{\circ k} (z)\right)
+    \]
+    (we've assumed without loss of generality that \(h^{\circ k} (x) < h^{\circ k} (z)\), otherwise the endpoints of the interval should be flipped).
+    
+    Since \(h\) is a homeomorphism, \(h^{\circ k}\) is as well, so the interval \((x, z)\) gets mapped to \(I = \left(\, h^{\circ k} (x), \, h^{\circ k} (z)\right)\) (again, with the endpoints possibly reversed). In particular, since \(t \in I\), we get that \(h^{-k} (t) \subset (x, z)\). This means that some preimage of \(t\), say \(t' \in h^{-k} \left(E_0\right) \subseteq E_n\), is closer to \(x\) than \(z\), a contradiction with our assumption that \(z\) was the point of \(E_n\) closest to \(x\).
+    
+    Hence, we can take \(E_n\) as an \(\left(n, \varepsilon\right)\)-spanning set and use it as an upper bound for the cardinality of a minimal spanning set. An estimate for the size of \(E_n\) is
+    \[
+        \abs{E_n} = \abs{\bigcup_{k = 0}^{n - 1} h^{-k} \left(E_0\right)} \leq \sum_{k = 0}^{n - 1} \abs{\, h^{-k} (E_0)} \leq \sum_{k = 0}^{n - 1} \abs{E_0} = n \, \abs{E_0} = n \cdot \delta_{\varepsilon}
+    \]
+    so the cardinality of a minimal \(\left(n, \varepsilon\right)\)-spanning set is at most \(n \cdot \delta_{\varepsilon}\). Thus,
+    \begin{align*}
+        h_{\text{top}} \left(\, f\right) &\leq \lim_{\varepsilon \to 0^{+}} \lim_{n \to \infty} \frac{1}{n} \log \left(n \cdot \delta_{\varepsilon}\right) \\
+        &= \lim_{\varepsilon \to 0^{+}} \lim_{n \to \infty} \left(\frac{\log n}{n} + \frac{\log \delta_{\varepsilon}}{n}\right) \\
+        &= \lim_{\varepsilon \to 0^{+}} 0 = 0
+    \end{align*}
+
+    \item No, \(p_{1/4}\) cannot even be semi-conjugate to \(h\).
+    
+    We know that \(p_{1/4}\) is topologically transitive on \(J_{1/4}\) (we've proven this in 2.\ b)), hence a semi-conjugacy would imply that \(h\) is also topologically transitive. But we've shown in 3.\ b) that \(h\) is \emph{not} topologically transitive.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[a)]
+    \item We recall that a map \(T\) is called \emph{topologically mixing} if, for any two open sets \(U\) and \(V\), there exists an \(n \in \naturals^*\) such that
+    \[
+        T^{\circ k} \left(U\right) \cap V \neq \emptyset
+    \]
+    for all \(k \geq n\).
+
+    Since \(T\) on \(\Lambda\) is topologically conjugate to \(\sigma\) on \(\Sigma_2\), it is enough to show that \(\sigma\) is topologically mixing. Furthermore, we know from the course that a basis of open sets for \(\Sigma_2\) is given by \emph{cylinder sets}, i.e.\ sets of the form
+    \[
+        C^{i_1, \dots, i_p}_{a_1, \dots, a_p} = \Set{ w \in \Sigma_2 | w_{i_1} = a_1, \dots, w_{i_p} = a_p }
+    \]
+    with \(i_1 < \dots < i_p\) and \(a_i \in \Set{ 0, 1 }\) for all \(i\). It is enough to check the topological mixing condition on cylinder sets, since these generate all the other open sets.
+
+    Set \(U\) and \(V\) to be
+    \[
+        U = C^{i_1, \dots, i_p}_{a_1, \dots, a_p} \qquad V = C^{j_1, \dots, j_q}_{b_1, \dots, b_q}
+    \]
+    and let \(n = \abs{\, i_p} + \abs{\, j_1} + 1\). Applying the shift map \(n\) times to \(U\) turns it into
+    \[
+        \sigma^{\circ n} \left(U\right) = C^{i_1 - \abs{\, i_p} - \abs{\, j_1} - 1, \, \dots, \, i_p - \abs{\, i_p} - \abs{\, j_1} - 1}_{a_1, \, \dots, \, a_p}
+    \]
+    Since \(i_1 - \abs{\, i_p} - \abs{\, j_1} - 1 < \dots < i_p - \abs{\, i_p} - \abs{\, j_1} - 1 < j_1\), we can take any word from \(V\) and it will be contained in \(\sigma^{\circ n} \left(U\right)\). The same holds true for all \(k \geq n\). Hence, \(\sigma\) is topologically mixing on \(\Sigma_2\), and this ensures that \(T\) is as well.
+
+    \item Let \(A\) be a \(T\)-invariant measurable set. For any other measurable set \(B\), we have
+    \begin{gather*}
+        \lim_{n \to \infty} \mu(T^{-n} \left(A\right) \cap B) = \mu(A) \mu(B) \\
+        \implies
+        \mu(A \cap B) = \mu(A) \mu(B)
+    \end{gather*}
+
+    In particular, taking \(B\) to be \(A^c\) (the complement of \(A\)), we have
+    \[
+        \mu(A \cap A^c) = \mu(\emptyset) = 0 = \mu(A) \mu(A^c)
+    \]
+    and since the real numbers have no non-trivial zero divisors, we deduce that either \(\mu(A) = 0\) or \(\mu(A^c) = 0\). The latter possibility implies \(\mu(A) = 1\). Hence, the measure \(\mu\) is ergodic.
+
+    In the course, we constructed an ergodic measure on \(\Sigma_2\), called the \emph{Bernoulli measure}. For any \(p = \left(p_0, p_1\right)\) a probability vector (\(p_1\) and \(p_2\) are two non-negative real numbers with \(p_1 + p_2 = 1\)), we can define the corresponding measure on cylinder sets by
+    \[
+        \mu_p \left(C^{i_1, \dots, i_k}_{a_1, \dots, a_k}\right) = \prod_{i = 1}^{k} p_{a_i}
+    \]
+    
+    Since Smale's horseshoe is topologically conjugate to \(\Sigma_2\), we can push forward the Bernoulli measure to it:
+    \[
+        \mu (U) = \mu_p \left(\, f^{-1} \left(U\right)\right)
+    \]
+    where \(f \colon \Sigma_2 \to \Lambda\) is a topological conjugacy and \(U\) is any Borel set in \(\Lambda\).
+
+    To show that \(\mu\) is strongly mixing on \(\Lambda\), we will show that \(\mu_p\) is strongly mixing on \(\Sigma_2\). This can be checked on cylinder sets.
+    
+    Let \(U\) and \(V\) be
+    \[
+        U = C^{i_1, \dots, i_s}_{a_1, \dots, a_s} \qquad V = C^{j_1, \dots, j_t}_{b_1, \dots, b_t}
+    \]
+    and set \(N = \abs{\, i_s} + \abs{\, j_1} + 1\). For \(K \geq N\), the index sets of \(U\) and \(V\) become disjoint. Hence, we have
+    \begin{gather*}
+        \mu(T^{-K} (U) \cap V) = \mu\left(C^{i_1', \dots, i_s'}_{a_1, \dots, a_s} \cap C^{j_1, \dots, j_t}_{b_1, \dots, b_t}\right) = \\[0.5em]
+        = \mu\left(C^{i_1', \dots, i_s', j_1, \dots, j_t}_{a_1, \dots, a_s, b_1, \dots, b_t}\right) = \mu\left(C^{k_1, \dots, k_{s + t}}_{c_1, \dots, c_{s + t}}\right) = \prod_{i = 1}^{s + t} p_{c_i} = \\
+        = \left(\prod_{i = 1}^{s} p_{a_i}\right) \left(\prod_{i = 1}^{t} p_{b_i}\right) = \mu\left(C^{i_1, \dots, i_s}_{a_1, \dots, a_s}\right) \mu\left(C^{j_1, \dots, j_t}_{b_1, \dots, b_t}\right) = \mu(U) \mu(V)
+    \end{gather*}
+    where we've denoted by \(i_q'\) the shifted indexes \(i_q - \abs{\, i_s} + \abs{\, j_1} - 1\). This shows that \(\mu_p\) is strongly mixing, whence \(\mu\) is as well.
+    
+    As long as \(p_0 \neq 0\) and \(p_1 \neq 0\), the support of the measure \(\mu_p\) is the whole space \(\Sigma_2\) (and the support of \(\mu\) is \(\Lambda\)). For any point \(x \in \Sigma_2\), all of its proper open neighborhoods (cylinder sets containing \(x\)) have non-zero measure.
+\end{enumerate}
+\end{problem}
+
+\end{document}

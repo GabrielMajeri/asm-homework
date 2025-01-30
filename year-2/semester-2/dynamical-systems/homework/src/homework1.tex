@@ -1,0 +1,229 @@
+\setcounter{problem}{0}
+
+\title{Dynamical Systems \\ Homework 1}
+\date{April 19, 2023}
+
+\maketitle
+
+\begin{problem}
+~
+\begin{enumerate}[a)]
+    \item Let \(x \in K\). The effect of \(E_3\) on \(x\) (when viewed as a number in base \(3\)) is to shift all of its digits to the left, discarding the integer part. If we write \(x\) out as\footnote{The ternary representation of points on the circle isn't unique, but the argument holds no matter which representative we pick.} \(x = 0.d_1 d_2 d_3 \dots\), with \(d_k \in \Set{0, 2}\), \(\forall k \geq 1\), then \(E_3 (x) = 0.d_2 d_3 \dots\), where \(d_k \in \Set{0, 2}\), \(\forall k \geq 2\). Clearly, this number is still in \(K\). Hence, \(K\) is forward invariant under \(E_3\).
+
+    For topological transitivity, consider an enumeration of all of the ternary sequences consisting only of the digits \(0\) and \(2\), ordered by increasing length: \(0\), \(2\), \(00\), \(02\), \(20\), \(22\), \(000\), \(002\) etc. Concatenate all of these sequences, obtaining a number which contains only \(0\)s and \(2\)s:
+    \[
+        y = 0. \, 0 \, 2 \, 00 \, 02 \, 20 \, 22 \, 000 \, 002 \, \dots
+    \]
+    The map \(E_3\) is topologically transitive on \(K\) because the orbit of \(y\) is dense in \(K\). For a fixed \(x \in K\) and \(\varepsilon > 0\), let \(k\) being the smallest integer for which \(3^{-k} < \varepsilon\). Pick an \(n\) large enough such that the first \(k\) digits of \(x\) and \(f^n(y)\) match (we can always do this, since our enumeration contains all sequences of \(k\) digits). Then \(d\left(x, \, f^n(y)\right) = 3^{-k} < \varepsilon\).
+
+    \item Take the enumeration of all sequences consisting of the digits \(0\) and \(2\), as above, but this time insert an extra \(1\) between them when concatenating:
+    \[
+        y = 0. \, 1\, 0 \, 1 \, 2 \, 1 \, 00 \, 1 \, 02 \, 1 \, 20 \, 1 \, 22 \, 1 \, \dots
+    \]
+    Clearly, \(E_3^n (y) \not\in K\), \(\forall n \geq 0\), since no matter how many digits (a finite number) we remove from the beginning of \(y\), there will always be a \(1\) left, which prevents it from being in \(K\). Furthermore, by a similar argument as above, the orbit of \(y\) is dense in \(K\). Hence, the orbit closure consists of the points of the orbit itself and \(K\).
+
+    \item Take, for example, the point \(z = 0.11111\dots\). This point is a fixed point for \(E_3\) (hence, its \(\omega\)-limit set consists only of itself) and it is clearly not in \(K\). Hence, \(K\) is not an attractor for the dynamics of \(E_3\) on \(\symbb{S}^1\).
+
+    \item Similarly to how we did for \(\left(\Sigma_3^+, \sigma\right)\) and \(\left(\symbb{S}^1, E_3\right)\), we can construct an explicit semi-conjugacy from \(\left(\Sigma_{2}^{+}, \sigma\right)\) to \(\left(K, \left.E_3\right|_{K}\right)\): take a string of binary digits and map the \(0\)s to \(0\)s and the \(1\)s to \(2\)s. This will give us a number in ternary, containing only \(0\)s and \(2\)s, meaning it will be in \(K\).
+    
+    It is easy to see that this map is surjective (but not injective, due to the multiple ways we could represent the same number in ternary) and continuous (with respect to the subspace topology on \(K\)).
+    
+    A result from the course lets us conclude that \(h_{top} \left(\left.E_3\right|_{K}\right) \leq h_{top} (\sigma) = \log 2\). 
+    
+    To prove that we have equality in this case, we will follow the steps from the proof in the course. Letting \(\varepsilon = \frac{1}{3^k}\) for \(k \in \naturals^*\), a maximal \((n, \varepsilon)\)-separated set for \(K\) will be of the form
+    \[
+        A = \Set{ \frac{j}{3^{n + k}} | \begin{array}{c}
+                j = 0, 1, \dots, 3^{n + k} - 1, \\
+                j \text{ doesn't contain a \(1\) in its base 3 representation}
+            \end{array}
+        }
+    \]
+    The set of \(j\)s between \(0\) and \(3^{n + k} - 1\) which don't contain a \(1\) in their ternary representation is in bijection with the binary numbers from \(0\) to \(2^{n + k} - 1\). This means that
+    \[
+        \operatorname{Sep} \left(\left.E_3\right|_{K}, \varepsilon, n\right) = 2^{n + k}
+    \]
+    whence
+    \[
+        h_{\operatorname{top}} \left(\left.E_3\right|_{K}\right) = \log 2
+    \]
+
+    \item The map \(h\) is continuous, surjective and we also have that
+    \[
+        (g \circ h) (t) = 4 \cos^3 (2 \pi t) - 3 \cos (2 \pi t) = \cos (2 \pi \cdot 3t) = (h \circ E_3) (t)
+    \]
+    (where we've used the trigonometric identity \(\cos (3x) = 4 \cos^3 (x) - 3 \cos (x)\)). Hence \(h\) is a semi-conjugacy from \(\left(\symbb{S}^1, E_3\right)\) to \(\left([-1, 1], g\right)\). Since \(E_3\) is chaotic, a result from the course lets us conclude that \(g\) is as well.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[a)]
+    \item Since \(J\) is a \emph{finite} collection of words of \emph{finite} length, we can determine \(M \in \naturals\), the maximum length of any of the words in \(J\).
+
+    Let \(W\) be an enumeration of all of the words of length equal to \(M\) that we can form with the letters \(\Set{0, 1, \dots, n-1}\). This is a finite sequence of exactly \(n^M\) words.
+    
+    We will show that \(X_{J}\) is a subshift of finite type for an alphabet of \(n^M\) letters. Construct an \(n^M \times n^M\) transition matrix \(A\) as follows:
+    \begin{itemize}
+        \item Fill the matrix with \(1\)s.
+        \item Assign a row/column to each one of the \(n^M\) words mentioned above.
+        \item Fill with \(0\)s the rows and columns corresponding to words which appear in \(J\), or which contain subwords present in \(J\).
+        \item Take every possible row-column combination and write a \(0\) in the corresponding entry in the matrix if concatenating the word of length \(M\) corresponding to the row with the word of length \(M\) corresponding to the column would result in a word of length \(2M\) which contains a subword from \(J\).
+    \end{itemize}
+    
+    By construction, the words generated by this transition matrix are in \(X_J\). We explicitly do not allow words of length \(M\) which contain subwords from \(J\), and the transitions between any two such words cannot generate a word from \(J\).
+    
+    For the inclusion \(X_J \subseteq \Sigma_A\), note that we can break up any sequence from \(X_J\) into words of length \(M\). These words will appear in \(A\) (since, by the definition of \(X_J\), they cannot contain any subword from \(J\)) and the transition between any two of them will also be valid (again, since the only way it wouldn't be is if were to generate a subword from \(J\)).
+
+    \item Notice that the word \([0, 1, 0]\) contains the word \([0, 1]\); hence, a transition matrix which prevents the generation of the word \([0, 1]\) will also prevent the generation of words which contain the word \([0, 1, 0]\). We can therefore work with \(J' = \Set{ [0, 1] }\).
+
+    We will construct a \(2^2 \times 2^2 = 4 \times 4\) transition matrix, for \(\Sigma_4\), where we will label the four letters with \(00\), \(01\), \(10\) and \(11\). Initially, we will fill it out with \(1\)s:
+    \[
+        A = \begin{pmatrix}
+            1 & 1 & 1 & 1 \\
+            1 & 1 & 1 & 1 \\
+            1 & 1 & 1 & 1 \\
+            1 & 1 & 1 & 1
+        \end{pmatrix}
+    \]
+    Then we will zero out the row and column corresponding to \(01\):
+    \[
+        A = \begin{pmatrix}
+            1 & 0 & 1 & 1 \\
+            0 & 0 & 0 & 0 \\
+            1 & 0 & 1 & 1 \\
+            1 & 0 & 1 & 1
+        \end{pmatrix}
+    \]
+    Now we will replace with zero the transitions which would generate the forbidden word \(01\): the one between \(00\) and \(10\), the one between \(00\) and \(11\), the one between \(10\) and \(10\), the one between \(10\) and \(11\).
+    \[
+        A = \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 \\
+            1 & 0 & 0 & 0 \\
+            1 & 0 & 1 & 1
+        \end{pmatrix}
+    \]
+    This is the transition matrix we were looking for.
+
+    \item Let \(w \in X\). If \(w_0 = 1\), then after applying \(\sigma\) there will be (possibly) one less \(i < j\) pair we have to check. All the other pairs will still respect the condition defining \(X\), since whenever we had before
+    \begin{gather*}
+        w_{i} = 1, w_{i+1} = 0, \dots, w_{i+l-1} = 0, w_{i+l} = 1 \\
+        w_{j} = 1, w_{j+1}= 0, \dots, w_{j+m-1} = 0, w_{j+m} = 1
+    \end{gather*}
+    with \(i < j\) and \(i + m \leq j\), we now have
+    \begin{gather*}
+        w_{i - 1} = 1, w_{i} = 0, \dots, w_{i+l-2} = 0, w_{i+l-1} = 1 \\
+        w_{j-1} = 1, w_{j} = 0, \dots w_{j+m-2} = 0, w_{j+m-1} = 1
+    \end{gather*}
+    with \(i - 1 < j - 1\) and \((i - 1) + m \leq j - 1\). Clearly, \(l < m\) still holds. Hence, \(X\) is a \(\sigma\)-invariant set.
+
+    We will now prove that \(X\) is not a subshift of finite type by deriving a contradiction. Suppose it were so. Let \(A\) be a transition matrix which generates \(X\), with an alphabet of size \(N\) (\(\geq 2\), could be larger as we had above). Let \(M\) be the maximum length of a binary sequence this alphabet can encode. Then we generate a new word as follows: start with the sequence \(1 \, 0 \, \dots \, 0 \, 1\) of length at least \(5M\), then generate a sequence \(0 \, 0 \dots 0 \, 1\) of length \(6M\). Continue with an infinite sequence of \(0\)s. This word must be allowed by \(A\), since it's clearly in \(X\).
+    
+    We now generate a new word by following the stpes above, but with the following modification: after generating the initial sequence of \(1 \, 0 \, \dots \, 0 \, 1\), continue with a sequence of \(0 \, 0 \dots 0 \, 1\) of length no more than \(4M\). We can clearly do this, since we generate subwords in blocks of length \(M\), and we've just seen above that we can generate a block of only \(0\)s and a block of \(0\)s ended with a \(1\). The matrix \(A\) cannot prevent this transition, since after the moment we generate the first block of \(0\)s after the initial block of \(1 \, 0 \, \dots \, 0 \, 1\), it doesn't know how many more blocks of zeros we intend to generate before adding a new \(1\). Thus, \(A\) allows us to generate a word which is not in \(X\), contradicting the assumption that this is a subshift of finite type.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[a)]
+    \item Since \(c = -6 < -2\), a theorem by Milnor and Thurston tells us that the Julia set is a Cantor set contained in \(\reals\).
+
+    To determine exactly what \(J_c\) is, we begin by remarking that the only fixed points of \(p_c\) are \(-2\) and \(3\). Evaluating the derivative \(p'_c\) at these points, we remark that both are \emph{repelling}. Hence, a result from the course lets us conclude that \(-2 \in J_c\) and \(3 \in J_c\).
+    
+    Using Corollary 4.13 from Milnor's book \textit{Dynamics in one complex variable}, we have that the set of all preimages of any point in \(J_c\) is dense in \(J_c\). Let \(x \in (-6, 6)\). The preimages of \(x\) through \(p_c\) are \(\pm \sqrt{6 + x}\). The preimages of \(x\) through \(p_c^2\) are \(\pm \sqrt{6 \pm \sqrt{6 + x}}\), through \(p_c^3\) are \(\pm \sqrt{6 \pm \sqrt{6 \pm \sqrt{6 + x}}}\), and so on. These preimages hint towards how we should construct the explicit conjugacy with \(\left(\Sigma_2^+, \sigma\right)\).
+
+    Let \(w = (w_0 \, w_1 \, w_2 \, \dots) \in \Sigma^{+}_{2}\), where \(w_j \in \Set{ 0, 1 }\) for all \(j \in \naturals\). Map this to the real number \(\varphi(w)\), where
+    \[
+        \varphi(w) = (-1)^{w_0} \cdot \sqrt{6 + (-1)^{w_1} \cdot \sqrt{6 + (-1)^{w_2} \cdot \sqrt{6 + \dots}}}
+    \]
+    This map is a conjugacy, because
+    \[
+        \left(p_c \circ \varphi\right)(w) = (-1)^{w_1} \cdot \sqrt{6 + (-1)^{w_2} \cdot \sqrt{6 + \dots}} = \left(\varphi \circ \sigma\right) (w)
+    \]
+    It is bijective because, for any number \(z \in J_c\), we can look at the sequence of signs we get when iterating it through \(p_c\), and this will give us the inverse map back to \(\Sigma^{+}_{2}\).
+
+    As for the topological entropy of the maps \(p_c \colon \reals \to \reals\) and \(p_c \colon \complex \to \complex\), in both cases it is equal to \(\log 2\). For the real map, it's due to Milnor's and Thurston's theorem, while for the complex map, it's due to Bowen's theorem.
+
+    \item Let \(c = \frac{1}{4}\).
+    \begin{enumerate}[i)]
+        \item Since \(p_c (z) = z^2 + \frac{1}{4}\), the equation for fixed points becomes
+        \[
+            p_c(z) = z \iff z^2 + \frac{1}{4} = z \iff z^2 - z + \frac{1}{4} = 0 \iff \left(z - \frac{1}{2}\right)^2 = 0
+        \]
+        whence the only fixed point is \(z = \frac{1}{2}\).
+
+        Let \(r_{\varepsilon} = \frac{1}{2} + \varepsilon\) for \(0 < \varepsilon < \frac{1}{2}\). Then, we get
+        \begin{align*}
+            p_c \left(r_{\varepsilon}\right) &= \left(\frac{1}{2} + \varepsilon\right)^2 + \frac{1}{4} \\
+            &= \frac{1}{4} + \varepsilon + \varepsilon^2 + \frac{1}{4} \\
+            &= \frac{1}{2} + \varepsilon(1 + \varepsilon) > \frac{1}{2} + \varepsilon
+        \end{align*}
+        which shows that points to the right of \(\frac{1}{2}\) are in the escaping set.
+
+        Let \(q_{\varepsilon} = \frac{1}{2} - \varepsilon\) for \(0 < \varepsilon < \frac{1}{2}\). Then, we get
+        \begin{align*}
+            p_c \left(q_{\varepsilon}\right) &= \left(\frac{1}{2} - \varepsilon\right)^2 + \frac{1}{4} \\
+            &= \frac{1}{4} - \varepsilon + \varepsilon^2 + \frac{1}{4} \\
+            &= \frac{1}{2} - \varepsilon(1 - \varepsilon) \\
+            &= \frac{1}{2} - \varepsilon'
+        \end{align*}
+        where \(\varepsilon' \coloneq \varepsilon (1 - \varepsilon) < \varepsilon\), which shows that points to the left of \(\frac{1}{2}\) are attracted to \(\frac{1}{2}\).
+
+        \item A theorem from the course tells us that the basin of an attracting periodic orbit is contained within the Fatou set. On compact subsets of \(\symcal{B}\), the iterates of \(p_c\) converge uniformly to the constant function \(f(x) = \frac{1}{2}\).
+
+        We also know that the Julia set is a perfect set, and another theorem from the course tells us that the filled-in Julia set is connected iff \(0\) is not in the escaping set. In our case, the forward iterates of \(0\) converge to \(\frac{1}{4}\). Hence the filled-in Julia set is connected. The interior of its only connected component must be the basin of attraction \(\symcal{B}\).
+
+        As for the topological entropy, again we get \(\log 2\) for \(p_c \colon \complex \to \complex\) (due to Bowen's theorem), but \(0\) for \(p_c \colon \reals \to \reals\) (because \(J_c \cap \reals\) is a finite set, consisting of only two points: \(1/2\) and \(-1/2\)).
+    \end{enumerate}
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+We've shown in the course that \(\left(\Lambda, \, f\right)\) is conjugate to \(\left(\Sigma_{2}, \sigma\right)\). Hence, we can identify the two points \(x, y \in \Lambda\) as two infinite sequences:
+\begin{align*}
+    x &= \left(\dots, x_{-2}, x_{-1}, \; x_1, x_2, \dots\right) \\
+    y &= \left(\dots, y_{-2}, y_{-1}, \; y_1, y_2, \dots\right)
+\end{align*}
+where the \(x_i\)s and \(y_i\)s are either \(0\) or \(1\). 
+
+Now, define a new point \(z\) as:
+\[
+    z = \left(\dots, y_{-3}, y_{-2}, y_{-1}, \; x_1, x_2, x_3, \dots\right)
+\]
+This point is heteroclinic to \(x\) and \(y\):
+\begin{itemize}
+    \item When \(n \to \infty\), the forward iterates of \(z\) match the forward iterates of \(x\) in more and more places: first they are equal on the sequence \(\left(\dots, x_1, \; x_2, \dots\right)\), then on \(\left(\dots, x_1, x_2, \; x_3, x_4, \dots\right)\) etc.
+
+    \item When \(n \to -\infty\), the backward iterates of \(z\) match the backward iterates of \(y\) in more and more places: \(\left(\dots, y_{-2}, \; y_{-1}, \dots\right)\), \(\left(\dots, y_{-4}, y_{-3}, \; y_{-2}, y_{-1}, \dots\right)\) etc.
+\end{itemize}
+By the definition of the distance function on \(\Sigma_{2}\), the orbits get closer and closer.
+
+To construct a countable set of points with this behavior, it is enough to insert a finite number of extra symbols ``in the middle'' of \(z\). The points we generate will require more right/left shifts before their distance from the orbit of \(x\) (respectively from the orbit of \(y\)) starts to decrease.
+\end{problem}
+
+\begin{problem}
+Since \(\left(X, d\right)\) is a \emph{compact} metric space, the map \(f\) is \emph{uniformly} continuous by \href{https://en.wikipedia.org/wiki/Heine\%E2\%80\%93Cantor_theorem}{the Heine-Cantor theorem}. In other words, for any \(\varepsilon > 0\), there exists a \(\delta > 0\) such that \(d(f(x), \, f(y)) < \varepsilon\) whenever \(d(x, y) < \delta\).
+
+Since the composition of two continuous functions is also continuous, we can deduce that \(f^{\circ n}\) is uniformly continuous, for any \(n \in \naturals\).
+
+We will now prove that the metrics \(d_n\) induce the same topology on \(X\) by showing that they all induce the same topology as \(d_1\) (which is equal to \(d\)). It suffices to show that any open ball with respect to the metric \(d_n\) contains an open ball with respect to the metric \(d\), and vice-versa.
+
+Let \(x \in X\). Then the open ball around \(x\) of radius \(r\), with respect to the metric \(d_n\), is
+\begin{align*}
+    B(x, r; d_n) &= \Set{ y \in X | d_n(x, y) < r } \\
+    &= \Set{ y \in X | \left(\max_{0 \leq k \leq n-1} d\left(f^k(x), \, f^k(y)\right)\right) < r }
+\end{align*}
+In particular, for \(n = 1\) we have:
+\[
+    B(x, r; d_1) = \Set{ y \in X | d(x, y) < r }
+\]
+which is just a regular open ball with respect to the metric \(d\).
+
+Since
+\[
+    d(x, y) = d\left(f^0(x), f^0(y)\right) \leq \max_{0 \leq k \leq n-1} d\left(f^k(x), \, f^k(y)\right),
+\]
+we can deduce that, whenever \(y \in B(x, r; d_n)\), we also have \(y \in B(x, r; d_1)\). Therefore, \(B(x, r; d_n) \subseteq B(x, r; d_1)\).
+
+For the other inclusion, note that we can't just directly use the same radius for the \(d_1\) ball as for the \(d_n\) one, since \(f\) (and its forward iterates) might be expanding maps, which increase the distance between points. Instead, letting \(\varepsilon \coloneq r\), we can use the uniform continuity of the iterates of \(f\) to obtain a single \(\delta > 0\) such that \(d\left(f^k(x), \, f^k(y)\right) < \varepsilon\) whenever \(d(x, y) < \delta\), for \textbf{all} \(0 \leq k \leq n - 1\) (for example, take \(\delta\) to be the minimum of the \(\delta\)s for each \(f^k\)). Thus, for \(y \in B(x, \delta; d_1)\), we obtain that \(y \in B(x, \varepsilon = r; d_n)\). In other words, \(B(x, \delta; d_1) \subseteq B(x, r; d_n)\)
+\end{problem}

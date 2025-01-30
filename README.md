@@ -15,8 +15,13 @@ This repository contains my homework, problem solutions and other material I've 
 
 ## Year 2
 
+### Semester 1
+
+- [Algebraic Geometry II](year-2/semester-1/algebraic-geometry/)
+
 ### Semester 2
 
+- [Dynamical Systems](year-2/semester-2/dynamical-systems/)
 - [Partial Differential Equations](year-2/semester-2/partial-differential-equations/)
 
 ## License

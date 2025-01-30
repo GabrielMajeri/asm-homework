@@ -1,0 +1,26 @@
+%% Definitions of commonly-used commands
+
+% Definitions for the absolute value and norm symbols
+% Based on https://tex.stackexchange.com/a/43009/263993
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+    \let\oldabs\abs
+    \def\abs{\@ifstar{\oldabs}{\oldabs*}}
+    %
+    \let\oldnorm\norm
+    \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+% The upright `d` letter used for differentials and integrals
+% Code based on https://tex.stackexchange.com/a/60546/263993
+\newcommand*{\diff}{\mathop{}\!\symrm{d}}
+
+\newcommand*{\naturals}{\symbb{N}}
+\newcommand*{\reals}{\symbb{R}}
+
+\newcommand*{\innerproduct}[2]{\left\langle #1, #2 \right\rangle}

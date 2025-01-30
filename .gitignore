@@ -1,2 +1,5 @@
 # Ignore Jupyter Notebook file checkpoints
 .ipynb_checkpoints/
+
+# MacOS temporary cache files
+.DS_Store

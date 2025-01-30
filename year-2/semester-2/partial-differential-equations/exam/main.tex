@@ -1,0 +1,593 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Suport pentru customizarea titlului
+\usepackage{titling}
+
+% Redu spațiul liber vertical de dinainte de titlu
+\setlength{\droptitle}{-5em}
+
+% Opțiuni adiționale pentru enumerații
+\usepackage[shortlabels]{enumitem}
+
+% Suport for hyperlink-uri interactive
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor=blue
+}
+
+% Specificare mai extinsă de fonturi
+\usepackage{fontspec}
+
+% Codifică simbolurile matematice folosind caractere Unicode
+\usepackage[
+    warnings-off={mathtools-colon,mathtools-overbracket}
+]{unicode-math}
+
+% Change the default text and math font
+\defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
+\setmainfont{Heuristica}
+\setmathfont{TeX Gyre Termes Math}
+
+% Schimbă limba implicită
+\usepackage{polyglossia}
+\setdefaultlanguage{romanian}
+
+% Comenzi matematice utile
+\usepackage{amsmath}
+% Suport pentru definirea de teoreme custom
+\usepackage{amsthm}
+
+% Environment pentru probleme
+\theoremstyle{definition}
+\newtheorem{problem}{Problema}
+
+% Suport pentru notație de mulțimi
+\usepackage{braket}
+
+% Comenzi matematice adiționale
+\usepackage{mathtools}
+
+% Suport pentru desenarea de grafice
+\usepackage{tikz}
+
+% Plotare de funcții
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%% Comenzi utile
+
+\newcommand*{\reals}{\symbb{R}}
+
+\DeclareMathOperator*{\supp}{supp}
+
+% Simboluri pentru valoare absolută și normă
+% Bazat pe https://tex.stackexchange.com/a/43009/263993
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+% Interschimbăm funcționalitatea lui \abs* și \norm*,
+% astfel încât \abs și \norm să redimensioneze automat dimensiunea barelor verticale.
+\makeatletter
+    \let\oldabs\abs
+    \def\abs{\@ifstar{\oldabs}{\oldabs*}}
+    %
+    \let\oldnorm\norm
+    \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+% Litera `d` non-italic este folosită pentru semnul de diferențială din integrale
+% Comanda este bazată pe https://tex.stackexchange.com/a/60546/263993
+\newcommand*{\diff}{\mathop{}\!\symrm{d}}
+
+\newcommand*{\innerproduct}[2]{\left\langle #1, #2 \right\rangle}
+
+% Metadate document
+\title{Examen AGEDPCV}
+\author{Gabriel Majeri \\ Grupa 502}
+\date{15--16 mai 2023}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+~
+\begin{enumerate}[1).]
+    \item Vom nota cu \(\mu_{u} (t)\) funcția de repartiție asociată unei funcții \(u \in \symcal{C}^{\infty}_{c} \left(\reals^n\right)\). Folosind definiția acesteia, obținem egalitatea
+    \begin{align*}
+        \mu_{\abs{f}^p} (t) &= \abs{\Set{ x \in \reals^n | \abs{\, f(x)}^p > t }} \\
+        &= \abs{\Set{ x \in \reals^n | \abs{\, f(x)} > t^{1/p} }} = \mu_{f} \left(t^{1/p}\right)
+    \end{align*}
+
+    Deoarece funcțiile cu care lucrăm au suport compact, știm că \(\mu_{\abs{f}^p} (t) < \infty\) pentru orice \(t \in [0, +\infty)\), prin urmare și \(\mu_{f} \left(t^{1/p}\right) < \infty\).
+
+    Vom nota cu \(\omega_n\) aria sferei \(S^{n - 1} \subseteq \reals^n\). Folosim definiția rearanjării simetrice descrescătoare și egalitatea de mai sus:
+    \begin{align*}
+        \left(\abs{f}^p\right)^{\star} (x) &= \inf \Set{ t \geq 0 | \mu_{\abs{f}^p} (t) \leq \frac{\omega_n \abs{x}^n}{n} } \\
+        &= \inf \Set{ t \geq 0 | \mu_{f} \left(t^{1/p}\right) \leq \frac{\omega_n \abs{x}^n}{n} } \\
+        &= \inf \Set{ s^p \geq 0 | \mu_{f} (s) \leq \frac{\omega_n \abs{x}^n}{n} } \\
+        &= \left(\inf \Set{ s \geq 0 | \mu_{f} (s) \leq \frac{\omega_n \abs{x}^n}{n} }\right)^p \\
+        &= \left(f^{\star}\right)^p
+    \end{align*}
+
+    \item Reamintim inegalitatea Hardy-Littlewood, demonstrată la curs. Pentru orice două funcții nenegative \(\varphi\) și \(\psi\), avem
+    \[
+        \int_{\reals^n} \varphi (x) \psi (x) \diff x \leq \int_{\reals^n} \varphi^{\star} (x) \psi^{\star} (x) \diff x
+    \]
+    În cazul nostru, putem lua \(\varphi \coloneq \abs{\, f}^3\) și \(\psi \coloneq \abs{x}^{-3}\). Aplicând rezultatul de la subpunctul anterior pentru \(p = 3\), obținem
+    \[
+        \left(\abs{f}^3\right)^{\star} = \left(f^{\star}\right)^3
+    \]
+    Mai mult, deoarece \(\abs{x}^3\) este radial simetrică și strict crescătoare (în raport cu componenta radială), avem că \(\abs{x}^{-3}\) este radial simetrică și strict descrescătoare. Pe baza a ce vom arăta la subpunctul următor, obținem
+    \[
+        \left(\abs{x}^{-3}\right)^{\star} = \abs{x}^{-3}
+    \]
+    de unde concluzia
+    \begin{align*}
+        \int_{\reals^n} \abs{\, f(x)}^3 \cdot \abs{x}^{-3} \diff x &\leq \int_{\reals^n} \left(\abs{\, f(x)}^3\right)^{\star} \cdot \left(\abs{x}^{-3}\right)^{\star} \diff x \\
+        &\quad\; = \int_{\reals^n} \left(f^{\star}\right)^3 \cdot \abs{x}^{-3} \diff x
+    \end{align*}
+
+    \item Începem prin a remarca că simetria radială și monotonia strict descrescătoare sunt condiții necesare pentru ca \(f\) să fie egală cu \(f^{\star}\), având în vedere că \(f^{\star}\) este rearanjarea simetrică descrescătoare a lui \(f\).
+
+    Folosind descompunerea ``tort stratificat'' pentru \(f\), avem că
+    \[
+        f(x) = \int_{0}^{\infty} \chi_{\Set{f(x) \, \geq \, t}} (t) \diff t
+    \]
+    și analog pentru \(f^{\star}\):
+    \[
+        f^{\star} (x) = \int_{0}^{\infty} \chi_{\Set{f^{\star} (x) \, \geq \, t}} (t) \diff t
+    \]
+
+    Știm deja din curs că \(f\) și \(f^{\star}\) au aceleași funcții de distribuție. Dar deoarece ambele sunt radial simetrice și strict descrescătoare, și mulțimile lor de supra-nivel sunt aceleași. Cu alte cuvinte,
+    \[
+        f(x) \geq t \iff f^{\star} (x) \geq t
+    \]
+    de unde
+    \[
+        \chi_{\Set{f(x) \, \geq \, t}} (t) = \chi_{\Set{f^{\star}(x) \, \geq \, t}} (t)
+    \]
+    pentru orice \(t \in [0, +\infty)\). Combinând această egalitate cu descompunerea de mai sus, obținem
+    \[
+        f (x) = f^{\star} (x)
+    \]
+    pentru orice \(x \in \reals^n\).
+
+    \item Graficul funcției \(h\) este reprezentat în figura \ref{fig:plot_of_h}. Pentru a determina rearanjarea simetrică a lui \(h\), avem nevoie să determinăm funcția de repartiție a acesteia, i.e.
+    \[
+        \mu_{h} (t) = \abs{\Set{ x \in \reals | \abs{h(x)} > t }}
+    \]
+    pentru orice \(t \in [0, +\infty)\).
+
+    De pe grafic, putem observa că valorile interesante la care se schimbă funcția de repartiție:
+    \begin{itemize}
+        \item pentru \(t > 3\), \(\mu_{h} (t) = 0\), deoarece funcția este mărginită de valoarea \(3\).
+        \item pentru \(t \in [1, 3)\), regiunea din graficul funcției în care \(\abs{h(x)} > t\) formează un triunghi. Lungimea bazei acestuia reprezintă valoarea lui \(\mu_{h} (t)\), care variază liniar.
+        \item pentru \(t \in (0, 1)\), regiunea din graficul funcției în care \(\abs{h(x)} > t\) formează un trapez. Lungimea bazei mari a acestuia reprezintă valoarea lui \(\mu_{h} (t)\), care variază liniar.
+        \item pentru \(t = 0\), obținem \(\mu_{h} (t) = \abs{\supp h} = \lambda\left(\left[-\frac{1}{2}, \, 5\right]\right) = 5.5\).
+    \end{itemize}
+
+    Rearanjarea simetrică a lui \(h\) trebuie să fie o funcție radial simetrică și descrescătoare cu aceeași funcție de repartiție. Putem să determinăm prin calcule câteva puncte din graficul rearanjării simetrice a lui \(h\), iar apoi să construim funcții liniare care să interpoleze între acestea.
+
+    Punctele interesante ar fi:
+    \begin{itemize}
+        \item \(h^{\star} (0) = 3\)
+        \item \(h^{\star} \left(-\frac{5.5}{2}\right) = h^{\star} (-2.75) = 0\), deci din simetrie și \(h^{\star} (2.75) = 0\)
+        \item \(h^{\star} \left(-\frac{3}{2}\right) = h^{\star} (-1.5) = 1\), deci din simetrie și \(h^{\star} (1.5) = 1\)
+    \end{itemize}
+    
+    Obținem astfel
+    \[
+        h^{\star} (x) = \begin{cases}
+            0.8 x + 2.2, \quad x \in \left[-2.75, -1.5\right] \\
+            \frac{2}{1.5} \, x + 3, \quad x \in \left[-1.5, 0\right] \\
+            3 - \frac{2}{1.5} \, x, \quad x \in \left[0, 1.5\right] \\
+            2.2 - 0.8 x, \quad x \in \left[1.5, 2.75\right] \\
+            0, \text{ în rest}
+        \end{cases}
+    \]
+    care este reprezentată grafic în figura \ref{fig:plot_of_h_star}.
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{tikzpicture}[
+                declare function={
+                    func(\x) = (\x < -1/2) * (0) +
+                        and (\x >= -1/2, \x < 0) * (1 + 2 * \x) +
+                        and (\x >= 0, \x < 1) * (1) +
+                        and (\x >= 1, \x < 2) * (-1 + 2 * \x) +
+                        and (\x >= 2, \x < 5) * (5 - \x) +
+                        (\x >= 5) * (0)
+                    ;
+              }
+            ]
+            
+            \begin{axis}[
+                axis x line=middle, axis y line=middle,
+                ymin=-1, ymax=4, ytick={-1,...,4}, ylabel=$y$,
+                xmin=-6, xmax=6, xtick={-6,...,6}, xlabel=$x$,
+                domain=-6:6, samples=200
+            ]
+                \draw[dashed] (axis cs:1, 1) -- (axis cs:4, 1);
+                \draw[dashed] (axis cs:2, 1) -- (axis cs:2, 3);
+                \draw[dashed] (axis cs:0, 0) -- (axis cs:0, 1);
+                \draw[dashed] (axis cs:4, 0) -- (axis cs:4, 1);
+
+                \addplot [blue,thick] {func(x)};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Graficul funcției \(h\)}
+        \label{fig:plot_of_h}
+    \end{figure}
+
+    \begin{figure}[htbp]
+        \centering
+        \begin{tikzpicture}[
+                declare function={
+                    func(\x) = (\x < -2.75) * (0) +
+                        and (\x >= -2.75, \x < -1.5) * (0.8 * \x + 2.2) +
+                        and (\x >= -1.5, \x < 0) * ((2/1.5) * \x + 3) +
+                        and (\x >= 0, \x < 1.5) * (3 - (2/1.5) * \x) +
+                        and (\x >= 1.5, \x < 2.75) * (2.2 - 0.8 * \x) +
+                        (\x >= 2.75) * (0)
+                    ;
+              }
+            ]
+            
+            \begin{axis}[
+                axis x line=middle, axis y line=middle,
+                ymin=-1, ymax=4, ytick={-1,...,4}, ylabel=$y$,
+                xmin=-6, xmax=6, xtick={-6,...,6}, xlabel=$x$,
+                domain=-6:6, samples=200
+            ]
+                \draw[dashed] (axis cs:-1.5, 0) -- (axis cs:-1.5, 1);
+                \draw[dashed] (axis cs:-1.5, 1) -- (axis cs:1.5, 1);
+                \draw[dashed] (axis cs:1.5, 1) -- (axis cs:1.5, 0);
+
+                \addplot [blue,thick] {func(x)};
+            \end{axis}
+        \end{tikzpicture}        
+        \caption{Graficul funcției \(h^{\star}\)}
+        \label{fig:plot_of_h_star}
+    \end{figure}
+\end{enumerate}
+\end{problem}
+
+\clearpage
+
+\begin{problem}
+~
+\begin{enumerate}[1).]
+    \item Vom determina valoarea lui \(\omega_5\) calculând aceeași integrală în două moduri diferite.
+
+    Fie \(x = \left(x_1, \dots, x_5\right)\) sistemul de coordonate cartesiene din \(\reals^5\). Definim
+    \[
+        I = \int_{\reals^5} e^{-\abs{x}^2} \diff x
+    \]
+    
+    Putem calcula această integrală descompunând-o într-un produs de integrale gaussiene:
+    \begin{align*}
+        I &= \int_{\reals^5} e^{-\left(x_1^2 + \hdots + x_5^2\right)} \diff x_1 \dots \diff x_5 \\
+        &= \int_{\reals^5} e^{-x_1^2 - \hdots - x_5^2} \diff x_1 \dots \diff x_5 \\
+        &= \left(\int_{\reals^5} e^{-x_1^2} \diff x_1\right) \cdot \hdots \cdot \left(\int_{\reals^5} e^{-x_5^2} \diff x_5\right) \\
+        &= \sqrt{\pi} \cdot \hdots \cdot \sqrt{\pi} = \pi^{\frac{5}{2}}
+    \end{align*}
+
+    Alternativ, o putem calcula trecând la coordonate hipersferice (\(r^2 = \abs{x}^2\), \(\diff x = r^4 \omega_5 \diff r\)):
+    \begin{align*}
+        I &= \int_{0}^{\infty} e^{-r^2} r^{4} \omega_5 \diff r \\[0.5em]
+        &= \omega_5 \int_{0}^{\infty} e^{-r^2} r^{4} \diff r \\[0.5em]
+        &= \omega_5 \int_{0}^{\infty} e^{-r^2} \left(r^2\right)^2 \diff r \\[0.5em]
+        &= \frac{\omega_5}{2} \int_{0}^{\infty} e^{-r^2} \left(r^2\right)^{\frac{3}{2}} 2r \diff r \\[0.5em]
+        &= \frac{\omega_5}{2} \int_{0}^{\infty} e^{-t} \, t^{\frac{3}{2}} \diff t \\[0.5em]
+        &= \frac{\omega_5}{2} \int_{0}^{\infty} e^{-t} \, t^{\frac{5}{2} - 1} \diff t \\[0.5em]
+        &= \frac{\omega_5}{2} \, \Gamma\left(\frac{5}{2}\right)
+    \end{align*}
+
+    Egalând cele două valori pentru \(I\), obținem
+    \[
+        \pi^{\frac{5}{2}} = \frac{\omega_5}{2} \, \Gamma\left(\frac{5}{2}\right)
+    \]
+    de unde
+    \[
+        \omega_5 = \frac{2 \pi^{\frac{5}{2}}}{\Gamma\left(\frac{5}{2}\right)}
+    \]
+
+    Înlocuind \(\Gamma\left(\frac{5}{2}\right)\) cu \(\frac{3}{4} \sqrt{\pi}\), obținem
+    \[
+        \omega_5 = \frac{8 \pi^2}{3}
+    \]
+
+    \item În cadrul cursului, am enunțat și demonstrat inegalitatea Sobolev-Gagliando-Nirenberg, care spune că există o constantă \(\Tilde{C}_{\text{Sob}} > 0\), care depinde de \(n\) și de \(p\), astfel încât
+    \[
+        \norm{\nabla u}_{L^p \left(\reals^n\right)} \geq \norm{u}_{L^{p^*} \left(\reals^n\right)}
+    \]
+    pentru orice \(u \in \symcal{C}^{\infty}_{c} \left(\reals^n\right)\), unde \(p^* = \frac{n p}{n - p}\).
+    
+    În cazul nostru, luând \(n = 5\), \(p = 1\) și \(p^* = \frac{5}{4}\), avem că
+    \[
+        \norm{\nabla u}_{L^1 \left(\reals^5\right)} \geq \Tilde{C}_{\text{Sob}} \norm{u}_{L^{\frac{5}{4}} \left(\reals^5\right)}
+    \]
+    de unde
+    \[
+        \int_{\reals^5} \abs{\nabla u(x)} \diff x \geq \Tilde{C}_{\text{Sob}} \left(\int_{\reals^5} \abs{u(x)}^{\frac{5}{4}} \diff x\right)^{\frac{4}{5}}
+    \]
+
+    \item Tot în cadrul cursului, am enunțat o teoremă care ne spune că, pentru cazul \(p = 1\), constanta optimă \(\Tilde{C}^{\#}_{\text{Sob}}\) este egală cu constanta optimă din inegalitatea isoperimetrică, i.e.
+    \[
+        \Tilde{C}^{\#}_{\text{Sob}} = C^{\#}_{\text{Iso}} = \frac{\abs{\partial B}}{\abs{B}^{\frac{4}{5}}}
+    \]
+    unde am notat cu \(B\) bila unitate din \(\reals^5\).
+
+    Deoarece am calculat deja valoarea lui \(\omega_5 = \abs{\partial B}\), mai rămâne să determinăm volumul bilei unitate. Putem face acest lucru considerând bila închisă ca o reuniune de sfere concentrice:
+    \[
+        \abs{B} = \int_{0}^{1} \omega_5 r^5 \diff r = \omega_5 \cdot \left.\frac{r^6}{6}\right|_{0}^{1} = \frac{\omega_5}{6}
+    \]
+    de unde
+    \[
+        \Tilde{C}^{\#}_{\text{Sob}} = \frac{\abs{\partial B}}{\abs{B}^{\frac{4}{5}}} = \omega_5 \cdot \left(\frac{\omega_5}{6}\right)^{\frac{4}{5}} = \left(\omega_5\right)^{\frac{9}{5}} \cdot 6^{-\frac{4}{5}} = \left(\frac{8 \pi^2}{3}\right)^{\frac{9}{5}} \cdot 6^{-\frac{4}{5}}
+    \]
+
+    \item Folosind din nou inegalitatea lui Sobolev, avem că
+    \[
+        C_{p} \cdot \norm{\, f}_{L^{p^*} \left(\reals^5\right)} \leq \norm{\nabla f}_{L^p \left(\reals^5\right)}
+    \]
+    pentru orice \(p \in (1, 5)\), unde \(C_p\) este o constantă care depinde de \(p\).
+    
+    Dacă înlocuim \(p^*\) cu \(\frac{5p}{5 - p}\), inegalitatea se rescrie ca
+    \[
+        C_{p} \cdot \norm{\, f}_{L^{\frac{5p}{5 - p}} \left(\reals^5\right)} \leq \norm{\nabla f}_{L^p \left(\reals^5\right)}
+    \]
+    Deci este suficient să arătăm că \(\nabla f \in L^p \left(\reals^5\right)\) pentru a putea trage concluzia că \(f \in L^{\frac{5p}{5 - p}} \left(\reals^5\right)\).
+
+    Calculăm mai întâi gradientul lui \(f\), obținem
+    \begin{gather*}
+        \nabla f (x) = \nabla \left(\left(1 + \abs{x}^{\frac{p}{p - 1}}\right)^{1 - \frac{5}{p}}\right) \\
+        = \left(1 - \frac{5}{p}\right) \cdot \left(1 + \abs{x}^{\frac{p}{p - 1}}\right)^{-\frac{5}{p}} \cdot \nabla \left(1 + \abs{x}^{\frac{p}{p - 1}}\right) \\
+        = \left(1 - \frac{5}{p}\right) \cdot \left(1 + \abs{x}^{\frac{p}{p - 1}}\right)^{-\frac{5}{p}} \cdot \frac{p}{p-1} \cdot \abs{x}^{\frac{p}{p - 1} - 2} \cdot x \\
+        = \frac{p - 5}{p} \cdot \frac{p}{p - 1} \cdot x \cdot \abs{x}^{\frac{p}{p - 1} - 2} \cdot \left(1 + \abs{x}^{\frac{p}{p - 1}}\right)^{-\frac{5}{p}} \\
+        = \frac{p - 5}{p - 1} \cdot x \cdot \abs{x}^{\frac{1}{p - 1} - 1} \cdot \left(1 + \abs{x}^{\frac{p}{p - 1}}\right)^{-\frac{5}{p}}
+    \end{gather*}
+    de unde
+    \begin{gather*}
+        \nabla f \in L^p \left(\reals^5\right) \iff \norm{\, f}_{L^p \left(\reals^5\right)} < \infty \iff \\
+        \iff \left(\int_{\reals^5} \abs{f(x)}^5 \diff x\right)^\frac{1}{5} < \infty \iff \int_{\reals^5} \abs{f(x)}^5 \diff x < \infty \\
+        \iff \int_{\reals^5} \abs{\frac{p - 5}{p - 1} \cdot x \cdot \abs{x}^{\frac{1}{p - 1} - 1} \cdot \left(1 + \abs{x}^{\frac{p}{p - 1}}\right)^{-\frac{5}{p}}}^5 \diff x < \infty \\
+        \iff \int_{\reals^5} \, \abs{x}^5 \cdot \abs{x}^{\frac{5}{p - 1} - 5} \cdot \abs{1 + \abs{x}^{\frac{p}{p - 1}}}^{-\frac{25}{p}} \diff x < \infty \\
+        \iff \int_{\reals^5} \abs{x}^{\frac{5}{p - 1}} \cdot \abs{1 + \abs{x}^{\frac{p}{p - 1}}}^{-\frac{25}{p}} \diff x < \infty \\
+        \iff \int_{\reals^5} \frac{\abs{x}^{\frac{5}{p - 1}}}{\abs{1 + \abs{x}^{\frac{p}{p - 1}}}^{\frac{25}{p}}} \diff x < \infty
+        \iff \int_{\reals^5} \frac{\left(\abs{x}^{\frac{p}{p-1}}\right)^{\frac{5}{p}}}{\abs{1 + \abs{x}^{\frac{p}{p - 1}}}^{\frac{25}{p}}} \diff x < \infty \\
+        \iff \int_{\reals^5} \frac{\abs{x}^{\frac{p}{p-1}}}{\abs{1 + \abs{x}^{\frac{p}{p - 1}}}^{5}} \diff x < \infty
+        \iff \int_{0}^{+\infty} \frac{r^{\frac{p}{p - 1}}}{\left(1 + r^{\frac{p}{p - 1}}\right)^5} \diff r < \infty \\
+        \iff \int_{0}^{+\infty} \frac{r^{\frac{p}{p - 1}}}{\left(1 + r^{\frac{p}{p - 1}}\right)^5} \cdot \frac{1}{r^{\frac{1}{p - 1}}} \cdot r^{\frac{1}{p - 1}} \diff r < \infty \\
+        \iff \int_{0}^{+\infty} \frac{s}{(1 + s)^5} \cdot s^{-\frac{1}{p}} \diff s < \infty \\
+        \iff \int_{0}^{+\infty} \frac{s^{1 - \frac{1}{p}}}{(1 + s)^5} \diff s < \infty \\
+        \iff \int_{0}^{+\infty} \frac{s^{\frac{p - 1}{p}}}{(1 + s)^5} \diff s < \infty
+    \end{gather*}
+    care este adevărat pentru \(1 < p < 5\). Prin urmare, \(\nabla f \in L^5 \left(\reals^5\right)\), deci și \(f \in L^{\frac{5p}{5 - p}} \left(\reals^5\right)\).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[1).]
+    \item Pentru \(a = 1\), am rezolvat această problemă la curs. Dacă facem înlocuirea \(v (t) = u\left(\frac{t}{a}\right)\), obținem exact aceleași soluții ca pentru intervalul \(\left(0, 1\right)\).
+
+    Dacă luăm \(u(t) = \sin \frac{\alpha \pi t}{a}\) și derivăm obținem
+    \begin{align*}
+        u'(t) &= \frac{\alpha \pi}{a} \cos \frac{\alpha \pi t}{a} \\
+        u''(t) &= -\frac{\alpha^2 \pi^2}{a^2} \sin \frac{\alpha \pi t}{a}
+    \end{align*}
+    Din condițiile de frontieră și periodicitatea funcției sinus, obținem că \(\alpha\) trebuie să fie un număr întreg, pe care îl vom nota cu \(n\).
+
+    Înlocuind această soluție în prima ecuație din sistem, avem
+    \begin{gather*}
+        - u''(t) = \lambda u(t) \\
+        \iff
+        \frac{n^2 \pi^2}{a^2} \sin \frac{n \pi t}{a} = \lambda \sin \frac{n \pi t}{a} \\
+        \iff
+        \frac{n^2 \pi^2}{a^2} = \lambda
+    \end{gather*}
+
+    Obținem deci șirul de valori proprii \(\lambda_n = \frac{n^2 \pi^2}{a^2}\) și de funcții/vectori proprii \(\varphi_n (x) = \sin \frac{n \pi x}{a}\).
+
+    \item Deoarece domeniul \(\Omega \coloneq (0, a) \subset \reals\) este mărginit, putem aplica inegalitatea Poincaré-Friedricks, care în cazul general ne spune că există o constantă \(C_{p, \Omega} > 0\) astfel încât
+    \[
+        \int_{\Omega} \abs{\nabla u (x)}^p \diff x \geq C_{p, \Omega} \int_{\Omega} \abs{u(x)}^p \diff x
+    \]
+    pentru orice \(u \in W^{1, \, p}_{0} \left(\Omega\right)\). În cazul nostru, luând \(p = 2\), obținem
+    \[
+        \int_{0}^{a} \abs{u'(x)}^2 \diff x \geq C_{2, \Omega} \int_{0}^{a} \abs{u(x)}^2 \diff x
+    \]
+    pentru orice \(u \in W^{1, \, 2}_{0} \left(\Omega\right) = H^{1}_{0} \left(0, a\right)\). Deci constanta \(C\) pe care o căutăm este \(C_{2, \Omega}\).
+
+    \item Fie \(v \in H^{1}_{0} \left(0, a\right)\) fixat. Definim \(\varphi \colon \reals \to \reals\) ca
+    \[
+        \varphi(t) = \frac{\int_{0}^{a} \abs{\nabla (u_0 + tv)(x)}^2 \diff x}{\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x}
+    \]
+    (unde am notat cu \(\nabla\) derivata în raport cu \(x\), pentru concizie).
+    
+    Deoarece am presupus că \(u_0 = \varphi(0)\) minimizează acest raport, din teorema lui Fermat deducem că \(0\) este punct critic pentru \(\varphi\), i.e.\ că \(\varphi'(0) = 0\).
+
+    Derivându-l pe \(\varphi\) în raport cu \(t\), obținem
+    \begin{gather*}
+        \varphi'(t) = \frac{\left(\int_{0}^{a} \abs{\nabla (u_0 + tv)(x)}^2 \diff x\right)' \left(\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x\right)}{\left(\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x\right)^2} \\
+        - \frac{\left(\int_{0}^{a} \abs{\nabla (u_0 + tv)(x)}^2 \diff x\right) \left(\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x\right)'}{\left(\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x\right)^2} \\
+        = \frac{\left(2 \int_{0}^{a} \nabla u_0 (x) \cdot \nabla v (x) + t \abs{v}^2 \diff x\right) \left(\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x\right)}{\left(\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x\right)^2} \\
+        - \frac{\left(\int_{0}^{a} \abs{\nabla (u_0 + tv) (x)}^2 \diff x\right) \left(\int_{0}^{a} 2 (u_0(x) + t v(x)) v(x) \diff x\right)}{\left(\int_{0}^{a} \abs{(u_0 + t v)(x)}^2 \diff x\right)^2}
+    \end{gather*}
+    Evaluând derivata în \(t = 0\) și egalând-o cu zero, obținem
+    \[
+        \left(\int_{0}^{a} \nabla u_0 \cdot \nabla v \diff x\right) \left(\int_{0}^{a} \abs{u_0}^2 \diff x\right) = \left(\int_{0}^{a} \abs{\nabla u_0}^2 \diff x\right) \left(\int_{0}^{a} u_0 v \diff x\right)
+    \]
+    de unde
+    \begin{align*}
+        \int_{0}^{a} \nabla u_0 \cdot \nabla v \diff x &= \frac{\int_{0}^{a} \abs{\nabla u_0}^2 \diff x}{\int_{0}^{a} \abs{u_0}^2 \diff x} \left(\int_{0}^{a} u_0 v \diff x\right) \\[0.5em]
+        &= \nu \int_{0}^{a} u_0 v \diff x
+    \end{align*}
+    Înlocuindu-l pe \(\nabla\) în această expresie cu derivata în raport cu \(x\), obținem
+    \[
+        \int_{0}^{a} u_0'(x) v'(x) \diff x = \nu \int_{0}^{a} u_0(x) v(x) \diff x
+    \]
+
+    \item În cadrul cursului, am demonstrat că
+    \[
+        \lambda_{1}^{p} \left(\Omega\right) = \inf_{\substack{v \, \in \, W^{1, \, p}_{0} \left(\Omega\right) \\ v \, \neq \, 0}} \frac{\int_{\Omega} \abs{\nabla v(x)}^p \diff x}{\int_{\Omega} \abs{v(x)}^p \diff x}
+    \]
+    unde \(\lambda_{1}^{p}\) reprezintă prima valoare proprie a \(p\)-Laplacianului pe domeniul \(\Omega\). În cazul nostru, luând \(p = 2\) și \(\Omega = \left(0, a\right)\), avem că
+    \[
+        \lambda_{1}^{2} \left(0, a\right) = \nu
+    \]
+    Folosind ce am arătat la primul subpunct, pentru \(n = 1\) obținem
+    \[
+        \lambda_{1}^{2} \left(0, a\right) = \frac{1^2 \pi^2}{a^2} = \frac{\pi^2}{a^2}
+    \]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+~
+\begin{enumerate}[1).]
+    \item În curs am demonstrat această afirmație pentru domenii din \(\reals^2\), dar putem generaliza și pentru cazul \(\reals^3\).
+
+    Deoarece frontiera lui \(\Omega\) este netedă, o putem vedea ca o suprafață scufundată în \(\reals^3\). Orice punct \(x_0 \in \partial \Omega\) admite o parametrizare locală: există o vecinătate \(U\) a lui \(x_0\) în \(\partial \Omega\) care este difeomorfă cu \(\reals^2\).
+    
+    Fie \(r \colon \reals^{2} \xrightarrow{\sim} U\) un asemenea difeomorfism. Pe \(U \subset \partial \Omega\) avem
+    \[
+        u(r(t)) = 1 \implies J_{u \circ r} (t) = 0_{1 \times 2}
+    \]
+    pentru orice \(t \in \reals^2\). Am notat cu \(J\) matricea jacobiană a unei funcții și cu \(0_{n \times m}\) matricea cu \(n\) rânduri și \(m\) coloane, toate egale cu zero.
+    
+    Folosind regula de derivare pentru funcții compuse, obținem
+    \[
+         J_{u \circ r} (t) = J_{u} (r(t)) \cdot J_{r} (t) = 0_{1 \times 2}
+    \]
+    unde \(J_{u} (r(t))\) e o matrice de dimensiune \(1 \times 3\) și \(J_{r} (t)\) e o matrice de dimensiune \(3 \times 2\). Scris explicit, avem
+    \[
+        \nabla u(r(t))
+        \cdot
+        \begin{bmatrix}
+            \frac{\partial r_1}{\partial t_1}(t) & \frac{\partial r_1}{\partial t_2}(t) \\[0.5em]
+            \frac{\partial r_2}{\partial t_1}(t) & \frac{\partial r_2}{\partial t_2}(t) \\[0.5em]
+            \frac{\partial r_3}{\partial t_1}(t) & \frac{\partial r_3}{\partial t_2}(t)
+        \end{bmatrix} = 0_{1 \times 2}
+    \]
+
+    Deoarece \(r\) este o parametrizare netedă, cei doi vectori coloană din matricea jacobiană a lui \(r\) formează o bază pentru spațiul tangent al lui \(\partial \Omega\) la \(r(t) \in U\). Egalitatea de mai sus ne arată că vectorul \(\nabla u(r(t))\) este perpendicular pe spațiul tangent, deci este un vector normal (coliniar cu \(\nu(r(t))\). Deci
+    \[
+        \left(\nabla (u \circ r)\right) (t) = c(r(t)) \cdot \nu(r(t)) \iff \nabla u = c \cdot \nu
+    \]
+    unde \(c(r(t))\) este un scalar care variază neted.
+    
+    Definiția derivatei direcționale este \(\frac{\partial u}{\partial \nu} = \innerproduct{\nabla u}{\nu}\). Luând produsul scalar cu \(\nu\) în egalitatea de mai sus, obținem:
+    \[
+        \frac{\partial u}{\partial \nu} = \innerproduct{\nabla u}{\nu} = c \innerproduct{\nu}{\nu} = c \cdot 1 = c
+    \]
+    de unde reiese că \(\nabla u = \frac{\partial u}{\partial \nu} \, \nu\).
+
+    \item Domeniul \(\Omega\) este un sferoid. Fiind mărginit și cu frontieră netedă, îl putem vedea ca o subvarietate riemanniană compactă a lui \(\reals^3\).
+
+    Fie \(\Nu \in \symfrak{X}^{\perp} \left(\partial \Omega\right)\) câmpul de vectori normali de lungime \(1\) de pe bordul sferoidului. Pentru orice \(\varepsilon > 0\) fixat, putem defini aplicația
+    \begin{gather*}
+        \varphi_{\varepsilon} \colon \partial \Omega \times [0, \varepsilon) \to \overline{\Omega} \\
+        (y, t) \mapsto \exp_{y} (t \cdot \Nu_y)
+    \end{gather*}
+    unde \(\exp_y\) este aplicația exponențială de la \(T_{y}^{\perp} \Omega\) la \(\overline{\Omega} \subseteq \reals^3\). Aplicația aceasta este un difeomorfism pentru \(\varepsilon\) mai mic decât raza de injectivitate a aplicației exponențiale. Pentru a ne asigura că avem injectivitate, putem împărți sferoidul în 8 octanți, delimitați de planele \(x_1 = x_2 = 0\), \(x_1 = x_3 = 0\) respectiv \(x_2 = x_3 = 0\) (așa cum am indicat grafic în figurile \ref{fig:plot_of_omega} și \ref{fig:another_plot_of_omega}). În fiecare dintre aceștia, scriind \(x = \varphi(y, t)\), avem
+    \begin{gather*}
+        d(x, \partial \Omega) = t \\
+        \nabla d (x, \partial \Omega) = - \nu \cdot \symrm{pr}_{\partial \Omega} (x)
+    \end{gather*}
+    De asemenea, intersecția dintre planele menționate mai sus și sferoid este în fiecare caz o subvarietate de dimensiune 2 (practic o bilă deschisă inclusă în planul respectiv), deci măsura acesteia în raport cu forma volum din \(\reals^3\) este 0. Avem astfel egalitate aproape pentru orice \(x \in \Omega\).
+    
+    \begin{figure}[htbp]
+        \centering
+        \begin{tikzpicture}            
+            \begin{axis}[
+                axis x line=middle, axis y line=middle,
+                ymin=-2, ymax=2, ytick={-2,...,2}, ylabel=$x_2$,
+                xmin=-3, xmax=3, xtick={-3,...,3}, xlabel=$x_1$,
+                trig format plots=rad,
+                variable=t
+            ]
+                \draw[red, thick] (axis cs:-2, 0) -- (axis cs:2, 0);
+                \draw[red, thick] (axis cs:0, -1) -- (axis cs:0, 1);          
+                \addplot[blue,thick,domain=-2*pi:2*pi,samples=200]
+                ({2*cos(t)},{sin(t)});
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Secțiune longitudinală prin \(\Omega\)}
+        \label{fig:plot_of_omega}
+    \end{figure}
+    \begin{figure}[htbp]
+        \centering
+        \begin{tikzpicture}            
+            \begin{axis}[
+                axis x line=middle, axis y line=middle,
+                ymin=-2, ymax=2, ytick={-2,...,2}, ylabel=$x_2$,
+                xmin=-2, xmax=2, xtick={-2,...,2}, xlabel=$x_3$,
+                trig format plots=rad,
+                variable=t
+            ]
+                \draw[red, thick] (axis cs:-1, 0) -- (axis cs:1, 0);
+                \draw[red, thick] (axis cs:0, -1) -- (axis cs:0, 1);          
+                \addplot[blue,thick,domain=-2*pi:2*pi,samples=200]
+                ({cos(t)},{sin(t)});
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Secțiune transversală prin \(\Omega\)}
+        \label{fig:another_plot_of_omega}
+    \end{figure}
+\end{enumerate}
+\end{problem}
+
+\clearpage
+
+\begin{problem}
+~
+\begin{enumerate}
+    \item Din curs știm că \(\lambda^{p}_{1} \left(\Omega\right)\) este caracterizată de
+    \[
+        \lambda^{p}_{1} \left(\Omega\right) = \inf_{\substack{w \, \in \, W^{1, \, p}_{0} \left(\Omega\right) \\ w \neq 0}} \frac{\int_{\Omega} \abs{\nabla w (x)}^p \diff x}{\int_{\Omega} \abs{w(x)}^p \diff x}
+    \]
+    Deci este suficient să arătăm că
+    \[
+        \int_{\Omega} \abs{\nabla w(x)}^p \diff x \geq \left(\frac{h\left(\Omega\right)}{p}\right)^p \int_{\Omega} \abs{w(x)}^p \diff x
+    \]
+    pentru orice \(w \in W^{1, \, p}_{0} \left(\Omega\right)\).
+    
+    Cazul \(p = 1\) a fost deja demonstrat la curs, i.e.
+    \[
+        \int_{\Omega} \abs{\nabla v(x)} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{v(x)} \diff x
+    \]
+    pentru orice \(v \in W^{1, \, 1}_{0} \left(\Omega\right)\). Putem folosi acest rezultat pentru a demonstra și cazul general.
+    
+    Fie \(w \in W^{1, \, p}_{0} \left(\Omega\right)\) arbitrar. Aplicăm inegalitatea de la cazul \(p = 1\) pentru \(w^p \in W^{1, \, 1}_{0} \left(\Omega\right)\) și obținem
+    \begin{gather*}
+        \int_{\Omega} \abs{\nabla \left(w^p\right)(x)} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{\left(w^p\right)(x)} \diff x \\
+        \iff
+        \int_{\Omega} \abs{\, p \cdot \left(\nabla w\right)(x) \cdot (w(x))^{p - 1}} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{w(x)}^p \diff x \\
+        \iff
+        p \int_{\Omega} \abs{\nabla w(x)} \cdot \abs{w(x)}^{p - 1} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{w(x)}^p \diff x \\
+        \iff
+        \int_{\Omega} \abs{\nabla w(x)} \cdot \abs{w(x)}^{p - 1} \diff x \geq \frac{h\left(\Omega\right)}{p} \int_{\Omega} \abs{w(x)}^p \diff x
+    \end{gather*}
+    Aplicând inegalitatea lui Hölder pentru partea stângă, avem
+    \[
+        \int_{\Omega} \abs{\nabla w(x)} \cdot \abs{w(x)}^{p - 1} \diff x \leq \left(\int_{\Omega} \abs{\nabla w(x)}^p \diff x\right)^{\frac{1}{p}} \cdot \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{\frac{p - 1}{p}}
+    \]
+    Revenind, obținem
+    \begin{gather*}
+        \left(\int_{\Omega} \abs{\nabla w(x)}^p \diff x\right)^{\frac{1}{p}} \cdot \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{\frac{p - 1}{p}} \geq \frac{h\left(\Omega\right)}{p} \int_{\Omega} \abs{w(x)}^p \diff x \\
+        \iff
+        \int_{\Omega} \abs{\nabla w(x)}^p \diff x \cdot \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{p - 1} \geq \left(\frac{h\left(\Omega\right)}{p}\right)^{p} \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{p} \\
+        \iff
+        \int_{\Omega} \abs{\nabla w(x)}^p \diff x \geq \left(\frac{h\left(\Omega\right)}{p}\right)^{p} \int_{\Omega} \abs{w(x)}^p \diff x
+    \end{gather*}
+    ceea ce implică concluzia dorită.
+
+    \item 
+\end{enumerate}
+\end{problem}
+
+\end{document}

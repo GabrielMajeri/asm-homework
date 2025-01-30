@@ -12,3 +12,9 @@ This repository contains my homework, problem solutions and other material I've 
 ### Semester 2
 
 - [Groups and Representations](year-1/semester-2/groups-and-representations/)
+
+## Year 2
+
+### Semester 2
+
+- [Partial Differential Equations](year-2/semester-2/partial-differential-equations/)

@@ -1,0 +1,500 @@
+
+\begin{exercise}
+Let \(\Omega\) be a domain with finite total measure. Let \(u\) be a function which is in \(L^{p}(\Omega)\) for all \(p \in \Set{1, 2, \dots, \infty}\). Show that
+\[
+    \norm{u}_{L^{\infty}} = \lim_{p \to \infty} \norm{u}_{L^{p}}
+\]
+\end{exercise}
+\begin{proof}
+For \(\varepsilon > 0\), define the set
+\[
+    A_{\varepsilon} = \Set{ x \in \Omega | \abs{u(x)} \geq \norm{u}_{L^{\infty}} - \varepsilon }
+\]
+We remark that \(\abs{A_{\varepsilon}}\) must be strictly greater than \(0\) for any \(\varepsilon > 0\), by the definition of the \(L^{\infty}\) norm (using the essential supremum). Moreover, since \(A_{\varepsilon} \subseteq \Omega\), we get that \(\abs{A_{\varepsilon}} \leq \abs{\Omega}\).
+
+Since \(\abs{u(x)} \leq \norm{u}_{L^{\infty}}\) holds almost everywhere, for any fixed \(1 \leq p < \infty\) we have:
+\begin{align*}
+    \norm{u}_{L^{p}} = \left(\int_{\Omega} \abs{u(x)}^{p} \diff x\right)^{\frac{1}{p}} &\geq \left(\int_{A_{\varepsilon}} \abs{\norm{u}_{L^{\infty}} - \varepsilon}^{p} \diff x\right)^\frac{1}{p} \\
+    &= \abs{\norm{u}_{L^{\infty}} - \varepsilon} \left(\int_{A_{\varepsilon}} 1 \diff x\right)^{\frac{1}{p}} \\\
+    &\hspace{1.5em} = \abs{\norm{u}_{L^{\infty}} - \varepsilon} \; \abs{A_{\varepsilon}}^{\frac{1}{p}}
+\end{align*}
+Notice that, as \(p\) goes to infinity, we have
+\[
+    \lim_{p \to \infty} \left(\abs{\norm{u}_{L^{\infty}} - \varepsilon} \; \abs{A_{\varepsilon}}^{\frac{1}{p}}\right)
+    = \abs{\norm{u}_{L^{\infty}} - \varepsilon} \; \lim_{p \to \infty} \abs{A_{\varepsilon}}^{\frac{1}{p}}
+    = \abs{\norm{u}_{L^{\infty}} - \varepsilon}
+\]
+Hence, taking the inferior limit in the inequality above, we obtain
+\[
+    \liminf_{p \to \infty} {\norm{u}_{L^{p}}} \geq \abs{\norm{u}_{L^{\infty}} - \varepsilon}
+\]
+
+Letting \(\varepsilon\) tend to \(0\), we get
+\[
+    \liminf_{p \to \infty}{\norm{u}_{L^{p}}} \geq \norm{u}_{L^{\infty}}
+\]
+
+For the other inequality, fix a \(q < p\) and rewrite the \(L^{p}\) norm as
+\begin{gather*}
+    \norm{u}_{L^{p}} = \left(\int_{\Omega} \abs{u(x)}^{p} \diff x\right)^{\frac{1}{p}} = \left(\int_{\Omega} \abs{u(x)}^{p-q} \; \abs{u(x)}^{q} \diff{x}\right)^{\frac{1}{p}} \\
+    \leq \left(\int_{\Omega} \norm{u}_{L^{\infty}}^{p - q} \diff x\right)^{\frac{1}{p}} \left(\int_{\Omega} \abs{u(x)}^{q} \diff x\right)^{\frac{1}{p}} \\
+    = \norm{u}_{L^{\infty}}^{\frac{p - q}{p}} \left(\int_{\Omega} 1 \diff x\right)^{\frac{1}{p}} \left(\left(\int_{\Omega} \abs{u(x)}^{q} \diff x\right)^{\frac{1}{q}}\right)^{\frac{q}{p}} \\[0.4em]
+    = \norm{u}_{L^{\infty}}^{\frac{p - q}{p}} \; \abs{\Omega}^{\frac{1}{p}} \; \norm{u}_{L^{q}}^\frac{q}{p}
+\end{gather*}
+Passing to the limit, we obtain
+\[
+    \limsup_{p \to \infty} {\norm{u}_{L^{p}}} \leq \limsup_{p \to \infty} {\left(\norm{u}_{L^{\infty}}^{\frac{p - q}{p}} \; \abs{\Omega}^{\frac{1}{p}} \; \norm{u}_{L^{q}}^\frac{q}{p}\right)} = \norm{u}_{L^{\infty}}
+\]
+
+Putting together these two results, we conclude that
+\[
+    \liminf_{p \to \infty} {\norm{u}_{L^{p}}} = \limsup_{p \to \infty} {\norm{u}_{L^{p}}} = \lim_{p \to \infty} \norm{u}_{L^{p}} = \norm{u}_{L^{\infty}}
+\]
+\end{proof}
+
+\begin{exercise}
+Let \(\Omega\) be a smooth bounded domain in \(\reals^n\) and let \(u\) be a function in \(\symcal{C}^1 \left(\overline{\Omega}\right)\) with the property that \(\left.u\right|_{\partial \Omega} = \text{const}\). Prove that
+\[
+    \nabla u = \frac{\partial u}{\partial \nu} \, \nu \, \text{ on \(\partial \Omega\)}
+\]
+where \(\nu\) is the outward unit normal to \(\partial \Omega\) and \(\frac{\partial u}{\partial \nu}\) denotes the normal derivative (the derivative of \(u\) with respect to the direction given by \(\nu\)).
+\end{exercise}
+\begin{proof}
+This proof generalizes the one given in the course for the case \(n = 2\).
+
+Since the boundary of \(\Omega\) is smooth, it is a hypersurface embedded in \(\reals^n\). For any point \(x_0 \in \partial \Omega\), we can produce a local parametrization: there exists a neighborhood \(U\) of \(x_0\) in \(\partial \Omega\) which is diffeomorphic to \(\reals^{n-1}\). Let \(r \colon \reals^{n-1} \xrightarrow{\sim} U\) be such a diffeomorphism, writing it out on components as \(r(t) = \left(r_1 (t), \dots, r_n (t)\right)\), \(\forall t \in \reals^{n-1}\). Write \(u\) on components as \(u(x) = u\left(x_1, \dots, x_n\right)\). On \(U \subset \partial \Omega\), we have
+\[
+    u(r(t)) = \text{const} \implies J_{u \circ r} (t) = 0_{1 \times (n - 1)}
+\]
+where \(J\) denotes the Jacobian matrix of each respective function and \(0_{1 \times (n-1)}\) is the \(n \times n\) matrix filled with zeros. By the multivariable chain rule, we get
+\[
+     J_{u \circ r} (t) = J_{u} (r(t)) \cdot J_{r} (t) = 0_{1 \times (n - 1)}
+\]
+where \(J_{u} (r(t))\) is an \(1 \times n\) matrix and \(J_{r} (t)\) is an \(n \times (n - 1)\) matrix.
+Writing out the Jacobians explicitly, we get
+\[
+    \nabla u(r(t))
+    \cdot
+    \begin{bmatrix}
+        \text{---} \, \nabla r_1(t) \, \text{---} \\
+        \vdots \\
+        \text{---} \, \nabla r_n(t) \, \text{---}
+    \end{bmatrix} = 0_{1 \times (n - 1)}
+\]
+Since \(r\) is a parametrization, the \(n - 1\) column vectors in the Jacobian matrix of \(r\) form a basis for the tangent space of \(\partial \Omega\) at \(r(t) \in U\). The above equality shows that the vector \(\nabla u(r(t))\) is in the orthogonal complement of the tangent space, hence it is a normal vector (co-linear with \(\nu(r(t))\), the outward unit normal vector at \(r(t)\)). Write out the gradient of \(u\) as
+\[
+    \nabla u (r(t)) = c(r(t)) \cdot \nu(r(t)) \iff \nabla u = c \cdot \nu
+\]
+where \(c(r(t))\) is a scalar.
+
+By the definition of the directional derivative, \(\frac{\partial u}{\partial \nu} = \innerproduct{\nabla u}{\nu}\). Hence, taking the dot product with \(\nu\) in the above equality we get:
+\[
+    \frac{\partial u}{\partial \nu} = \innerproduct{\nabla u}{\nu} = c \innerproduct{\nu}{\nu} = c \cdot 1 = c
+\]
+whence \(\nabla u = \frac{\partial u}{\partial \nu} \, \nu\), as claimed.
+\end{proof}
+
+\begin{exercise}
+Let \(\Omega\) be a smooth bounded domain in \(\reals^n\) which is star-shaped with respect to a point \(x_0 \in \Omega\). Prove that \(\innerproduct{x - x_0}{\nu(x)} \geq 0\) for all \(x \in \partial \Omega\).
+\end{exercise}
+\begin{proof}
+Without loss of generality, we can assume that the domain is ``centered at the origin'', i.e. that \(x_0 = 0\). The conclusion becomes \(\innerproduct{x}{\nu(x)} \geq 0\) for all \(x \in \partial \Omega\).
+
+Fix \(x \in \partial \Omega\). Since the boundary is smooth, we can find a small open neighborhood \(U\) around \(x\), diffeomorphic to \(\reals^n\), such that \(x\) is the origin and \(\partial \Omega \cap U\) is a hyperplane. Let \(y\) be a vector in \(\reals^n\) such that \(x + t y \in \Omega \cap U\) for a small enough \(t \in [0, 1]\). Then, because \(\nu(x)\) is the outward unit normal, we have \(\innerproduct{ty}{\nu(x)} \leq 0\).
+
+Since \(\Omega\) is star-shaped with respect to \(x_0 = 0\), all of the points of the form
+\[
+    t x_0 + (1-t) x = (1 - t)x = x - tx = x + t (-x)
+\]
+are contained in \(\overline{\Omega}\), for any \(t \in [0, 1]\). Using the reasoning above, for small enough \(t\) we have \(\innerproduct{t (-x)}{\nu(x)} = -t \innerproduct{x}{\nu(x)} \leq 0\). We let \(t = 1\) and flip the inequality sign to obtain the desired conclusion.
+\end{proof}
+
+\begin{exercise}
+Let \(\Omega\) be a ball in \(\reals^n\) centered at the origin and \(u \colon \Omega \to \reals_{+}\) measurable. Show that \(u = u^{*}\) iff \(u\) is radially symmetric and decreasing.
+\end{exercise}
+\begin{proof}
+Since \(\Omega\) is a ball, we have that \(\Omega^* = \Omega\), hence the domains of \(u\) and \(u^*\) are the same. It makes sense to ask whether these two functions are equal.
+
+\begin{itemize}
+    \item[\(\implies\)] If \(u = u^{*}\), we've shown in the course that \(u^*\) is radially symmetric and monotonically decreasing. Hence \(u\) must be so as well.
+
+    \item[\(\impliedby\)] Suppose that \(u\) is radially symmetric and decreasing. Using the layer-cake decomposition, we get
+    \[
+        u(x) = \int_{0}^{\infty} \chi_{\Set{u(x) \, \geq \, t}} (t) \diff t
+    \]
+    and
+    \[
+        u^* (x) = \int_{0}^{\infty} \chi_{\Set{u^*(x) \, \geq \, t}} (t) \diff t
+    \]
+    But because \(u\) and \(u^*\) are both radially symmetric and decreasing, their super-level sets are the same. In other words,
+    \[
+        \chi_{\Set{u(x) \, \geq \, t}} (t) = \chi_{\Set{u^*(x) \, \geq \, t}} (t)
+    \]
+    for all \(t \in [0, +\infty)\), whence
+    \[
+        u (x) = u^* (x)
+    \]
+    for all \(x \in \Omega\).
+\end{itemize}
+\end{proof}
+
+\begin{exercise}
+Let \(f_1, f_2 \colon \Omega \to \reals\) be two measurable functions. If \(0 \leq f_1 \leq f_2\) on \(\Omega\), then \(f_1^{*} \leq f_2^{*}\) on \(\Omega^{*}\).
+\end{exercise}
+\begin{proof}
+Since \(0 \leq f_1 (x) \leq f_2 (x)\), we have \(0 \leq \abs{f_1 (x)} \leq \abs{f_2 (x)}\) for all \(x \in \Omega\). Since \(\abs{f_1 (x)} > t\) implies that \(\abs{f_2 (x)} > t\) for a fixed \(t\), we get
+\[
+    \Set{ x \in \Omega | \abs{f_1 (x)} > t } \subseteq \Set{ x \in \Omega | \abs{f_2 (x)} > t }
+\]
+whence
+\[
+    \mu_{f_1} (t) = \abs{\Set{ x \in \Omega | \abs{f_1 (x)} > t }} \leq \abs{\Set{ x \in \Omega | \abs{f_2 (x)} > t }} = \mu_{f_2} (t)
+\]
+for all \(t \geq 0\).
+
+If we have a \(t\) for which
+\[
+    \mu_{f_2} (t) \leq \frac{\omega_n \abs{x}^n}{n}
+\]
+then we also get
+\[
+    \mu_{f_1} (t) \leq \frac{\omega_n \abs{x}^n}{n}
+\]
+Taking the infimum over \(t\) lets us conclude that
+\[
+    f_1^* (x) \leq f_2^* (x)
+\]
+for all \(x \in \Omega^*\).
+\end{proof}
+
+\begin{exercise}
+Let \(u \colon \Omega \to \reals\) be a measurable function vanishing at infinity (i.e. \(\mu_u (t) < \infty, \forall t\)). Show that \(\left(\abs{u}^p\right)^* = \left(u^*\right)^p\) for any \(p \geq 1\).
+\end{exercise}
+\begin{proof}
+We have
+\[
+    \mu_{\abs{u}^p} (t) = \abs{\Set{ x \in \Omega | \abs{u(x)}^p > t }} = \abs{\Set{ x \in \Omega | \abs{u(x)} > t^{1/p} }} = \mu_{u} \left(t^{1/p}\right)
+\]
+Since \(\mu_u (t) < \infty\) for all \(t\), we can also be certain that \(\mu_u \left(t^{1/p}\right) < \infty\), for any \(p \geq 1\). This allows us to perform the following rewriting:
+\begin{align*}
+    \left(\abs{u}^p\right)^* (x) &= \inf \Set{ t \geq 0 | \mu_{\abs{u}^p} (t) \leq \frac{\omega_n \abs{x}^n}{n} } \\
+    &= \inf \Set{ t \geq 0 | \mu_{u} \left(t^{1/p}\right) \leq \frac{\omega_n \abs{x}^n}{n} } \\
+    &= \inf \Set{ s^p \geq 0 | \mu_u (s) \leq \frac{\omega_n \abs{x}^n}{n} } \\
+    &= \left(\inf \Set{ s \geq 0 | \mu_u (s) \leq \frac{\omega_n \abs{x}^n}{n} }\right)^p \\
+    &= \left(u^*\right)^p
+\end{align*}
+\end{proof}
+
+\begin{exercise}
+Let \(f, g \colon \Omega \to \reals\) be two non-negative functions. The Hardy-Littlewood inequality states that
+\[
+    \int_{\Omega} f(x) g(x) \diff x \leq \int_{\Omega^*} f^*(x) g^*(x) \diff x
+\]
+Prove this for arbitrary domains \(\Omega \subseteq \reals^n\).
+\end{exercise}
+\begin{proof}
+We will generalize the proof from the course.
+
+The first step is to prove the statement for characteristic functions of arbitrary sets \(A, B \subseteq \Omega\). We have
+\begin{align*}
+    \int_{\Omega} \chi_{A} (x) \cdot \chi_{B} (x) \diff x 
+    = \abs{A \cap B}
+    &\leq \min \Set{ \abs{A}, \abs{B} } \\
+    &= \min \Set{ \abs{A^*}, \abs{B^*} } \\
+    &= \int_{\Omega^*} \chi_{A^*} (x) \chi_{B^*} (x) \diff x \\
+    &= \int_{\Omega^*} \left(\chi_{A}\right)^* (x) \left(\chi_{B}\right)^* (x) \diff x
+\end{align*}
+where we use the fact that \(A, B \subseteq \Omega\) implies \(A^*, B^* \subseteq \Omega^*\) (since \(\abs{A}, \abs{B} \leq \abs{\Omega}\), hence their symmetric rearrangements are concentric balls contained within the ball \(\Omega^*\)).
+
+Now we can prove it for arbitrary functions:
+\begin{gather*}
+    \int_{\Omega} f(x) g(x) \diff x = \int_{\Omega} \left(\int_{0}^{\infty} \chi_{\Set{ y \in \Omega | f(y) \geq s }} (x) \diff s\right) \cdot \left(\int_{0}^{\infty} \chi_{\Set{ y \in \Omega | g(y) \geq t }} (x) \diff t\right) \diff x \\[0.2em]
+    = \int_{\Omega} \int_{0}^{\infty} \int_{0}^{\infty} \chi_{\Set{ y \in \Omega | f(y) \geq s }} (x) \cdot \chi_{\Set{ y \in \Omega | g(y) \geq t }} (x) \diff s \diff t \diff x \\[0.2em]
+    = \int_{0}^{\infty} \int_{0}^{\infty} \int_{\Omega} \chi_{\Set{ y \in \Omega | f(y) \geq s }} (x) \cdot \chi_{\Set{ y \in \Omega | g(y) \geq t }} (x) \diff x \diff s \diff t \\[0.2em]
+    \leq \int_{0}^{\infty} \int_{0}^{\infty} \int_{\Omega^{*}} \left(\chi_{\Set{ y \in \Omega | f(y) \geq s }}\right)^{*} (x) \cdot \left(\chi_{\Set{ y \in \Omega | g(y) \geq t }}\right)^{*} (x) \diff x \diff s \diff t \\[0.2em]
+    = \int_{0}^{\infty} \int_{0}^{\infty} \int_{\Omega^{*}} \chi_{\Set{ y \in \Omega^* | f^* (y) \geq s }} (x) \cdot \chi_{\Set{ y \in \Omega^* | g^* (y) \geq t }} (x) \diff x \diff s \diff t \\[0.2em]
+    =  \int_{\Omega^{*}} \int_{0}^{\infty} \int_{0}^{\infty} \chi_{\Set{ y \in \Omega^* | f^* (y) \geq s }} (x) \cdot \chi_{\Set{ y \in \Omega^* | g^* (y) \geq t }} (x) \diff s \diff t \diff x \\[0.2em]
+    = \int_{\Omega^*} \left(\int_{0}^{\infty} \chi_{\Set{ y \in \Omega^* | f^* (y) \geq s }} (x) \diff s\right) \cdot \left(\int_{0}^{\infty} \chi_{\Set{ y \in \Omega^* | g^* (y) \geq t }} (x) \diff t\right) \diff x \\[0.2em]
+    = \int_{\Omega^*} f^* (x) g^* (x) \diff x
+\end{gather*}
+In the above, we've used the layer-cake decomposition and Fubini's theorem twice, as well as the previously-proven result for the symmetric rearrangements of characteristic functions.
+\end{proof}
+
+\begin{exercise}
+Let \(\mu_u (t) \coloneqq \abs{\Set{ \abs{u} > t } } \xlongequal{\text{if } u \geq 0} \abs{\Set{ u > t }}\). In the course it has been proven that \(\mu_u\) is almost-everywhere differentiable and that
+\[
+    \mu_u' (t) = - \int_{\Set{ u \, = \, t }} \frac{1}{\abs{\nabla u (x)}} \diff \sigma(x)
+\]
+for almost every \(t \geq 0\). Using a similar argument, prove the \textbf{Federer co-area formula},
+\[
+    \int_{\reals^n} g(x) \abs{\nabla u (x)} \diff x = \int_{0}^{\infty} \int_{\Set{ u \, = \, t }} g(x) \diff \sigma(x) \diff t
+\]
+\end{exercise}
+% TODO: prove the Federer Co-area Formula
+% Cursul 5.pdf
+
+\begin{exercise}
+Determine the value of \(\omega_n\), the area of the unit sphere \(S^{n-1} \subset \reals^n\).
+\end{exercise}
+\begin{proof}
+Consider the integral
+\[
+    \int_{\reals^n} e^{-\abs{x}^2} \diff x
+\]
+One way to compute it is by breaking it down into a product of distinct Gaussian integrals:
+\begin{align*}
+    \int_{\reals^n} e^{-\abs{x}^2} \diff x
+    &= \int_{\reals^n} e^{-\left(x_1^2 + \dots + x_n^2\right)} \diff x_1 \dots \diff x_n \\
+    &= \int_{\reals^n} e^{-x_1^2 - \dots - x_n^2} \diff x_1 \dots \diff x_n \\
+    &= \left(\int_{\reals^n} e^{-x_1^2} \diff x_1\right) \cdot \hdots \cdot \left(\int_{\reals^n} e^{-x_n^2} \diff x_n\right) \\
+    &= \sqrt{\pi} \cdot \hdots \cdot \sqrt{\pi} = \pi^{\frac{n}{2}}
+\end{align*}
+We can also determine its value by switching to hyperspherical coordinates:
+\begin{align*}
+    \int_{\reals^n} e^{-\abs{x}^2} \diff x &= \int_{0}^{\infty} e^{-r^2} r^{n-1} \omega_n \diff r
+    = \omega_n \int_{0}^{\infty} e^{-r^2} r^{n-1} \diff r \\[0.5em]
+    &= \omega_n \int_{0}^{\infty} e^{-r^2} \left(r^2\right)^\frac{n - 1}{2} \diff r
+    = \omega_n \, \frac{1}{2} \,\int_{0}^{\infty} e^{-r^2} \left(r^2\right)^{\frac{n}{2} - 1} 2r \diff r \\[0.5em]
+    &= \frac{\omega_n}{2} \int_{0}^{\infty} e^{t} t^{\frac{n}{2} - 1} \diff t
+    = \frac{\omega_n}{2} \, \Gamma\left(\frac{n}{2}\right)
+\end{align*}
+
+Equating these two values, we get
+\[
+    \pi^{\frac{n}{2}} = \frac{\omega_n}{2} \, \Gamma\left(\frac{n}{2}\right)
+\]
+whence
+\[
+    \omega_n = \frac{2 \pi^{\frac{n}{2}}}{\Gamma\left(\frac{n}{2}\right)}
+\]
+\end{proof}
+
+\begin{exercise}
+Denote by \(C^{\#}_{\text{Sob}}\) the \emph{sharp Sobolev constant},
+\[
+    C^{\#}_{\text{Sob}} (n, p) = \begin{cases}
+        \left(\frac{p - 1}{n - p}\right)^{1 - \frac{1}{p}} \cdot \frac{1}{\sqrt{\pi} \, \cdot \, n^{\frac{1}{p}}} \cdot \left(\frac{\Gamma\left(\frac{n}{p} + 1\right) \, \Gamma(n)}{\Gamma\left(\frac{n}{p}\right) \, \Gamma\left(1 \, + \, n \, - \, \frac{n}{p}\right)}\right)^{\frac{1}{p}}, \text{ when \,} n > p > 1 \\[1em]
+        C^{\#}_{\text{Iso}} = \frac{\abs{\partial B_1}}{\abs{B_1}^{\frac{n-1}{n}}} , \text{ when \,} p = 1
+    \end{cases}
+\]
+Determine \(\lim_{p \searrow 1} C^{\#}_{\text{Sob}} (n, p)\). Is it equal to \(C^{\#}_{\text{Iso}} = C^{\#}_{\text{Sob}} (n, 1)\)?
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    \lim_{p \searrow 1} C^{\#}_{\text{Sob}} (n, p) &= \lim_{p \searrow 1} \left(\left(\frac{p - 1}{n - p}\right)^{1 - \frac{1}{p}} \cdot \frac{1}{\sqrt{\pi} \, \cdot \, n^{\frac{1}{p}}} \cdot \left(\frac{\Gamma\left(\frac{n}{p} + 1\right) \, \Gamma(n)}{\Gamma\left(\frac{n}{p}\right) \, \Gamma\left(1 \, + \, n \, - \, \frac{n}{p}\right)}\right)^{\frac{1}{p}}\right) \\
+    &= \left(\lim_{p \searrow 1} \left(\frac{p - 1}{n - p}\right)^{1 - \frac{1}{p}}\right) \cdot \frac{1}{\sqrt{\pi} \cdot n} \cdot \frac{\Gamma(n + 1) \Gamma(n)}{\Gamma(n) \Gamma(1)}
+\end{align*}
+We can further simplify this expression, since
+\[
+    \lim_{p \searrow 1} \left(\frac{p - 1}{n - p}\right)^{1 - \frac{1}{p}} = \lim_{p \searrow 1} \exp \left(\left(1 - \frac{1}{p}\right) \cdot \left(\ln (p - 1) - \ln (n - p)\right)\right) = 1
+\]
+(which follows from the fact that \(1 - \frac{1}{p}\) goes to \(0\) faster than \(\ln (p - 1)\) goes to \(-\infty\)). We also have
+\[
+\frac{\Gamma(n + 1) \Gamma(n)}{\Gamma(n) \Gamma(1)} = \frac{n! \cdot (n - 1)!}{(n - 1)! \cdot 1} = n!
+\]
+
+Putting these together, we can conclude that
+\[
+    \lim_{p \searrow 1} C^{\#}_{\text{Sob}} (n, p) = \frac{1}{\sqrt{\pi} \cdot n} \cdot n! = \frac{(n - 1)!}{\sqrt{\pi}}
+\]
+
+The value of the sharp isoperimetric constant has been computed in the course, and is equal to
+\[
+    C^{\#}_{\text{Iso}} = n^\frac{n}{n - 1} \cdot \left(\omega_n\right)^{\frac{1}{n}}
+\]
+where \(\omega_n\) represents the area of \(S^{n - 1}\), the unit sphere in \(\reals^n\). The limit of the sharp Sobolev constant as \(p\) goes down to \(1\) doesn't match this value since, for example, in the case \(n = 2\) we get
+\[
+    C^{\#}_{\text{Iso}} = 2^2 \cdot \left(2 \pi\right)^\frac{1}{2} = 4\sqrt{2} \cdot \sqrt{\pi}
+\]
+while
+\[
+    \lim_{p \searrow 1} C^{\#}_{\text{Sob}} (2, p) = \frac{1}{\sqrt{\pi}}
+\]
+\end{proof}
+
+% TODO: the computations don't check out
+\begin{comment}
+\begin{exercise}
+Define \(C\left(\varphi\right)\) by
+\[
+    C\left(\varphi\right) = \frac{\int_{0}^{\infty} \abs{\varphi(r)}^{p^*} \cdot r^{n - 1} \diff r}{\int_{0}^{\infty} \abs{\varphi(r)}^{p} \cdot r^{n - 1} \diff r}
+\]
+where \(n\) and \(p\) are fixed and \(p^* = \frac{n p }{n - p}\).
+
+Fix \(a, b \in \reals\) and let
+\[
+    \varphi_{a, \, b} (r) = \left(a + b \cdot r^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}
+\]
+
+Prove that \(C\left(\varphi_{a, b}\right)\) doesn't depend on \(a\) or \(b\), only on \(n\) and \(p\).
+\end{exercise}
+\begin{proof}
+First of all, we will show that the expression doesn't depend on \(a\). Fix \(b = 1\) and compute
+\begin{gather*}
+    C\left(\varphi_{a, \, 1}\right) = \frac{\int_{0}^{\infty} \abs{\left(a + r^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p^*} \cdot r^{n - 1} \diff r}{\int_{0}^{\infty} \abs{\left(a + r^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p} \cdot r^{n - 1} \diff r} \\
+    = \frac{\int_{a}^{\infty} \abs{\left(a + \left(s^{\frac{p}{p - 1}} - a\right)\right)^{1 - \frac{n}{p}}}^{p^*} \cdot \left(\left(s^{\frac{p}{p - 1}} - a\right)^\frac{p - 1}{p}\right)^{n - 1} \cdot s^{\frac{1}{p - 1}} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^{\frac{- 1}{p}} \diff r}{\int_{a}^{\infty} \abs{\left(a + \left(s^{\frac{p}{p - 1}} - a\right)\right)^{1 - \frac{n}{p}}}^{p} \cdot \left(\left(s^{\frac{p}{p - 1}} - a\right)^\frac{p - 1}{p}\right)^{n - 1} \cdot s^{\frac{1}{p - 1}} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^{\frac{- 1}{p}} \diff r} \\
+    = \frac{\int_{a}^{\infty} \abs{\left(s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p^*} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^\frac{(p - 1)(n - 1)}{p} \cdot s^{\frac{1}{p - 1}} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^{\frac{- 1}{p}} \diff r}{\int_{a}^{\infty} \abs{\left(s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^\frac{(p - 1)(n - 1)}{p} \cdot s^{\frac{1}{p - 1}} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^{\frac{- 1}{p}} \diff r} \\
+    = \frac{\int_{a}^{\infty} \abs{\left(s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p^*} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^{(n - 1) - \frac{n}{p}} \cdot s^{\frac{1}{p - 1}} \diff r}{\int_{a}^{\infty} \abs{\left(s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p} \cdot \left(s^{\frac{p}{p - 1}} - a\right)^{(n - 1) - \frac{n}{p}} \cdot s^{\frac{1}{p - 1}} \diff r}
+\end{gather*}
+% TODO: conclusion doesn't follow
+
+We can also show that the expression doesn't depend on \(b\). Fix \(a = 0\). We obtain
+\begin{gather*}
+    C\left(\varphi_{0, \, b}\right) = \frac{\int_{0}^{\infty} \abs{\left(b \cdot r^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p^*} \cdot r^{n - 1} \diff r}{\int_{0}^{\infty} \abs{\left(b \cdot r^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p} \cdot r^{n - 1} \diff r} \\
+    = \frac{\int_{0}^{\infty} \abs{\left(b \cdot \left(b^{-\frac{p - 1}{p}} s\right)^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p^*} \cdot \left(b^{-\frac{p - 1}{p}} s\right)^{n - 1} \cdot \cancel{b^{-\frac{p - 1}{p}}} \diff s}{\int_{0}^{\infty} \abs{\left(b \cdot \left(b^{-\frac{p - 1}{p}} s\right)^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p} \cdot \left(b^{-\frac{p - 1}{p}} s\right)^{n - 1} \cdot \cancel{b^{-\frac{p - 1}{p}}} \diff s} \\
+    = \frac{\int_{0}^{\infty} \abs{\left(\bcancel{b} \cdot \cancel{b^{-1}} \cdot s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p^*} \cdot \cancel{b^{-\frac{(p - 1)(n - 1)}{p}}} \cdot s^{n - 1} \diff s}{\int_{0}^{\infty} \abs{\left(\bcancel{b} \cdot \cancel{b^{-1}} \cdot s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p} \cdot \cancel{b^{-\frac{(p - 1)(n - 1)}{p}}} \cdot s^{n - 1} \diff s} \\
+    = \frac{\int_{0}^{\infty} \abs{\left(s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p^*} s^{n - 1} \diff s}{\int_{0}^{\infty} \abs{\left(s^{\frac{p}{p - 1}}\right)^{1 - \frac{n}{p}}}^{p} s^{n - 1} \diff s} \\
+    = C\left(\varphi_{0, \, 1}\right)
+\end{gather*}
+\end{proof}
+\end{comment}
+
+% TODO: too many computations
+\begin{comment}
+\begin{exercise}
+Using the notations from the previous exercise, show that \(\varphi_{a, b}\) satisfies pointwise a.e.\ the differential equation
+\[
+    \left(\abs{\varphi'(r)}^{p - 2} \cdot \varphi'(r) \cdot r^{n - 1}\right)' + \widetilde{C} \left(\varphi\right) \cdot \abs{\varphi(r)}^{p^{*} - 2} \cdot \varphi(r) \cdot r^{n - 1} = 0
+\]
+where \(\widetilde{C}\left(\varphi\right) = \frac{1}{C\left(\varphi\right)}\).
+\end{exercise}
+% TODO: compute :(
+\end{comment}
+
+\begin{comment} % Already solved in the course
+\begin{exercise}
+Let \(m \in \naturals\) and consider the function \(u_m \colon [0, 1] \to \reals\),
+\[
+    u_m (r) = \begin{cases}
+        1, \quad r \in \left[0, 1 - \frac{1}{m}\right] \\[0.5em]
+        m (1 - r), \quad r \in \left[1 - \frac{1}{m}, 1\right]
+    \end{cases}
+\]
+Take the radially symmetric sequence
+\begin{gather*}
+    f_m (x) = u_m \left(\abs{x}\right) \\[0.5em]
+    x \in B_1 (0)
+\end{gather*}
+Then \(f_m \in W_0^{1, \, 1} \left(B_1 (0)\right)\) and
+\[
+    \frac{\norm{\nabla f_m }_{L^{1} \left(B_1 (0)\right)}}{\norm{f_m}_{L^{\frac{n - 1}{n}} \left(B_1 (0)\right)}}
+    \xrightarrow{m \, \to \, \infty} \frac{\abs{\partial B_1 (0)}}{\abs{B_1 (0)}^{\frac{n - 1}{n}}}
+    = C^{\#}_{\text{iso}}
+\]
+\end{exercise}
+\end{comment}
+
+\begin{exercise}
+Let \(\Omega\) be a smooth bounded domain in \(\reals^n\). Define the distance from a point \(x \in \Omega\) to the boundary as
+\[
+    d\left(x, \partial \Omega\right) = \inf_{y \in \partial \Omega} \abs{x - y}
+\]
+Show that for points close enough to the boundary, \(d\left(-, \partial \Omega\right)\) is smooth and
+\[
+    \nabla d\left(x, \partial \Omega\right) = - \nu \cdot \symrm{proj}_{\partial \Omega} (x)
+\]
+\end{exercise}
+\begin{proof}
+Since \(\Omega\) is bounded and the boundary is smooth, \(\overline{\Omega}\) is a compact Riemannian submanifold of \(\reals^n\) and \(\partial \Omega\) is a compact Riemannian hypersurface of \(\reals^n\).
+
+Let \(\Nu \in \symfrak{X}^{\perp} \left(\partial \Omega\right)\) be the unit normal vector field on the boundary. For any \(\varepsilon > 0\), define the map
+\begin{gather*}
+    \varphi_{\varepsilon} \colon \partial \Omega \times [0, \varepsilon) \to \overline{\Omega} \\
+    (y, t) \mapsto \exp_{y} (t \cdot \Nu_y)
+\end{gather*}
+
+For each \(y \in \partial \Omega\), we can find a neighborhood \(U_y\) around it and a corresponding \(\varepsilon_y\) such that \(\varphi_{\varepsilon_y}\) restricted to \(U_y \times [0, \varepsilon_y)\) is a diffeomorphism. But since \(\partial \Omega\) is compact, we can produce a single \(\varepsilon'\) small enough such that \(\varphi \coloneq \varphi_{\varepsilon'}\) is globally a diffeomorphism. Letting \(x = \varphi(y, t)\), we have
+\begin{gather*}
+    d(x, \partial \Omega) = t \\
+    \nabla d (x, \partial \Omega) = - \nu \cdot \symrm{proj}_{\partial \Omega} (x)
+\end{gather*}
+\end{proof}
+
+\begin{exercise}
+Let \(\Omega\) be a smooth bounded domain in \(\reals^n\). Define
+\[
+    \mu_p \left(\Omega\right) = \inf_{\substack{v \in W^{1, \, p}_{0} \left(\Omega\right) \\ v \, \neq \, 0}} \frac{\int_{\Omega} \abs{\nabla v (x)}^p \diff x}{\int_{\Omega} \abs{v(x)}^p \diff x}
+\]
+Show that
+\[
+    \mu_p \left(\Omega\right) = \inf_{\substack{v \in W^{1, \, p}_{0} \left(\Omega\right) \\ \norm{v}_{L^p \left(\Omega\right)} = 1}} \int_{\Omega} \abs{\nabla v (x)}^p \diff x
+\]
+\end{exercise}
+\begin{proof}
+Since the set of \(v \in W^{1, \, p}_{0} \left(\Omega\right)\) with \(\norm{v}_{L^p \left(\Omega\right)} = 1\) is included in \(W^{1, \, p}_{0} \left(\Omega\right)\), we clearly have
+\[
+    \inf_{\substack{v \in W^{1, \, p}_{0} \left(\Omega\right) \\ \norm{v}_{L^p \left(\Omega\right)} = 1}} \int_{\Omega} \abs{\nabla v (x)}^p \diff x \leq \inf_{\substack{v \in W^{1, \, p}_{0} \left(\Omega\right) \\ v \, \neq \, 0}} \frac{\int_{\Omega} \abs{\nabla v (x)}^p \diff x}{\int_{\Omega} \abs{v(x)}^p \diff x}
+\]
+For the converse inequality, note that for any \(w \in W^{1, \, p}_{0} \left(\Omega\right)\), \(w \neq 0\), the function
+\[
+    v \coloneq \frac{w}{\norm{w}_{L^p}} \in W^{1, \, p}_{0} \left(\Omega\right)
+\]
+has \(L^p\)-norm equal to \(1\). Furthermore,
+\[
+    \nabla v = \nabla \left(\frac{w}{\norm{w}_{L^p}}\right) = \frac{1}{\norm{w}_{L^p}} \nabla w
+\]
+from which we get that
+\[
+    \int_{\Omega} \abs{\nabla v(x)}^p \diff x = \frac{\int_{\Omega} \abs{\nabla v(x)}^p \diff x}{\int_{\Omega} \abs{v(x)}^p \diff x} = \frac{\int_{\Omega} \frac{1}{\norm{w}^{p}_{L^p}} \abs{\nabla w(x)}^p \diff x}{\int_{\Omega} \frac{1}{\norm{w}^p_{L^p}} \abs{w(x)}^p \diff x} = \frac{\int_{\Omega} \abs{\nabla w(x)}^p \diff x}{\int_{\Omega} \abs{w(x)}^p \diff x}
+\]
+Hence,
+\[
+    \inf_{\substack{v \in W^{1, \, p}_{0} \left(\Omega\right) \\ v \, \neq \, 0}} \frac{\int_{\Omega} \abs{\nabla v (x)}^p \diff x}{\int_{\Omega} \abs{v(x)}^p \diff x} \leq \inf_{\substack{v \in W^{1, \, p}_{0} \left(\Omega\right) \\ \norm{v}_{L^p \left(\Omega\right)} = 1}} \int_{\Omega} \abs{\nabla v (x)}^p \diff x
+\]
+\end{proof}
+
+\begin{exercise}
+Let \(\Omega\) be a smooth bounded domain in \(\reals^n\) and define the \emph{Cheeger constant} associated to \(\Omega\) as
+\[
+    h(\Omega) = \inf_{\substack{D \subsetneq \Omega \\ \overline{D} \subset \Omega}} \frac{\abs{\partial D}}{\abs{D}}
+\]
+Prove that
+\[
+    \lambda^{p}_1 \left(\Omega\right) \geq \left(\frac{h\left(\Omega\right)}{p}\right)^p
+\]
+in the case when \(p > 1\).
+\end{exercise}
+\begin{proof}
+Recall that \(\lambda^{p}_{1} \left(\Omega\right)\) is characterized by
+\[
+    \lambda^{p}_{1} \left(\Omega\right) = \inf_{\substack{w \in W^{1, \, p}_{0} \left(\Omega\right) \\ w \neq 0}} \frac{\int_{\Omega} \abs{\nabla w (x)}^p \diff x}{\int_{\Omega} \abs{w(x)}^p \diff x}
+\]
+Hence, to prove the desired inequality it's enough to show that
+\[
+    \int_{\Omega} \abs{\nabla w(x)}^p \diff x \geq \left(\frac{h\left(\Omega\right)}{p}\right)^p \int_{\Omega} \abs{w(x)}^p \diff x
+\]
+for all \(w \in W^{1, \, p}_{0} \left(\Omega\right)\).
+
+In the course, we've already proven this inequality for the case \(p = 1\), i.e.
+\[
+    \int_{\Omega} \abs{\nabla v(x)} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{v(x)} \diff x
+\]
+for all \(v \in W^{1, \, 1}_{0} \left(\Omega\right)\). We are going to use this result to prove the general case.
+
+Take an arbitrary \(w \in W^{1, \, p}_{0} \left(\Omega\right)\). Applying the inequality for \(w^p \in W^{1, \, 1}_{0} \left(\Omega\right)\), we get
+\begin{gather*}
+    \int_{\Omega} \abs{\nabla \left(w^p\right)(x)} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{\left(w^p\right)(x)} \diff x \\
+    \iff
+    \int_{\Omega} \abs{\, p \cdot \left(\nabla w\right)(x) \cdot (w(x))^{p - 1}} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{w(x)}^p \diff x \\
+    \iff
+    p \int_{\Omega} \abs{\nabla w(x)} \cdot \abs{w(x)}^{p - 1} \diff x \geq h\left(\Omega\right) \int_{\Omega} \abs{w(x)}^p \diff x \\
+    \iff
+    \int_{\Omega} \abs{\nabla w(x)} \cdot \abs{w(x)}^{p - 1} \diff x \geq \frac{h\left(\Omega\right)}{p} \int_{\Omega} \abs{w(x)}^p \diff x
+\end{gather*}
+From Hölder's inequality, we get an upper bound on the left-hand side:
+\[
+    \int_{\Omega} \abs{\nabla w(x)} \cdot \abs{w(x)}^{p - 1} \diff x \leq \left(\int_{\Omega} \abs{\nabla w(x)}^p \diff x\right)^{\frac{1}{p}} \cdot \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{\frac{p - 1}{p}}
+\]
+whence
+\begin{gather*}
+    \left(\int_{\Omega} \abs{\nabla w(x)}^p \diff x\right)^{\frac{1}{p}} \cdot \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{\frac{p - 1}{p}} \geq \frac{h\left(\Omega\right)}{p} \int_{\Omega} \abs{w(x)}^p \diff x \\[0.5em]
+    \iff
+    \int_{\Omega} \abs{\nabla w(x)}^p \diff x \cdot \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{p - 1} \geq \left(\frac{h\left(\Omega\right)}{p}\right)^{p} \left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{p} \\[0.5em]
+    \iff
+    \int_{\Omega} \abs{\nabla w(x)}^p \diff x \geq \left(\frac{h\left(\Omega\right)}{p}\right)^{p} \frac{\left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{p}}{\left(\int_{\Omega} \abs{w(x)}^p \diff x\right)^{p - 1}} \\[0.5em]
+    \iff
+    \int_{\Omega} \abs{\nabla w(x)}^p \diff x \geq \left(\frac{h\left(\Omega\right)}{p}\right)^{p} \int_{\Omega} \abs{w(x)}^p \diff x
+\end{gather*}
+which implies the desired conclusion.
+\end{proof}

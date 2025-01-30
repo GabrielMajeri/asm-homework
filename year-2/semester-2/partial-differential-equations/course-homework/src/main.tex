@@ -1,0 +1,55 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Extended font specification
+\usepackage{fontspec}
+
+% Encode mathematical symbols using Unicode characters
+\usepackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
+
+% Change the default text and math font
+\defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
+\setmainfont{Heuristica}
+\setmathfont{TeX Gyre Termes Math}
+
+% Fix missing set difference symbol
+\setmathfont[range=\setminus]{Asana Math}
+
+% Useful math commands
+\usepackage{amsmath}
+% Support for custom theorem environments
+\usepackage{amsthm}
+% Support for more advanced math commands
+\usepackage{mathtools}
+
+% Additional arrow types
+\usepackage{extarrows}
+
+% Support for cancelling terms
+\usepackage[makeroom]{cancel}
+
+% Support for set-builder notation
+\usepackage{braket}
+
+% Support for commenting-out blocks of code
+\usepackage{verbatim}
+
+% Define some custom theorem-like environments
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}
+
+% Define some custom commands
+\input{commands}
+
+% Document metadata
+\title{Geometric Aspects in Partial Differential Equations and Calculus of Variations \\
+Homework}
+\author{Gabriel Majeri}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\input{exercises}
+
+\end{document}

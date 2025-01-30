@@ -7,7 +7,7 @@ This repository contains my homework, problem solutions and other material I've 
 ### Semester 1
 
 - [Commutative Algebra](year-1/semester-1/commutative-algebra/)
-- [Real and Fourier Analysis](year-1/semester-1/fourier/)
+- [Real and Fourier Analysis](year-1/semester-1/fourier-analysis/)
 
 ### Semester 2
 

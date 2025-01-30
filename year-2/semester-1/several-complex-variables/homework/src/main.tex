@@ -1,0 +1,115 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Improves the font specification system
+\usepackage{fontspec}
+
+% Change the default font
+\setmainfont{TeX Gyre Schola}
+
+% Support for text in different languages
+\usepackage{polyglossia}
+
+\setdefaultlanguage{romanian}
+
+% Standard commands for writing mathematics using LaTeX
+\usepackage{amsmath}
+
+% Additional math commands
+\usepackage{mathtools}
+
+% Support for set-builder notation
+\usepackage{braket}
+
+% Support for defining custom theorem environments
+\usepackage{amsthm}
+
+% Miscellaneous mathematical symbols
+\usepackage{amssymb}
+
+% Encode mathematical symbols using Unicode characters
+\usepackage{unicode-math}
+
+% Use a matchy math font
+\setmathfont{TeX Gyre Schola Math}
+\setmathfont[range=\setminus]{Asana Math}
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problema}
+
+% Suport pentru hyperlink-uri interactive
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks,
+    linkcolor=blue
+}
+
+% Custom solution environment
+\newenvironment{solution}
+    {\addvspace{8pt}\par\noindent\textit{Rezolvare.}}
+    {\hfill\(\square\)}
+
+% Advanced enumerations
+\usepackage{enumerate}
+
+% Support for commenting out blocks of LaTeX code
+\usepackage{verbatim}
+
+% Support for drawing graphics
+\usepackage{tikz}
+
+%% Useful math commands
+
+\newcommand*{\naturals}{\symbb{N}}
+\newcommand*{\integers}{\symbb{Z}}
+\newcommand*{\reals}{\symbb{R}}
+\newcommand*{\complex}{\symbb{C}}
+
+\newcommand*{\real}{\operatorname{Re}}
+\newcommand*{\imag}{\operatorname{Im}}
+
+\newcommand*{\ring}{\symcal{O}}
+\newcommand*{\sheaf}{\symcal{O}}
+
+\newcommand*{\holomorphichull}[2][]{\widehat{#2}^{#1}}
+
+\newcommand*{\zeros}{\symrm{Z}}
+
+\newcommand*{\divides}{\mid}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% Definitions for the absolute value and norm symbols
+% Based on https://tex.stackexchange.com/a/43009/263993
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+% Swap the definition of \ceil*, \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldceil\ceil
+\def\ceil{\@ifstar{\oldceil}{\oldceil*}}
+%
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+\newcommand*{\innerproduct}[2]{\left\langle #1, #2 \right\rangle}
+
+\begin{document}
+
+\title{Mai multe variabile complexe --- Teme}
+\author{Gabriel Majeri}
+\date{}
+
+\maketitle
+
+\input{homework1}
+\input{homework2}
+\input{homework3}
+
+\end{document}

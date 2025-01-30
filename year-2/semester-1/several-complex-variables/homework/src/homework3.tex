@@ -1,0 +1,54 @@
+\section*{Tema 3}
+
+\setcounter{problem}{0}
+
+\begin{problem}
+Arătați că \(\ring(\complex)\) nu este factorial.
+\end{problem}
+\begin{solution}
+Într-un inel factorial, orice element se poate scrie în mod unic ca un produs finit de termeni ireductibili, modulo unități.
+
+Considerăm funcția olomorfă \(f (z) = \sin (z) \in \ring(\complex)\). Deoarece \(\sin (k \pi) = 0\), avem că \(z - k \pi \divides \sin (z)\), \(\forall k \in \integers\). Fiecare \(g_k (z) = z - k \pi\) este un element ireductibil din \(\ring(\complex)\), din considerente de grad. Mai mult, niciunul nu este inversabil. Obținem că
+\[
+    f = \hdots \cdot g_{-1} \cdot g_0 \cdot g_1 \cdot \hdots
+\]
+Dacă \(\ring(\complex)\) ar fi factorial, \(f\) ar fi trebuit să aibă o descompunere finită în elemente ireductibile. Dar cum \(f\) are o infinitate de rădăcini, o descompunere în termeni liniari va fi întotdeauna infinită.
+\end{solution}
+
+\begin{problem}
+Dacă \(n \in \naturals^*\), arătați că \(\ring_n\) este principal dacă și numai dacă \(n = 1\).
+\end{problem}
+\begin{solution}
+Pentru început, vom demonstra că \(\ring_1\) este principal. Știm din curs că \(\ring_n\) este un inel local, pentru orice \(n\). Idealul maximal al lui \(\ring_1\) este \(m = (z)\) (germenii de funcții care se anulează în origine).
+
+Fie \(I\) un ideal oarecare din \(\ring_1\). Dacă \(I = \ring_1\), atunci putem lua \(I = (1)\). Altfel, din lema lui Krull știm că \(I \subseteq m\). Cu alte cuvinte, \(z \divides f\), pentru orice \(f \in I\). Să luăm \(k \in \naturals^*\) maxim pentru care \(z^k \divides f\), \(\forall f \in I\). Vom arăta că \(I = (z^k)\).
+\begin{itemize}
+    \item[\(\subseteq\)] Prin modul în care l-am ales pe \(k\), orice element \(f \in I\) se poate scrie ca \(f = z^k \cdot g\), pentru un \(g \in \ring_1\).
+
+    \item[\(\supseteq\)] Dacă luăm un \(f \in I\) care are gradul \(k\), atunci \(g\) (din descompunerea de mai sus) nu este divizibil cu \(z\), deci nu se anulează în \(0\), iar asta ne arată că este inversabil în \(\ring_1\). Obținem \(z^k = f \cdot g^{-1}\).
+\end{itemize}
+
+Pentru cazul \(n \geq 2\), cel mai simplu exemplu de ideal care nu este principal este \(m = \left(z_1, \dots, z_n\right)\). Să presupunem că ar exista un generator \(f\) pentru \(m\); acesta ar trebui să dividă fiecare dintre generatorii \(z_1, \dots, z_n\). Uitându-ne la grade, singura posibilitate este ca \(f\) să fie un număr complex. În acest caz, dacă \(f = 0\), obținem \(\left(f\right) = (0)\), iar dacă \(f \neq 0\), atunci este inversabil și \(\left(f\right) = \ring_n\).
+\end{solution}
+
+\begin{problem}
+Fie \(I\) idealul lui \(\ring_2\) definit prin \(I = \Set{ f_0 | f(t^3, t^2) \equiv 0 }\) și \(R \coloneq \ring_2 / I\). Arătați că \(R\) nu este inel factorial.
+\end{problem}
+\begin{solution}
+Observăm că germenele asociat funcției \(z_1^2 - z_2^3\) este în idealul \(I\), deoarece \((t^3)^2 - (t^2)^3 = t^6 - t^6 = 0\). Prin urmare, acest element devine \(0\) în inelul factor.
+
+Făcând o verificare similară, obținem că germenii asociați lui \(z_1\) și lui \(z_2\) nu sunt în ideal, și nici diferența lor nu este, ceea ce ne indică că \(\widehat{z_1}\) și \(\widehat{z_2}\) sunt elemente distincte în inelul factor. Mai mult, rămân ireductibili și în cât, fiind polinoame de gradul 1.
+
+Avem astfel două descompuneri diferite în factori ireductibili pentru \(\widehat{z_1}^2\):
+\begin{gather*}
+    \widehat{z_1}^2 = \widehat{z_1} \cdot \widehat{z_1} \\
+    \widehat{z_1}^2 = \widehat{z_2}^3 = \widehat{z_2} \cdot \widehat{z_2} \cdot \widehat{z_3}
+\end{gather*}
+ceea ce ne arată că \(R\) nu este factorial.
+\end{solution}
+
+\begin{comment}
+\begin{problem}
+Arătați că \(x^2 + y^4 (1 + x)\) este ireductibil în \(\complex[x, y]\) dar reductibil în \(\ring_2\).
+\end{problem}
+\end{comment}

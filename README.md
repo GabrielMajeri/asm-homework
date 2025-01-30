@@ -18,6 +18,7 @@ This repository contains my homework, problem solutions and other material I've 
 ### Semester 1
 
 - [Algebraic Geometry II](year-2/semester-1/algebraic-geometry/)
+- [Several Complex Variables](year-2/semester-1/several-complex-variables/)
 
 ### Semester 2
 

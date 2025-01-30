@@ -1,0 +1,161 @@
+\section*{Tema 2}
+
+\setcounter{problem}{0}
+
+\begin{problem}
+Fie \(u \colon \complex \to \reals\) o funcție continuă și subarmonică astfel încât pentru orice \(k > 0\),
+\[
+    \lim_{\abs{z} \to \infty} u(z) - k \log \, \abs{z} = -\infty
+\]
+\begin{enumerate}[a)]
+    \item Arătați că, pentru orice \(k > 0\),
+    \[
+        \sup_{\abs{z} \geq 1} \Set{ u(z) - k \log \, \abs{z} } = \max_{\abs{z} = 1} \Set{ u(z) }
+    \]
+    
+    \item Arătați că
+    \[
+        \sup_{z \in \complex} \Set{ u(z) } = \max_{\abs{z} \leq 1} \Set{ u(z) }
+    \]
+    
+    \item Deduceți că \(u\) trebuie să fie constantă.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[a)]
+    \item Vom nota \(M = \max_{\abs{z} = 1} \Set{ u(z) }\).
+    
+    Observăm că funcția \(k \log \, \abs{z}\) se anulează când \(\abs{z} = 1\), deci
+    \[
+        M = \max_{\abs{z} = 1} \Set{ u(z) } = \max_{\abs{z} = 1} \Set{ u(z) - k \log \, \abs{z} }
+    \]
+    Cu alte cuvinte, ni se cere să arătăm că expresia \(u(z) - k \log \, \abs{z}\) își atinge maximul pe cercul unitate, când ne uităm pe mulțimea închisă \(\complex \setminus D(0, 1)\).
+    
+    Din ipoteză, știm că \(u(z) - k \log \, \abs{z}\) tinde la \(-\infty\) când \(\abs{z}\) se duce spre \(+\infty\), \emph{indiferent de direcție}. Prin urmare, pentru orice \(\varepsilon > 0\) fixat putem găsi un \(r > 0\) astfel încât \(u(z) - k \log \, \abs{z} < M - \epsilon\) când \(\abs{z} > r\). Asta ne spune că este suficient să căutăm supremum-ul expresiei \(u(z) - k \log \, \abs{z}\) în regiunea în formă de inel definită de \(1 \leq \abs{z} \leq r\). Aceasta este o mulțime compactă din \(\complex\), iar \(u\) este o funcție continuă. Prin urmare, își atinge maximul. Avem:
+    \[
+        \sup_{\abs{z} \geq 1} \Set{ u(z) - k \log \, \abs{z} } = \max_{1 \leq \abs{z} \leq r} \Set{ u(z) - k \log \, \abs{z} }
+    \]
+
+    Mai rămâne să vedem că acest maxim se atinge doar pentru \(\abs{z} = 1\). Să presupunem că funcția și-ar atinge maximul pentru un \(z\) cu \(1 < \abs{z} \leq r\). Știm din ipoteză că \(u\) este o funcție subarmonică, la curs am arătat că \(\log \, \abs{z}\) este o funcție armonică, prin urmare diferența lor este la rândul ei funcție subarmonică. Dacă \(u(z) - k \log \, \abs{z}\) și-ar atinge maximul în interiorul domeniului său de definiție, ar trebui să fie constantă. Dar atunci nu ar mai putea să tindă spre \(-\infty\) când \(\abs{z}\) se duce la \(\infty\).
+    
+    \item Putem rescrie valoarea din stânga egalității ca
+    \[
+        \sup_{z \in \complex} \Set{ u(z) } = \max \Set{ \sup_{\abs{z} \leq 1} \Set{ u(z) }, \, \sup_{\abs{z} > 1} \Set{ u(z) } }
+    \]
+    
+    Să vedem de ce valoarea maximă nu poate fi atinsă când \(\abs{z} > 1\). Am arătat la subpunctul anterior că
+    \[
+        \sup_{\abs{z} > 1} \Set{ u(z) - k \log \, \abs{z} } = M
+    \]
+    deci
+    \[
+        u(z) - k \log \, \abs{z} \leq M
+    \]
+    pentru orice \(k > 0\) și orice \(z \in \complex\) cu \(\abs{z} > 1\). Trecând la limită această expresie când \(k \to 0\), obținem
+    \[
+        u(z) \leq M
+    \]
+    pentru orice \(z \in \complex\) cu \(\abs{z} > 1\). Acest lucru ne arată că \(\sup \Set{ u(z) }\) se obține pentru \(\abs{z} = 1\) sau \(\abs{z} < 1\).
+    
+    \item Deoarece \(u\) este o funcție continuă pe \(\complex\), își atinge maximul pe discul unitate (o mulțime compactă). La subpunctul anterior am arătat că acesta este și maximul global. Fiind o funcție subarmonică cu un punct de maxim pe un domeniu deschis, \(u\) este o funcție constantă.
+\end{enumerate}
+\end{solution}
+
+\begin{problem}
+Fie \(\Omega\) o varietate complexă, \(\varphi \colon \Omega \to \reals\) o funcție de clasă \(\symcal{C}^2\) strict plurisubarmonică și \(\chi \colon \reals \to \reals\) o funcție de clasă \(\symcal{C}^2\), strict crescătoare și convexă. Arătați că \(\chi \circ \varphi\) este strict plurisubarmonică.
+\end{problem}
+\begin{solution}
+Fiind o compunere de funcții de clasă \(\symcal{C}^2\), funcția \(\chi \circ \varphi\) este la rândul ei de clasă \(\symcal{C}^2\). Pentru a arăta că este strict plurisubarmonică, trebuie să arătăm că forma Levi asociată este pozitiv definită.
+
+Pentru un \(a \in \Omega\), aplicând formula de derivare a funcțiilor compuse avem că
+\begin{align*}
+    L_a \left(\chi \circ \varphi\right) (w) &= \sum_{j, \, k = 1}^{n} \frac{\partial}{\partial z_j \partial \overline{z_k}} \left(\chi \circ \varphi\right) (a) \, w_j \, \overline{w_k} = \\
+    &= \sum_{j, \, k = 1}^{n} \frac{\partial \chi}{\partial t^2} \left(\varphi(a)\right) \, \frac{\partial \varphi}{\partial z_j \partial \overline{z_k}} (a) \, w_j \, \overline{w_k}
+\end{align*}
+Știm deja că forma Levi a lui \(\varphi\),
+\[
+    L_a \varphi (w) = \sum_{j, \, k = 1}^{n} \frac{\partial \varphi}{\partial z_j \overline{\partial z_k}} (a) \, w_j \, \overline{w_k}
+\]
+este pozitiv definită, deoarece \(\varphi\) este strict plurisubarmonică. Mai mult, avem că
+\[
+    \frac{\partial \chi}{\partial t^2}(s) > 0, \forall s \in \reals
+\]
+deoarece \(\chi\) este convexă și strict crescătoare.
+
+Înmulțind o formă pozitiv definită cu un scalar pozitiv obținem tot o formă pozitiv definită, deci forma Levi a compunerii este pozitiv definită, de unde rezultă concluzia.
+\end{solution}
+
+\begin{problem}
+O varietate complexă \(\Omega\) se numește hiperconvexă dacă există o funcție de clasă \(\symcal{C}^2\) strict plurisubarmonică \(\varphi \colon \Omega \to (-\infty, 0)\) astfel încât, pentru orice \(c < 0\), mulțimea \(\Set{ x \in \Omega | \varphi(x) \leq c }\) este compactă. Reamintim că o varietate complexă \(\Omega\) se numește pseudoconvexă dacă există o funcție de clasă \(\symcal{C}^2\) strict plurisubarmonică \(\varphi \colon \Omega \to \reals\) astfel încât, pentru orice \(c \in \reals\), mulțimea \(\Set{ x \in \Omega | \varphi(x) \leq c }\) este compactă.
+
+\begin{enumerate}[a)]
+    \item Arătați că orice varietate hiperconvexă este pseudoconvexă.
+    \item Dați un exemplu de varietate pseudoconvexă care nu este hiperconvexă.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[a)]
+    \item Fie \(\Omega\) o varietate hiperconvexă și \(\varphi \colon \Omega \to (-\infty, 0)\) funcția strict plurisubarmonică asociată. Observăm că \(f(x) = -\ln(-x)\) este o funcție de clasă \(\symcal{C}^2\), strict crescătoare și convexă pe \((-\infty, 0)\) care își duce domeniul în \((-\infty, +\infty) = \reals\).
+    
+    Definim \(\psi \colon \Omega \to \reals\), \(\psi(x) = -\ln(-\varphi(x))\). La exercițiul anterior am demonstrat că această funcție compusă este în continuare strict plurisubarmonică. Mai mult,
+    \begin{gather*}
+        \psi(x) \leq c \\
+        \iff -\ln(-\varphi(x)) \leq c \\
+        \iff \ln(-\varphi(x)) \geq -c \\
+        \iff -\varphi(x) \geq e^{-c} \\
+        \iff \varphi(x) \leq \underbrace{\strut -e^{-c}}_{< 0}
+    \end{gather*}
+    ceea ce arată că mulțimea \(\Set{ x \in \Omega | \psi(x) \leq c }\) este compactă pentru orice \(c \in \reals\).
+
+    % TODO: finish up proof
+\end{enumerate}
+\end{solution}
+
+\setcounter{problem}{3}
+
+\begin{problem}
+Fie \(\Set{ A_j | j \in \naturals }\) o mulțime numărabilă de submulțimi analitice din \(\complex^n\), \(n \geq 2\), astfel încât \(\forall j \in \naturals\), \(A_j \neq \complex^n\). Arătați că \(\bigcup_{j \in \naturals} A_j \neq \complex^n\).
+\end{problem}
+\begin{solution}
+Vom demonstra acest lucru prin inducție.
+
+Pentru cazul \(n = 1\), știm că zerourile unei funcții olomorfe formează o mulțime discretă de puncte (cu excepția cazului când luăm \(f = 0\), dar atunci \(\zeros(f) = \complex\), ceea ce nu convine ipotezei). Prin urmare, orice submulțime analitică proprie din \(\complex\) este formată dintr-un număr finit de puncte. O reuniune numărabilă de mulțimi finite este tot numărabilă, deci nu poate fii în bijecție cu \(\complex\), care este o mulțime nenumărabilă.
+
+Pentru cazul \(n \geq 2\), considerăm un hiperplan \(B\) oarecare (o submulțime analitică izomorfă cu \(\complex^{n - 1}\)), dar care să nu fie conținut în niciunul dintre \(A_j\)-uri (putem face acest lucru, deoarece mulțimea \(A_j\) este numărabilă dar \(\complex\) este nenumărabil).
+
+Dacă presupunem că \(\bigcup_{j \in \naturals} A_j = \complex^n\), atunci \(\bigcup_{j \in \naturals} \left(A_j \cap B\right) = B\). Dar fiecare \(A_j \cap B\) este o mulțime analitică de dimensiune cel mult \(n - 1\), iar \(B\) este izomorf cu \(\complex^{n - 1}\), deci aceasta este o contradicție cu ipoteza de inducție.
+\end{solution}
+
+\begin{comment}
+\begin{problem}
+Dați exemplu de o submulțime analitică \(A\) din \(\complex \times \complex^*\) (în particular, \(A\) este închisă în \(\complex \times \complex^*\)) astfel încât închiderea lui \(A\) în \(\complex^2\) nu este submulțime analitică în \(\complex^2\).
+\end{problem}
+\end{comment}
+
+\setcounter{problem}{5}
+
+\begin{problem}
+Arătați că dacă \(m \geq 2\) și \(n \geq 2\) sunt două numere naturale, atunci \((0, 0)\) este punct singular al submulțimii analitice
+\[
+    A = \Set{ (z, w) \in \complex^2 | z^n + w^m = 0 }
+\]
+\end{problem}
+\begin{solution}
+Să presupunem că \((0, 0)\) nu ar fi punct singular al lui \(A\). Atunci există un deschis de hartă \(U\) în jurul lui \((0, 0)\) și o mulțime finită de funcții olomorfe \(f_1, \dots, f_k \in \sheaf(U)\) astfel încât
+\[
+    U \cap A = \zeros(f_1, \dots, f_k)
+\]
+și matricea
+\[
+    \left(\frac{\partial f_j}{\partial z_l} (a)\right)_{j, \, l}
+\]
+să aibă rang \(k\), unde \(j = \overline{1, k}\) și \(z_l \in \Set{z, w}\).
+
+Știm că \(\left.f_j\right|_A = 0\), adică \(f_j (z, w) = 0\), \(\forall (z, w) \in A\). Intersectăm mulțimea \(A\) cu cea dată de \(w -  i^{\frac{2}{m}} z^{\frac{n}{m}} = 0\), cu alte cuvinte \(w = i^{\frac{2}{m}} z^{\frac{n}{m}}\). Avem că \(f_j \left(z, i^{\frac{2}{z}} z^{\frac{n}{m}}\right) = 0\), pentru orice \(z\) din mulțimea \(\Set{ z \in \complex | \left(z, i^{\frac{2}{z}} z^{\frac{n}{m}}\right) \in A }\).
+
+Deoarece pe \(A\) are loc relația \(z^n + w^m = 0\), înlocuind pe \(w\) cu \(i^{\frac{2}{m}} z^{\frac{n}{m}}\) obținem \(z^n - z^n = 0\). Deci \(f_j \left(z, i^{\frac{2}{z}} z^{\frac{n}{m}}\right) = 0\), \(\forall z \in \complex\).
+
+Analog, putem face același raționament pentru \(f_j\left(i^{\frac{2}{n}} w^{\frac{m}{n}}, w\right)\).
+
+Dacă calculăm derivatele parțiale în \((0, 0)\) în raport cu \(z\), respectiv \(w\) pe direcțiile date de aceste submulțimi, obținem că \(\frac{\partial f_j}{\partial z} (0, 0) = 0\), \(\frac{\partial f_j}{\partial w} (0, 0) = 0\) pentru orice \(j\), în contradicție cu presupunerea că \((0, 0)\) ar fi un punct regulat.
+\end{solution}

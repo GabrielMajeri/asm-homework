@@ -23,6 +23,7 @@ This repository contains my homework, problem solutions and other material I've 
 ### Semester 2
 
 - [Dynamical Systems](year-2/semester-2/dynamical-systems/)
+- [Galois Theory](year-2/semester-2/galois-theory/)
 - [Partial Differential Equations](year-2/semester-2/partial-differential-equations/)
 
 ## License

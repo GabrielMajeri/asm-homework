@@ -1,0 +1,122 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Advanced enumeration options
+\usepackage[shortlabels]{enumitem}
+
+% More math commands
+\usepackage{amsmath}
+% Custom theorem/definition support
+\usepackage{amsthm}
+% More mathematical symbols
+\usepackage{amssymb}
+% Advanced math commands
+\usepackage{mathtools}
+
+% Support for set notation
+\usepackage{braket}
+
+% Commands for drawing graphics
+\usepackage{tikz}
+% Support for drawing commutative diagrams
+\usetikzlibrary{cd}
+
+% Better font specification support
+\usepackage{fontspec}
+
+% Encode mathematical symbols using Unicode characters
+\usepackage[
+    warnings-off={mathtools-colon,mathtools-overbracket}
+]{unicode-math}
+
+% Support for commenting-out blocks of code
+\usepackage{verbatim}
+
+% Change the default text and math font
+\defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
+\setmainfont{Heuristica}
+\setmathfont{TeX Gyre Termes Math}
+
+% Define a few custom theorem-like environments
+\theoremstyle{definition}
+\newtheorem{exercise}{}
+
+% Define some useful commands
+\newcommand*{\naturals}{\symbb{N}}
+\newcommand*{\integers}{\symbb{Z}}
+\newcommand*{\integersmod}[1]{\integers_{#1}}
+\newcommand*{\rationals}{\symbb{Q}}
+\newcommand*{\reals}{\symbb{R}}
+\newcommand*{\complex}{\symbb{C}}
+
+\DeclareMathOperator*{\ima}{im}
+\DeclareMathOperator*{\ord}{\symrm{ord}}
+\DeclareMathOperator*{\tr}{tr}
+
+\newcommand*{\vbar}{\, | \,}
+\newcommand*{\generatedby}[1]{\left\langle#1\right\rangle}
+
+\newcommand*{\Gal}[2]{\symrm{Gal}\left(#1 / #2\right)}
+\newcommand*{\Id}{\symrm{Id}}
+\newcommand*{\Frob}{\symrm{Frob}}
+\newcommand*{\Hom}{\symrm{Hom}}
+\newcommand*{\End}{\symrm{End}}
+\newcommand*{\Aut}{\symrm{Aut}}
+\newcommand*{\Hol}{\symrm{Hol}}
+\newcommand*{\Sym}{\symrm{Sym}}
+\newcommand*{\Maps}[2]{\symrm{Maps}\left(#1, #2\right)}
+
+\newcommand*{\rootsofunity}[1]{\mu_{#1}}
+\newcommand*{\units}[1]{\symrm{U}\left(#1\right)}
+
+\newcommand*{\finitefield}[1]{\symbb{F}_{#1}}
+\newcommand*{\splittingfield}[2][\rationals]{#1_{#2}}
+\newcommand*{\adjoin}[2][\rationals]{#1\left(#2\right)}
+\newcommand*{\ringadjoin}[2]{#1\left[#2\right]}
+
+\newcommand*{\degree}[2]{\left[#1 \colon #2\right]}
+
+\newcommand*{\Mod}[1]{\ (\symrm{mod}\ #1)}
+
+\newcommand*{\modules}{\symcal{M}}
+
+\newcommand*{\tensor}{\otimes}
+
+% Definitions for the absolute value and norm symbols
+% Based on https://tex.stackexchange.com/a/43009/263993
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+% Swap the definition of \abs* and \norm*,
+% so that \abs and \norm resize the size of the brackets,
+% and the starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+% Custom solution environment
+\newenvironment{solution}
+    {\addvspace{8pt}\par\noindent\textit{Solution.}}
+    {\hfill\(\square\)}
+
+\title{Galois Theory Homework}
+\author{Gabriel Majeri}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\input{homework1}
+\input{homework2}
+\input{homework3}
+\input{homework4}
+\input{homework5}
+\input{homework6}
+\input{homework7}
+\input{homework8}
+
+\end{document}

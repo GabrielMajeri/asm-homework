@@ -1,0 +1,153 @@
+\section*{Homework 7}
+
+\setcounter{exercise}{0}
+
+\begin{exercise}
+Let \(p\) be a prime number. Show that:
+\begin{itemize}
+    \item \(\adjoin[\integersmod{p}]{X^p, Y^p} \subseteq \adjoin[\integersmod{p}]{X, Y}\) is finite of degree \(p^2\);
+    
+    \item \(\adjoin[\integersmod{p}]{X^p, Y^p} \subseteq \adjoin[\integersmod{p}]{X, Y}\) is not simple;
+
+    \item \(\adjoin[\integersmod{p}]{X^p, Y^p} \subseteq \adjoin[\integersmod{p}]{X, Y}\) has infinitely many intermediate field extensions.
+\end{itemize}
+\end{exercise}
+\begin{proof}
+~
+\begin{itemize}
+    \item Let \(f(T) = T^p - X^p \in \ringadjoin{\adjoin[\integersmod{p}]{X^p, Y^p}}{T}\). This is a polynomial of degree \(p\), with coefficients in \(\ringadjoin{\ringadjoin{\adjoin[\integersmod{p}]{Y^p}}{X^p}}{T}\), which is irreducible by Eisenstein's criterion (\(X^p\) divides all of the coefficients, except for the one corresponding to \(T^p\)). By Gauss's lemma, it is also irreducible in the field of fractions of \(\ringadjoin{\adjoin[\integersmod{p}]{Y^p}}{X^p}\), which is \(\adjoin[\integersmod{p}]{X^p, Y^p}\).
+
+    Hence, the extension
+    \[
+        \adjoin[\integersmod{p}]{X^p, Y^p} \subseteq \adjoin[\integersmod{p}]{X^p, Y^p, X} = \adjoin[\integersmod{p}]{X, Y^p}
+    \] has degree \(p\). A similar argument tells us that the extension
+    \[
+        \adjoin[\integersmod{p}]{X, Y^p} \subseteq \adjoin[\integersmod{p}]{X, Y^p, Y} = \adjoin[\integersmod{p}]{X, Y}
+    \]
+    is of degree \(p\) as well. Putting these two together, we get that
+    \begin{align*}
+        \degree{\adjoin[\integersmod{p}]{X, Y}}{\adjoin[\integersmod{p}]{X^p, Y^p}} &= \degree{\adjoin[\integersmod{p}]{X, Y}}{\adjoin[\integersmod{p}]{X, Y^p}} \\
+        &\, \cdot \degree{\adjoin[\integersmod{p}]{X, Y^p}}{\adjoin[\integersmod{p}]{X^p, Y^p}} \\[0.5em]
+        &= p \cdot p = p^2
+    \end{align*}
+
+    \item Suppose that the extension \(\adjoin[\integersmod{p}]{X^p, Y^p} \subseteq \adjoin[\integersmod{p}]{X, Y}\) were simple, i.e. that there exists a \(\theta \in \adjoin[\integersmod{p}]{X, Y}\) with \(\adjoin[\integersmod{p}]{X, Y} = \adjoin[\left(\adjoin[\integersmod{p}]{X^p, Y^p}\right)]{\theta}\).
+    
+    Since \(\theta \in \adjoin[\integersmod{p}]{X, Y}\), we can write it out as
+    \[
+        \theta = \sum a_{i j} \, X^i Y^j
+    \]
+    with \(a_{i j} \in \adjoin[\integersmod{p}]{X^p, Y^p}\). Raising this expression to the \(p\)th power, we obtain
+    \[
+        \theta^p = \left(\sum a_{i j} \, X^i Y^j\right)^p = \sum a_{i j}^p \, X^{pi} Y^{pj}
+    \]
+    which is clearly an element of the field \(\adjoin[\integersmod{p}]{X^p, Y^p}\).
+    
+    This shows that the degree of \(\theta\) must be less than or equal to \(p\), therefore it cannot generate the extension \(\adjoin[\integersmod{p}]{X^p, Y^p} \subseteq \adjoin[\integersmod{p}]{X, Y}\), of degree \(p^2\).
+
+    \item Consider the tower of field extensions
+    \[
+        \adjoin[\integersmod{p}]{X^p, Y^p}
+        \hookrightarrow
+        \adjoin[\integersmod{p}]{X + \lambda Y} 
+        \hookrightarrow
+        \adjoin[\integersmod{p}]{X, Y}
+    \]
+    for any \(\lambda \in \adjoin[\integersmod{p}]{X^p, Y^p}\), \(\lambda \neq 0\). We will show that we get a different intermediate field for different values of \(\lambda\).
+
+    Let \(\lambda \neq \lambda' \in \adjoin[\integersmod{p}]{X^p, Y^p}\) be such that \(\adjoin[\integersmod{p}]{X + \lambda Y} = \adjoin[\integersmod{p}]{X + \lambda' Y}\). Then
+    \begin{gather*}
+        (X + \lambda Y) - (X + \lambda' Y) = (\lambda - \lambda') Y \in \adjoin[\integersmod{p}]{X + \lambda Y} \\
+        \implies (\lambda - \lambda')^{-1} (\lambda - \lambda') Y \in \adjoin[\integersmod{p}]{X + \lambda Y} \\
+        \implies Y \in \adjoin[\integersmod{p}]{X + \lambda Y}
+    \end{gather*}
+    and
+    \[
+        (X + \lambda Y) - \lambda Y = X \in \adjoin[\integersmod{p}]{X + \lambda Y}
+    \]
+    which shows that
+    \[
+        \adjoin[\integersmod{p}]{X + \lambda Y} 
+        =
+        \adjoin[\integersmod{p}]{X, Y}
+    \]
+    This would imply that \(X + \lambda Y\) is a primitive element for the field extension \(\adjoin[\integersmod{p}]{X^p, Y^p} \hookrightarrow \adjoin[\integersmod{p}]{X, Y}\), but we've already shown that the extension is not simple.
+\end{itemize}
+\end{proof}
+
+\begin{exercise}
+Let \(H\) be a Hopf algebra and \(A\) a right \(H\)-comodule  algebra. Prove that \(\modules_{A}^{H}\) admits equalizers and that the forgetful functor \(\symfrak{F} \colon \modules_{A}^{H} \to \modules_{A}\) (\(\symfrak{F}\) forgets the right \(H\)-coaction) preserves and reflects the equalizers.
+\end{exercise}
+\begin{proof}
+We recall that the equalizer of two morphisms \(f\) and \(g\) between the objects \(X\) and \(Y\) is an object \(E\) and a morphism \(\symrm{eq} \colon E \to X\) such that \(f \circ \symrm{eq} = g \circ \symrm{eq}\) and, for any other object \(O\) with a morphism \(m \colon O \to X\) for which \(f \circ m = g \circ m\), there exists a unique \(u \colon O \to E\) such that \(m = \symrm{eq} \circ u\). We have the commutative diagram:
+\[
+\begin{tikzcd}
+    E \arrow[r, "eq"] & X \arrow[r, shift left, "f"] \arrow[r, shift right, swap, "g"] & Y \\
+    O \arrow[u, dashed, "\exists! u"] \arrow[ru, "m"]
+\end{tikzcd}
+\]
+
+We claim that the equalizer of \(f\) and \(g\) in the category \(\modules_{A}^{H}\) is the \emph{difference kernel} of \(f\) and \(g\), \(E = \ker(f - g)\), with \(\symrm{eq}\) being the inclusion map. \(E\) is clearly a subalgebra of \(X\), and by the definition of this category we also have that following diagram is commutative:
+\[
+\begin{tikzcd}[row sep={3em}, column sep={6em}]
+    X \arrow[r, "f - g"] \arrow[d, "\rho_X"] & Y \arrow[d, "\rho_Y"] \\
+    X \tensor H \arrow[r, "(f - g) \tensor \Id_H"] & Y \tensor H
+\end{tikzcd}
+\]
+whence \(E\) is also an \(H\)-comodule.
+
+If we have some \(O\) and \(m \colon O \to X\) such that \(f(m(o)) = g(m(o))\) for all \(o \in O\), we deduce that \((f - g)(m(o)) = 0\), whence \(m(O) \subseteq \ker (f - g)\). The inclusion morphism of the image of \(m\) into \(\ker (f - g)\) is unique.
+
+A similar argument shows that difference kernels give the equalizers in the category \(\modules_{A}\). Thus all equalizers in \(\modules_{A}^{H}\) come from equalizers in \(\modules_{A}\), so the functor \(\symcal{F}\) preserves and reflects equalizers.
+\end{proof}
+
+\begin{exercise}
+Let \(\reals \subseteq \complex = \adjoin[\reals]{i}\), a finite Galois extension with Galois group
+\[
+    C_2 = \generatedby{ \sigma | \sigma^2 = \Id_{\complex} }
+\]
+where \(\sigma \colon \complex \to \complex\) is given by \(\sigma(z) = \overline{z}\), \(\forall z \in \complex\). 
+
+Let \(A = \ringadjoin{\reals}{t, t^{-1}}\) be the \(\reals\)-algebra of Laurent polynomials. Show that:
+\begin{enumerate}[(a)]
+    \item
+    \[
+    \begin{tikzcd}
+        C_2 \arrow[r, "\varphi"] & \Aut_{\complex} \left(\complex \tensor_{\reals} \ringadjoin{\reals}{t, t^{-1}}\right) \cong \Aut_{\complex} \left(\ringadjoin{\complex}{t, t^{-1}}\right) \\[-0.5em]
+        \Id_{\complex} \arrow[r, mapsto] & \Id_{\ringadjoin{\complex}{t, t^{-1}}} \\[-1.5em]
+        \sigma \arrow[r, mapsto] & \left(t \mapsto t^{-1}, t^{-1} \mapsto t, z \mapsto \sigma(z) = \overline{z}\right)
+    \end{tikzcd}
+    \]
+    is a well-defined group homomorphism.
+
+    \item the morphism \(\varphi\) from (a) produces an \(\reals\)-form for \(\complex\left[t, t^{-1}\right]\); compute it explicitly.
+\end{enumerate}
+\end{exercise}
+\begin{proof}
+~
+\begin{enumerate}[(a)]
+    \item Denoting by \(c\) the automorphism
+    \[
+        c = \left(t \mapsto t^{-1}, t^{-1} \mapsto t, z \mapsto \sigma(z) = \overline{z}\right) \in \Aut_{\complex} \left(\ringadjoin{\complex}{t, t^{-1}}\right)
+    \]
+    we have
+    \[
+        \varphi(\sigma)^2 = c^2 = \Id_{\ringadjoin{\complex}{t, t^{-1}}} = \varphi\left(\Id_{\complex}\right) = \varphi\left(\sigma^2\right)
+    \]
+    since \(\left(t^{-1}\right)^{-1} = t\) and \(\overline{\overline{z}} = z\).
+
+    \item To obtain the corresponding \(\reals\)-form from the homomorphism \(\varphi\), we need to determine the subspace of elements fixed by its image. In other words, we are looking for the subspace
+    \[
+        \ringadjoin{\complex}{t, t^{-1}}^{c} = \Set{ P \in \ringadjoin{\complex}{t, t^{-1}} | c(P) = P }
+    \]
+    where
+    \[
+        P = a_{-n} t^{-n} + \dots + a_{-1} t^{-1} + a_{0} + a_1 t^1 + \dots + a_{m} t^{m}
+    \]
+    
+    The condition \(c(P) = c\) gives us \(n = m\), \(a_{-k} = a_{k}\) and \(a_{k} \in \reals\) for all \(k = \overline{0, n}\). A basis for this subspace is
+    \[
+        \Set{ 1, \, t^{-1} + t^{1}, \, t^{-2} + t^{2}, \dots }
+    \]
+\end{enumerate}
+\end{proof}

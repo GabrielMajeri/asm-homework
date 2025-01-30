@@ -1,0 +1,103 @@
+\section*{Homework 8}
+
+\setcounter{exercise}{0}
+
+\begin{exercise}
+Let \(k \subseteq L\) be a \(G\)-Galois extension and \(M \in \symcal{M}_{L}^{k[G]^{*}}\) with structure determined by \(\Set{ \overline{\sigma} | \sigma \in G } \subseteq \Aut_k (M)\). Assume that \(M\) is an \(L\)-Hopf algebra and that
+\[
+\begin{cases}
+    m_{M} \circ (\overline{\sigma} \tensor \overline{\sigma}) = \overline{\sigma} \circ m_{M} \\
+    (\overline{\sigma} \tensor \overline{\sigma}) \circ \Delta_M = \Delta_M \circ \overline{\sigma} \\
+    \sigma \circ \varepsilon_M = \varepsilon_M \circ \overline{\sigma} \\
+    \overline{\sigma} \left(1_M\right) = 1_M
+\end{cases}, \forall \sigma \in G
+\]
+where \(\left(M, m_M, 1_M, \Delta_M, \varepsilon_M, S_M\right)\) is the \(L\)-Hopf algebra structure of \(M\).
+
+Show that \(N \coloneq M^G = \Set{ m \in M | \overline{\sigma} (m) = m, \forall \sigma \in G }\) is a \(k\)-Hopf algebra via a structure that turns the canonical \(L\)-isomorphism
+\begin{align*}
+    L \tensor N &\xrightarrow{\sim} M \\
+    l \tensor n &\mapsto ln
+\end{align*}
+into an \(L\)-Hopf isomorphism.
+\end{exercise}
+\begin{proof}
+We begin by noting that \(N\) is a \(k\)-subalgebra of \(M\):
+\begin{itemize}
+    \item Due to the linearity of \(\overline{\sigma}\), we get that \(N\) is a \(k\)-subspace of \(M\).
+
+    \item Since \(\overline{\sigma} \left(1_M\right) = 1_M\), we have that \(1_M = 1_N \in N\).
+
+    \item From the relation \(m_{M} \circ (\overline{\sigma} \tensor \overline{\sigma}) = \overline{\sigma} \circ m_{M}\), we see that the restriction of the multiplication map \(m_M\) gives a well-defined multiplication \(m_{N} \colon N \tensor N \to N\).
+\end{itemize}
+
+The coalgebra structure of \(N\) is also inherited from \(M\):
+\begin{itemize}
+    \item Since \((\overline{\sigma} \tensor \overline{\sigma}) \circ \Delta_M = \Delta_M \circ \overline{\sigma}\), we can take \(\Delta_N \colon N \to N \tensor N\), \(\Delta_N (x) = \Delta_M (x)\), to be the comultiplication.
+
+    \item Since \(\sigma \circ \varepsilon_M = \varepsilon_M \circ \overline{\sigma}\), we see that the restriction of \(\varepsilon_M\) to \(N\) gives us \(\varepsilon_N\), a well-defined counit for \(N\).
+\end{itemize}
+
+The only thing left to check is that we have an antipode \(S_N \colon N \to N\) and that the following relations hold:
+\[
+    m_N (S_N \tensor \Id_N) \Delta_N \equiv \eta_N \varepsilon_N \equiv m_N (\Id_N \tensor S_N) \Delta_N
+\]
+
+By what we've shown above, the antipode \(S_N\) can be taken to be the restriction of \(S_M\) to \(N\).
+
+Denote the \(L\)-algebra isomorphism \(L \tensor N \xrightarrow{\sim} M\) by \(\varphi\). To show that it is an isomorphism of Hopf algebra structures, we need to check that it is an isomorphism of \(L\)-coalgebras and that it preserves the antipode, i.e.\ that the following relations hold:
+\begin{itemize}
+    \item \(\Delta_M \circ \varphi = (\varphi \tensor \varphi) \circ \Delta_{L \tensor N}\)
+    \item \(\varepsilon_M \circ \varphi = \varepsilon_{L \tensor N}\)
+    \item \(S_M \circ \varphi = \varphi \circ S_{L \tensor N}\)
+\end{itemize}
+
+They can be verified on individual elements \(l \tensor n \in L \tensor N\):
+\begin{gather*}
+    (\Delta_M \circ \varphi) (l \tensor n) = \Delta_M (ln) = l \, \Delta_M (n) = l \, \Delta_N (n) \\[0.5em]
+    \left((\varphi \tensor \varphi) \circ \Delta_{L \tensor N}\right) (l \tensor n) \\
+    = (\varphi \tensor \varphi) \left(\Delta_{L \tensor N} (l \tensor n)_{(1)} \tensor \Delta_{L \tensor N} (l \tensor n)_{(2)}\right) = l \, \Delta_N (n)
+\end{gather*}
+\begin{gather*}
+    (\varepsilon_M \circ \varphi)(l \tensor n) = \varepsilon_M (ln) = l \varepsilon_M (n) = l \varepsilon_N (n) = \varepsilon_{L \tensor N} (l \tensor n)    
+\end{gather*}
+\begin{gather*}
+    (S_M \circ \varphi)(l \tensor n) = S_M (l n) = l \, S_M (n) = l \, S_N (n) \\
+    (\varphi \circ S_{L \tensor N}) (l \tensor n) = \varphi (l \tensor S_N (n)) = l \, S_N (n)
+\end{gather*}
+\end{proof}
+
+\begin{exercise}
+Consider \(\rationals \subseteq \adjoin{\sqrt[4]{2}}\), a finite separable extension. Show that there exists \(H\) a finite-dimensional Hopf algebra such that \(\rationals \subseteq \adjoin{\sqrt[4]{2}}\) is \(H^*\)-Hopf Galois. Is \(H\) unique?
+\end{exercise}
+\begin{proof}
+Let \(k = \rationals\), \(K = \adjoin{\sqrt[4]{2}}\). The degree of the extension \(k \subseteq K\) is exactly \(4\). We can use Childs' theorem to show that in this case there exists a Hopf algebra \(H\) for which the extension is \(H^*\)-Galois.
+
+More precisely, let \(N\) be the subgroup of \(S_4\) consisting of the elements
+\[
+    N = \Set{ e, (1 \, 2) (3 \, 4), (1 \, 3) (2 \, 4), (1 \, 4) (2 \, 3) }
+\]
+Then \(N \cong \integersmod{2} \times \integersmod{2}\) embeds regularly in \(S_4\) and \(\Aut(N) \cong S_3\). We have
+\[
+    \Hol(N) = N \rtimes S_3 = \left(\integersmod{2} \times \integersmod{2}\right) \rtimes S_3 \cong S_4
+\]
+
+Denoting by \(G\) the Galois group of the normal closure of \(K\),
+\[
+    G = \Gal{\overline{K}}{k}
+\]
+it's clear that \(G \hookrightarrow \Hol(N) \cong S_4\). Thus, by Childs' theorem, there exists a Hopf algebra for which \(k \subseteq K\) is Hopf Galois.
+
+The normal closure of \(K\) is the field \(\adjoin{i, \sqrt[4]{2}}\). The total degree of this extension is \(8\), so \(G\) is a subgroup of order \(8\) in \(S_4\). By Sylow's theorem, this means that \(G\) is the unique Sylow \(2\)-group of \(S_4\) (up to isomorphism). Hence, the Hopf algebra \(H\) is unique as well.
+\end{proof}
+
+\begin{exercise}
+Consider \(\rationals \subseteq \adjoin{\sqrt[5]{2}}\), a finite separable extension. Show that there is a unique finite-dimensional Hopf algebra for which \(\rationals \subseteq \adjoin{\sqrt[5]{2}}\) is \(H^*\)-Hopf Galois.
+\end{exercise}
+\begin{proof}
+We will use another one of Childs' theorems from the course. Let \(k = \rationals\), \(K = \adjoin{\sqrt[5]{2}}\) and let \(\overline{K}\) denote the normal closure of \(K\). Write \(G\) for the group \(\Gal{\overline{K}}{k}\).
+
+Childs' theorem states that, for extensions of prime degree (in this case, the degree is \(5\)), there exists a Hopf algebra \(H\) making the field extension \(k \subseteq K\) an \(H^*\) Hopf Galois extension iff \(G\) is solvable.
+
+We have \(\overline{K} = \adjoin{\zeta, \sqrt[5]{2}}\), where \(\zeta\) is a primitive \(5\)th root of unity. The extension \(k \subseteq \overline{K}\) has degree \(20\), since \(\zeta\)'s minimal polynomial over \(K\) is of degree \(4\). All integers less than \(20\) have at most two (distinct) prime divisors, so by Burnside's theorem they are solvable. This shows that there exists a unique \(H\) Hopf algebra in this case.
+\end{proof}
